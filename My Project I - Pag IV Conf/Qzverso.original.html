@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações | Qzverso</title>
+    <link rel="stylesheet" href="styleqzversooriginal.css">
+</head>
+<body>
+    <header>
+        <h1>⚙️ Configurações</h1>
+    </header>
+
+    <main class="config-container">
+        <!-- Escolha de Idioma -->
+        <div class="config-item">
+            <label for="idioma">🌍 Escolha o idioma:</label>
+            <select id="idioma">
+                <option value="pt">Português</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+            </select>
+        </div>
+
+        <!-- Escolha do Tema -->
+        <div class="config-item">
+            <label for="tema">🎨 Escolha o tema:</label>
+            <select id="tema">
+                <option value="dark">Fundo Preto, Letras Brancas</option>
+                <option value="sepia">Fundo Pardo, Letras Pretas</option>
+                <option value="light">Fundo Branco, Letras Pretas</option>
+            </select>
+        </div>
+        
+        <button onclick="salvarConfiguracoes()">💾 Salvar Configurações</button>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Qzverso. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="Originalqzerso.js"></script>
+</body>
+</html>

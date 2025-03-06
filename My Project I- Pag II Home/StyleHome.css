@@ -1,0 +1,242 @@
+/* Estilos gerais */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  color: white;
+  text-align: center;
+}
+
+/* Estilos para o menu de navegação */
+nav {
+  background-color:#aa0e7b;
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  display: block;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+nav ul li:hover > a {
+  background-color: #920c6a;
+  border-radius: 10px;
+}
+
+/* Dropdown */
+nav ul li ul {
+  display: none;
+  position: absolute;
+  background-color: #aa0e7b;
+  list-style: none;
+  top: 100%;
+  left: 0;
+  padding: 0;
+  width: 180px;
+  border-radius: 10px;
+}
+
+/* Dropdown das Categorias */
+.categoria-dropdown {
+  position: relative;
+}
+
+.categoria-dropdown ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #aa0e7b;
+  list-style: none;
+  padding: 0;
+  width: 180px;
+  border-radius: 10px;
+  z-index: 1000; /* Garante que fique acima de outros elementos */
+}
+
+.categoria-dropdown:hover ul {
+  display: block;
+}
+
+.categoria-dropdown ul li {
+  padding: 10px;
+}
+
+.categoria-dropdown ul li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 8px;
+}
+
+.categoria-dropdown ul li a:hover {
+  background-color: #9f34d4;
+  border-radius: 10px;
+}
+
+/* Avatar e Dropdown de usuário */
+.button-group {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.avatar img {
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: rgb(240, 239, 231);
+  box-shadow: 0px 4px 6px rgb(0, 0, 0);
+  width: 200px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.button-group:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu ul li a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  display: block;
+}
+
+.dropdown-menu ul li a:hover {
+  background-color: #f4f4f4;
+}
+
+/* Estilização de seções e formulários */
+main {
+  padding: 30px;
+}
+
+section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+input, select, textarea {
+  width: 80%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  background-color: #aa0e7b;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #920c6a;
+}
+
+footer {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #aa0e7b;
+}
+/* Estilizando a seção de categorias */
+#categorias {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Container geral das categorias */
+.categoria-container {
+  overflow-x: auto;  /* Permite rolagem horizontal */
+  white-space: nowrap;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+/* Estilo do carrossel das categorias */
+.categoria-scroll {
+  display: flex;
+  gap: 15px;  /* Espaço entre os cards */
+}
+
+/* Cartões de categoria */
+.categoria-card {
+  background-color: #222;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  min-width: 180px;
+  max-width: 180px;
+  box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Imagem dentro do card */
+.categoria-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Texto dentro do card */
+.categoria-card p {
+  color: white;
+  font-size: 14px;
+  margin-top: 8px;
+}
+/* Remove a cor azul padrão dos links */
+.categoria-card {
+  text-decoration: none;  /* Remove o sublinhado */
+  color: white;  /* Mantém o texto branco */
+  transition: transform 0.2s ease-in-out; /* Efeito ao passar o mouse */
+}
+
+/* Efeito ao passar o mouse */
+.categoria-card:hover {
+  transform: scale(1.05); /* Dá um pequeno zoom */
+}

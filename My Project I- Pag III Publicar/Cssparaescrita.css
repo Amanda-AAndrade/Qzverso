@@ -1,0 +1,75 @@
+body{
+  background-color: black;
+}
+.publicacao-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.capa-label {
+  background-color: #ff66b2;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: rgb(255, 255, 255);
+}
+
+#capa-preview {
+  width: 200px;
+  height: 300px;
+  border-radius: 5px;
+  object-fit: cover;
+  background-color: #ffffff;
+  margin-bottom: 15px;
+}
+
+input, select, textarea {
+  width: 80%;
+  max-width: 500px;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+
+textarea {
+  height: 200px;
+  resize: vertical;
+}
+
+.botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+button {
+  background-color: #ff66b2;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+button:hover {
+  background-color: #ff3385;
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #fff; /* Cor do texto branca para aparecer no fundo preto */
+  background-color: #000; /* Fundo preto */
+  border-top: 1px solid #444; /* Linha sutil de separação */
+  margin-top: 40px; /* Espaço entre o conteúdo e o rodapé */
+}
