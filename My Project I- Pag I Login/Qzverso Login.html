@@ -1,36 +1,37 @@
 <!DOCTYPE html>
+<html lang="pt-BR">
 
-<html>
-
-<heade>
-    <!--CSS -->
-    <link rel="stylesheet" href="qzversologin.css"/>
-<!-- Título -->
-<title> Qzverso</title>
-<meta charset="utf-8">
-</heade>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qzverso - Login</title>
+    <link rel="stylesheet" href="qzversologin.css">
+</head>
 
 <body>
     <section id="inicio">
-        <img src="qzverso.jpg" width="300px" height="300px" />
-    <div class="content">
-        <h1><p class="title">Qzverso</p></h1>
-        <h2 class="subtitle" id="resultado">Bem Vindo</h2>
-    </div>
+        <img src="qzverso.jpg" width="300px" height="300px" alt="Logo do Qzverso" />
+        <div class="content">
+            <h1 class="title">Qzverso</h1>
+            <h2 class="subtitle" id="resultado">Bem-vindo</h2>
+        </div>
 
-<!-- Campos de E-mail e Senha -->
-<input placeholder="E-mail" id="e-mail" />
-<p>
-    <input type="password" placeholder="Senha" id="senha" />
-</p>
+        <!-- Campos de Login -->
+        <form action="login.php" method="POST">  <!-- Depois será trocado para um backend real -->
+            <input type="email" placeholder="E-mail" id="email" name="email" required />
+            <p>
+                <input type="password" placeholder="Senha" id="senha" name="senha" required />
+            </p>
 
-<!-- Botão Confirmar -->
-<a href=""C:\Users\manan\OneDrive\Área de Trabalho\Meu Projeto I\My Project I- Pag II Home\Qzverso Home.html"">
-    <button class="secondary">Confirmar</button>
-</a>
+            <!-- Botão de Login -->
+            <button type="submit" class="secondary">Entrar</button>
+        </form>
 
-</section>
-<script src="qzversologin.js"></script>
+        <!-- Link para Cadastro -->
+        <p>Não tem uma conta? <a href="cadastro.html">Cadastre-se aqui</a></p>
+    </section>
+
+    <script src="qzversologin.js"></script>
 </body>
 
 </html>
