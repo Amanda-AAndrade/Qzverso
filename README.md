@@ -1,52 +1,71 @@
-# Qzverso
+# 🌌 Qzverso — Portal de Divulgação &amp; Hub Literário
 
-PROJETO QZVERSO - PORTAL LITERÁRIO
+&gt; **Projeto de Extensão Universitária em Engenharia de Software**  
+&gt; *Uma experiência moderna e intuitiva de descoberta literária inspirada em plataformas de entretenimento.*
 
-# 🌌 Qzverso — Portal de Divulgação Literária
+---
 
-O **Qzverso** é um portal desenvolvido como Projeto de Extensão Universitária no curso de Engenharia de Software, dedicado à divulgação de histórias, parcerias e produtos relacionados ao seu universo literário.
+## 📖 Sobre o Projeto
 
-Inspirado na experiência de descoberta de conteúdos de plataformas de entretenimento, as histórias são apresentadas aos leitores por meio de capas, sinopses e informações sobre as obras. O portal não possui como objetivo oferecer a leitura integral das obras; ao se interessar por uma história, o leitor é direcionado através de um link para o espaço externo onde a obra está publicada e disponível para leitura.
+O **Qzverso** é um portal dinâmico voltado para a divulgação de histórias, parcerias, projetos e produtos integrados ao seu próprio universo literário [1, 2].
+
+Com uma proposta visual inspirada no formato de descoberta das grandes plataformas de entretenimento, o portal apresenta obras por meio de capas de alto impacto, sinopses envolventes e informações detalhadas [1]. O Qzverso funciona como uma **vitrine de curadoria e hub de navegação**: ele não disponibiliza a leitura integral das obras na plataforma, mas conecta os leitores diretamente aos locais externos onde cada texto está oficialmente publicado e pronto para leitura [1].
+
+Além da divulgação literária, o Qzverso reserva espaços dedicados para a vitrine de parceiros, projetos colaboradores e catálogo de produtos e iniciativas associadas ao ecossistema [2].
+
+---
+
+## 🎯 Objetivos de Extensão &amp; Impacto Social
+
+Como **Projeto de Extensão em Engenharia de Software**, o Qzverso atende aos seguintes pilares:
+
+1. **Fomento à Literatura**: Facilita a ponte entre leitoras(es) e obras literárias através de uma interface de descoberta atraente [1].
+2. **Espaço Exclusivo para Escritoras**: Oferece uma área restrita e intuitiva para que as autoras gerenciem suas publicações [2].
+3. **Inovação Técnica &amp; Automação**: Aplica conceitos avançados de software, incluindo o processamento automatizado de arquivos `.docx` no backend para ingestão de capítulos [2].
 
 ---
 
 ## 🚀 Funcionalidades Principais
 
-* **Cadastro e Autenticação de Leitores**: Acesso seguro para os leitores no portal.
-* **Área Exclusiva para as Escritoras**: Painel de gestão restrito para administração e publicação de obras.
-* **Publicação de Histórias e Capítulos**: Exibição estruturada do catálogo literário.
-* **Importação de Capítulos em Formato DOCX**: Módulo automatizado para parsing e ingestão de arquivos `.docx`.
-* **Divulgação de Parceiros, Produtos e Projetos**: Espaço para promoção de parceiros, iniciativas e produtos do universo literário.
+* 🔐 **Cadastro e Autenticação de Leitores**: Sistema seguro de criação de conta e acesso personalizado para os leitores [2].
+* ✍️ **Área Exclusiva para Escritoras**: Painel de gestão restrito para publicação e edição de obras e capítulos [2].
+* 📚 **Publicação de Histórias e Capítulos**: Estruturação organizada de obras, informações e links externos de leitura [1, 2].
+* 📄 **Importação Automática via DOCX**: Módulo de ingestão que realiza a parsing de capítulos diretamente de arquivos no formato `.docx` [2].
+* 🤝 **Divulgação de Parceiros e Produtos**: Espaço exclusivo para promoção de iniciativas parceiras e catálogo de produtos [2].
 
 ---
 
 ## 🛠️ Stack Tecnológico
 
-* **Frontend**: HTML, CSS, JavaScript
-* **Backend**: FastAPI (Python)
-* **Banco de Dados**: PostgreSQL
-* **Analytics**: Power BI
+A arquitetura do sistema é dividida em camadas bem definidas para garantir desempenho e escalabilidade:
+
+| Camada             | Tecnologia              | Descrição                                                              |
+| ------------------ | ----------------------- | -----------------------------------------------------------------------|
+| **Frontend**       | HTML5, CSS3, JavaScript | Interface responsiva e interativa no estilo vitrine de streaming [2]   |
+| **Backend**        | FastAPI (Python)        | API REST de alta performance e parser para importação de .docx [2]     |
+| **Banco de Dados** | PostgreSQL              | Armazenamento relacional de usuários, obras, capítulos e parceiros [2] |
+| **Analytics &amp; BI** | Power BI            | Dashboard para análise de métricas de engajamento e cliques [2]        |
 
 ---
 
-## 🗄️ Estrutura do Banco de Dados &amp; BI
+## 🗄️ Estrutura do Banco de Dados &amp; Scripts BI
 
-O repositório conta com scripts SQL prontos para inicialização e inteligência de negócios:
+O projeto acompanha os scripts de banco de dados prontos para execução no PostgreSQL:
 
-* `schema-qzverso.sql`: Script DDL para criação do esquema no PostgreSQL (tabelas de `usuarios`, `historias`, `capitulos`, `parceiros` e `produtos`).
-* `queries-bi-qzverso.sql`: Views otimizadas para integração direta com o Power BI (métricas de leitores, capítulos importados, engajamento e parceiros).
+* `schema-qzverso.sql`: Script DDL para criação das tabelas (`usuarios`, `historias`, `capitulos`, `parceiros`, `produtos`) com integridade referencial e índices.
+* `queries-bi-qzverso.sql`: Conjunto de *Views* otimizadas para integração direta com o Power BI, cobrindo métricas de leitores, capítulos importados e parceiros.
 
 ---
 
-## ⚙️ Como Executar o Projeto
+## ⚙️ Instalação e Execução
 
 ### Pré-requisitos
 
-* Python 3.10+
-* PostgreSQL 14+
-* Servidor Web (ou extensão Live Server)
+* **Python 3.10+**
+* **PostgreSQL 14+**
+* **Servidor Web / Live Server** (para o Frontend)
 
-### 1\. Configuração do Banco de Dados (PostgreSQL)
+### 1\. Inicializar o Banco de Dados
 
 ```
 psql -U seu_usuario -d seu_banco -f schema-qzverso.sql
@@ -54,23 +73,25 @@ psql -U seu_usuario -d seu_banco -f queries-bi-qzverso.sql
 
 ```
 
-### 2\. Configuração do Backend (FastAPI)
+### 2\. Configurar e Executar o Backend
 
 ```
 cd backend
+
+# Criar e ativar o ambiente virtual
 python -m venv venv
 source venv/bin/activate  # No Windows: venv\Scripts\activate
+
+# Instalar dependências e iniciar o servidor FastAPI
 pip install -r requirements.txt
 uvicorn main:app --reload
 
 ```
-
 ---
 
-## 📜 Licença e Propriedade Intelectual
+## 📜 Licenciamento Híbrido
 
-Este projeto adota um modelo de **Licenciamento Híbrido**:
+O repositório adota um modelo de **Licenciamento Híbrido** para atender aos requisitos acadêmicos/profissionais sem comprometer os direitos de marca:
 
-**Código-Fonte (Engine &amp; Arquitetura)**: Licenciado sob a [Apache License 2.0](LICENSE). O código da aplicação (Backend em FastAPI, esquemas PostgreSQL, parser DOCX e Frontend) está liberado para avaliação acadêmica, auditoria de código e exibição em portfólio de Engenharia de Software.
-
-**Marca e Universo Literário**: O nome **Qzverso**, logotipos, artes visuais, sinopses, produtos e todos os conteúdos literários associados são protegidos por **Direitos Autorais Reservados (Copyright © Todos os Direitos Reservados)**. O uso da marca "Qzverso" ou de seus elementos narrativos por terceiros ou para fins comerciais é estritamente proibido.
+1. **Código-Fonte (Engine &amp; Arquitetura)**: Licenciado sob a **[Apache License 2.0](LICENSE)**. O código (FastAPI, esquemas SQL, parser `.docx` e Frontend) está aberto para avaliação acadêmica, auditorias de código e exibição em portfólios de Engenharia de Software.
+2. **Marca &amp; Conteúdo Literário**: O nome **Qzverso**, marcas registradas, logotipos, sinopses, artes e obras são de propriedade intelectual exclusiva das autoras (**Copyright © Todos os Direitos Reservados**). É vedada qualquer reprodução comercial ou uso do nome e elementos narrativos por terceiros.
