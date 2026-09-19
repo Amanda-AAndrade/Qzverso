@@ -1,11 +1,7 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-   
 <head>
-  
     <meta charset="UTF-8">
-  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qzverso — Portal & Hub de Divulgação Literária</title>
     <!-- Tipografia Google Fonts -->
@@ -25,11 +21,11 @@
                 <img src="qzverso.jpg" alt="Símbolo Qzverso" class="brand-logo-img">
                 <span class="brand-name">Qzverso<span class="brand-dot">.</span></span>
             </a>
-           
+
             <!-- Barra de Busca -->
             <div class="nav-search-bar">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="input-busca" placeholder="Pesquisar obras, autoras (Quezia, Julia, Marina)..." onkeyup="filtrarHistorias()">
+                <input type="text" id="input-busca" placeholder="Pesquisar obras, autoras (Qz, Julia, Marina)..." onkeyup="filtrarHistorias()">
             </div>
 
             <!-- Links de Navegação -->
@@ -60,13 +56,12 @@
             <div class="hero-badge"><i class="fa-solid fa-star"></i> DESTAQUE DO UNIVERSO QZVERSO</div>
             <h1 class="hero-title" id="hero-title">O Universo Literário de Qzverso</h1>
             <div class="hero-meta">
-                <span class="meta-tag author"><i class="fa-solid fa-feather"></i> Escritoras: Quezia, Julia e Marina</span>
+                <span class="meta-tag author"><i class="fa-solid fa-feather"></i> Escritoras: Qz, Julia e Marina</span>
                 <span class="meta-tag genre">Fantasia, Romance &amp; Drama</span>
                 <span class="meta-tag rating"><i class="fa-solid fa-heart"></i> ODS 5 — Visibilidade Feminina</span>
             </div>
             <p class="hero-description" id="hero-sinopse">
-                Explore uma experiência inspirada no formato de descoberta das grandes plataformas de entretenimento. Conheça capas de alto impacto, 
-                sinopses envolventes e acesse o link para ler as obras completas nas plataformas oficiais.
+                Explore uma experiência inspirada no formato de descoberta das grandes plataformas de entretenimento. Conheça capas de alto impacto, sinopses envolventes e acesse o link para ler as obras completas nas plataformas oficiais.
             </p>
             <div class="hero-actions">
                 <button class="btn-primary-glow" onclick="openFeaturedModal()">
@@ -86,7 +81,7 @@
         <section class="filter-section">
             <div class="filter-pills">
                 <button class="pill active" onclick="filtrarCategoria('todas')">Todas as Obras</button>
-                <button class="pill" onclick="filtrarCategoria('quezia')"><i class="fa-solid fa-user-pen"></i> Obras da Quezia</button>
+                <button class="pill" onclick="filtrarCategoria('Qz')"><i class="fa-solid fa-user-pen"></i> Obras da Qz</button>
                 <button class="pill" onclick="filtrarCategoria('julia')"><i class="fa-solid fa-user-pen"></i> Obras da Julia</button>
                 <button class="pill" onclick="filtrarCategoria('marina')"><i class="fa-solid fa-user-pen"></i> Obras da Marina</button>
                 </div>
@@ -126,7 +121,7 @@
             <div class="dashboard-card">
                 <div class="dashboard-header">
                     <h2><i class="fa-solid fa-feather-pointed"></i> Painel da Escritora</h2>
-                    <p>Gestão e publicação de obras literárias para Quezia, Julia e Marina com importador automático de capítulos (.docx).</p>
+                    <p>Gestão e publicação de obras literárias para Qz, Julia e Marina com importador automático de capítulos (.docx).</p>
                 </div>
 
                 <div class="tab-buttons">
@@ -211,7 +206,7 @@
             </div>
             <div class="footer-social">
                 <h4>Escritoras Oficiais</h4>
-                <p>✨ Quezia</p>
+                <p>✨ Qz</p>
                 <p>✨ Julia</p>
                 <p>✨ Marina</p>
                 <br>
@@ -255,7 +250,7 @@
             <form id="form-registro" onsubmit="handleRegistro(event)" style="display: none;">
                 <div class="form-group">
                     <label><i class="fa-solid fa-user"></i> Nome Completo</label>
-                    <input type="text" id="reg-nome" placeholder="Seu nome (Ex: Quezia, Julia, Marina...)" required>
+                    <input type="text" id="reg-nome" placeholder="Seu nome (Ex: Qz, Julia, Marina...)" required>
                 </div>
                 <div class="form-group">
                     <label><i class="fa-solid fa-envelope"></i> E-mail</label>
