@@ -235,7 +235,7 @@ async function handleRegistro(e) {
     const nome = document.getElementById("reg-nome").value;
     const email = document.getElementById("reg-email").value;
     const senha = document.getElementById("reg-senha").value;
-    const tipo_usuario = document.getElementById("reg-tipo").value;
+    const tipo_usuario = "leitor"; // Todo novo cadastro no portal entra como leitor por padrão
 
     try {
         const res = await fetch(`${API_URL}/auth/registro`, {
