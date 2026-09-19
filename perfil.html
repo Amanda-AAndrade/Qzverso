@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações do Perfil — Qzverso</title>
+    <!-- Tipografia Google Fonts: Outfit & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+
+    <!-- Header Glassmorphic com Logo do Qzverso -->
+    <header class="navbar-glass">
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo">
+                <img src="qzverso.jpg" alt="Símbolo Qzverso" class="brand-logo-img">
+                <span class="brand-name">Qzverso<span class="brand-dot">.</span></span>
+            </a>
+
+            <!-- Links de Navegação -->
+            <nav class="nav-menu">
+                <a href="index.html#hero" class="nav-link"><i class="fa-solid fa-compass"></i> Início</a>
+                <a href="index.html#vitrine" class="nav-link"><i class="fa-solid fa-book-open"></i> Vitrine</a>
+                <a href="index.html#parceiros" class="nav-link"><i class="fa-solid fa-store"></i> Ecossistema</a>
+                <a href="perfil.html" class="nav-link active"><i class="fa-solid fa-user-gear"></i> Meu Perfil</a>
+            </nav>
+
+            <!-- Status do Usuário -->
+            <div class="nav-actions">
+                <div class="user-profile-badge" id="user-badge">
+                    <span id="user-name-display">Carregando perfil...</span>
+                    <button class="btn-icon-logout" onclick="logout()" title="Sair"><i class="fa-solid fa-power-off"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal: Painel de Configurações do Perfil -->
+    <main class="main-layout" style="margin-top: 100px;">
+        
+        <div class="dashboard-card" style="max-width: 900px; margin: 0 auto;">
+            <div class="dashboard-header" style="border-bottom: 1px solid var(--border-glass); padding-bottom: 1.5rem; margin-bottom: 2rem;">
+                <h2><i class="fa-solid fa-sliders"></i> Configurações do Perfil</h2>
+                <p>Gerencie suas informações pessoais, segurança e preferências de conteúdo no Qzverso.</p>
+            </div>
+
+            <form id="form-perfil" onsubmit="salvarPerfil(event)">
+                
+                <!-- SEÇÃO 1: FOTO E TIPO DE CONTA -->
+                <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 2.5rem; background: rgba(10, 10, 15, 0.5); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
+                    <div style="position: relative;">
+                        <img id="avatar-preview" src="https://via.placeholder.com/120?text=Avatar" alt="Foto de Perfil" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-glow); box-shadow: var(--shadow-glow);">
+                    </div>
+                    <div>
+                        <h3 id="profile-display-name" style="color: white; font-size: 1.4rem;">Nome do Usuário</h3>
+                        <span id="profile-role-badge" class="meta-tag author" style="display: inline-block; margin-top: 0.3rem;">Perfil: Leitor(a)</span>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">As escritoras Quezia, Julia e Marina exibem o selo de verificação de autoria nas obras.</p>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 2: DADOS PESSOAIS -->
+                <h3 style="color: var(--primary-glow); margin-bottom: 1.2rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-user"></i> Dados Pessoais
+                </h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-id-card"></i> Nome Completo / Artístico</label>
+                        <input type="text" id="perfil-nome" placeholder="Seu nome completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-envelope"></i> E-mail de Acesso</label>
+                        <input type="email" id="perfil-email" placeholder="seuemail@exemplo.com" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <!-- Campo Obrigatorio de Data de Nascimento para Conteúdo +18 -->
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-cake-candles"></i> Data de Nascimento</label>
+                        <input type="date" id="perfil-data-nascimento" onchange="verificarMaioridade()" required>
+                        <small id="age-warning" style="display: block; margin-top: 0.4rem; font-size: 0.8rem; color: var(--text-muted);">
+                            <i class="fa-solid fa-shield-halved"></i> Necessário para liberação de acesso a histórias com classificação indicativa +18.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-image"></i> URL da Foto de Perfil (Avatar)</label>
+                        <input type="url" id="perfil-avatar-url" placeholder="https://exemplo.com/sua-foto.jpg" onchange="atualizarPreviewAvatar(this.value)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-quote-left"></i> Biografia / Apresentação</label>
+                    <textarea id="perfil-bio" rows="3" placeholder="Escreva um breve resumo sobre você ou suas preferências literárias..."></textarea>
+                </div>
+
+                <!-- SEÇÃO 3: VERIFICAÇÃO DE MAIORIDADE E CONTEÚDO ADULTO (+18) -->
+                <div id="box-conteudo-adulto" style="margin: 2rem 0; background: rgba(147, 51, 234, 0.1); border: 1px solid var(--border-glass); padding: 1.2rem; border-radius: var(--radius-md);">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <h4 style="color: white; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fa-solid fa-triangle-exclamation" style="color: #facc15;"></i> Classificação Indicativa (+18)
+                            </h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">
+                                O controle de idade oculta automaticamente histórias que contêm linguagem forte ou temas adultos.
+                            </p>
+                        </div>
+                        <div id="badge-maioridade-status" style="padding: 0.4rem 0.8rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem; background: rgba(255,255,255,0.05); color: var(--text-muted);">
+                            Pendente
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 4: ALTERAÇÃO OPCIONAL DE SENHA -->
+                <h3 style="color: var(--primary-glow); margin: 2rem 0 1.2rem 0; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-lock"></i> Alterar Senha <small style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal;">(Preencha apenas se desejar alterar)</small>
+                </h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-key"></i> Nova Senha</label>
+                        <input type="password" id="perfil-nova-senha" placeholder="Mínimo de 6 caracteres">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-check-double"></i> Confirmar Nova Senha</label>
+                        <input type="password" id="perfil-confirma-senha" placeholder="Repita a nova senha">
+                    </div>
+                </div>
+
+                <!-- BOTÕES DE AÇÃO -->
+                <div style="display: flex; gap: 1rem; margin-top: 2.5rem; border-top: 1px solid var(--border-glass); padding-top: 1.5rem;">
+                    <button type="submit" class="btn-primary-glow" style="flex: 2;"><i class="fa-solid fa-floppy-disk"></i> Salvar Alterações</button>
+                    <a href="index.html" class="btn-secondary-glass" style="flex: 1; text-align: center; justify-content: center;"><i class="fa-solid fa-xmark"></i> Cancelar</a>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+
+    <!-- Rodapé Completo -->
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo-box">
+                    <img src="qzverso.jpg" alt="Selo Oficial Qzverso" class="footer-logo-img">
+                    <span class="brand-name">Qzverso<span class="brand-dot">.</span></span>
+                </div>
+                <p>Portal e Hub de Divulgação Literária dedicado ao incentivo à leitura e à promoção de obras independentes.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Qzverso. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Script de Lógica do Perfil -->
+    <script src="app.js"></script>
+    
+</body>
+</html>
