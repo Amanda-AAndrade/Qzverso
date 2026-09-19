@@ -247,8 +247,8 @@
                 <button type="submit" class="btn-primary-glow w-100"><i class="fa-solid fa-right-to-bracket"></i> Acessar Portal</button>
             </form>
 
-            <!-- Form de Registro Simplificado (Novo Usuário = Leitor) -->
-<form id="form-registro" onsubmit="handleRegistro(event)" style="display: none;">
+       <!-- Form de Registro no index.html com Data de Nascimento -->
+  <form id="form-registro" onsubmit="handleRegistro(event)" style="display: none;">
     <div class="form-group">
         <label><i class="fa-solid fa-user"></i> Nome Completo</label>
         <input type="text" id="reg-nome" placeholder="Seu nome completo" required>
@@ -256,6 +256,11 @@
     <div class="form-group">
         <label><i class="fa-solid fa-envelope"></i> E-mail</label>
         <input type="email" id="reg-email" placeholder="seuemail@exemplo.com" required>
+    </div>
+    <!-- NOVO CAMPO DE DATA DE NASCIMENTO -->
+    <div class="form-group">
+        <label><i class="fa-solid fa-cake-candles"></i> Data de Nascimento</label>
+        <input type="date" id="reg-data-nascimento" required>
     </div>
     <div class="form-group">
         <label><i class="fa-solid fa-lock"></i> Senha</label>
