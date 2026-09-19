@@ -95,7 +95,7 @@
             </div>
 
             <div class="story-grid" id="grid-historias">
-                <!-- Renderizado via app-v2.js -->
+                <!-- Renderizado via app.js -->
             </div>
         </section>
 
@@ -247,28 +247,24 @@
                 <button type="submit" class="btn-primary-glow w-100"><i class="fa-solid fa-right-to-bracket"></i> Acessar Portal</button>
             </form>
 
-            <form id="form-registro" onsubmit="handleRegistro(event)" style="display: none;">
-                <div class="form-group">
-                    <label><i class="fa-solid fa-user"></i> Nome Completo</label>
-                    <input type="text" id="reg-nome" placeholder="Seu nome (Ex: Qz, Julia, Marina...)" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fa-solid fa-envelope"></i> E-mail</label>
-                    <input type="email" id="reg-email" placeholder="seuemail@exemplo.com" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fa-solid fa-lock"></i> Senha</label>
-                    <input type="password" id="reg-senha" placeholder="Mínimo 6 caracteres" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fa-solid fa-id-badge"></i> Perfil no Portal</label>
-                    <select id="reg-tipo">
-                        <option value="leitor">Leitor(a) — Explorar &amp; Descobrir Obras</option>
-                        <option value="escritora">Escritora — Publicar minhas histórias</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-primary-glow w-100"><i class="fa-solid fa-user-plus"></i> Concluir Cadastro</button>
-            </form>
+            <!-- Form de Registro Simplificado (Novo Usuário = Leitor) -->
+<form id="form-registro" onsubmit="handleRegistro(event)" style="display: none;">
+    <div class="form-group">
+        <label><i class="fa-solid fa-user"></i> Nome Completo</label>
+        <input type="text" id="reg-nome" placeholder="Seu nome completo" required>
+    </div>
+    <div class="form-group">
+        <label><i class="fa-solid fa-envelope"></i> E-mail</label>
+        <input type="email" id="reg-email" placeholder="seuemail@exemplo.com" required>
+    </div>
+    <div class="form-group">
+        <label><i class="fa-solid fa-lock"></i> Senha</label>
+        <input type="password" id="reg-senha" placeholder="Mínimo 6 caracteres" required>
+    </div>
+    <button type="submit" class="btn-primary-glow w-100">
+        <i class="fa-solid fa-user-plus"></i> Criar Minha Conta
+    </button>
+</form>
         </div>
     </div>
 
