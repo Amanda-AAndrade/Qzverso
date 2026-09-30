@@ -312,12 +312,20 @@ function getHistoriasDemo() {
     return [
         {
             id: "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33",
-            titulo: "O Universo Fantástico",
-            sinopse: "Uma sinopse envolvente sobre o universo literário de Qzverso. Acompanhe a jornada de descoberta, magia e segredos entrelaçados em portais multidimensionais.",
-            capa_url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop",
-            link_leitura_externo: "https://plataformadeleitura.com/obra/123",
-            escritora_nome: "Amanda Andrade",
-            visualizacoes: 142
+            titulo: "The Weather Girl",
+            sinopse: `Lauren Baker acreditava que estava no caminho certo para o sucesso quando se tornou colunista júnior de um dos maiores jornais impressos de Chicago. No entanto, suas opiniões fortes e sua atitude ousada em um ambiente conservador acabaram custando seu emprego. Após enfrentar um período difícil, uma improvável oportunidade surge: apresentar a previsão do tempo na emissora de maior audiência de Illinois. Embora longe de seus planos iniciais, essa nova fase traz uma perspectiva inesperada para sua vida profissional.
+
+Enquanto navega por uma rotina agitada, uma vida amorosa desastrosa e expectativas frustradas, Lauren cruza o caminho de Camila, uma mulher de bem com a vida e cheia de talentos que, após um divórcio conturbado, sustenta-se como motorista de aplicativo.
+
+Quando Lauren decide desistir do amor, entre o caos diário e as surpresas da vida, será que alguém realmente se importará em ficar?
+
+Uma história de encontros improváveis, recomeços e beleza do amor que surge quando menos se espera.`,
+            capa_url: "https://www.fanficando.com/assets/capa2-0dfa16b2.png",
+            link_leitura_externo: "https://www.fanficando.com/story/187",
+            escritora_nome: "Qz,Julia e Qzverso",
+            visualizacoes: 596,
+            tempo_de_leitura: "37h22 min",
+            status: "concluída",
         }
     ];
 }
