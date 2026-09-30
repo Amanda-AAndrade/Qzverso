@@ -109,7 +109,7 @@ h1, h2, h3, h4, .brand-name {
 
 .nav-search-bar input {
     width: 100%;
-    background: rgba(10, 10, 15, 0.6);
+    background: rgba(236, 206, 72, 0.945);
     border: 1px solid var(--border-glass);
     padding: 0.6rem 1rem 0.6rem 2.6rem;
     border-radius: 20px;
