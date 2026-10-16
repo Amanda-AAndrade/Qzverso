@@ -37,7 +37,7 @@ Como **Projeto de Extensão em Engenharia de Software**, o Qzverso atende aos se
 
 ## 🛠️ Stack Tecnológico
 
-A arquitetura do sistema é dividida em camadas bem definidas para garantir desempenho e escalabilidade:
+A arquitetura do sistema será e está sendo dividida em camadas bem definidas para garantir desempenho e escalabilidade:
 
 | Camada             | Tecnologia              | Descrição                                                              |
 | ------------------ | ----------------------- | -----------------------------------------------------------------------|
@@ -50,43 +50,11 @@ A arquitetura do sistema é dividida em camadas bem definidas para garantir dese
 
 ## 🗄️ Estrutura do Banco de Dados &amp; Scripts BI
 
-O projeto acompanha os scripts de banco de dados prontos para execução no PostgreSQL:
+O projeto acompanhará os scripts de banco de dados prontos para execução no PostgreSQL:
 
 * `schema-qzverso.sql`: Script DDL para criação das tabelas (`usuarios`, `historias`, `capitulos`, `parceiros`, `produtos`) com integridade referencial e índices.
 * `queries-bi-qzverso.sql`: Conjunto de *Views* otimizadas para integração direta com o Power BI, cobrindo métricas de leitores, capítulos importados e parceiros.
 
----
-
-## ⚙️ Instalação e Execução
-
-### Pré-requisitos
-
-* **Python 3.10+**
-* **PostgreSQL 14+**
-* **Servidor Web / Live Server** (para o Frontend)
-
-### 1\. Inicializar o Banco de Dados
-
-```
-psql -U seu_usuario -d seu_banco -f schema-qzverso.sql
-psql -U seu_usuario -d seu_banco -f queries-bi-qzverso.sql
-
-```
-
-### 2\. Configurar e Executar o Backend
-
-```
-cd backend
-
-# Criar e ativar o ambiente virtual
-python -m venv venv
-source venv/bin/activate  # No Windows: venv\Scripts\activate
-
-# Instalar dependências e iniciar o servidor FastAPI
-pip install -r requirements.txt
-uvicorn main:app --reload
-
-```
 ---
 
 ## 📜 Licenciamento Híbrido
