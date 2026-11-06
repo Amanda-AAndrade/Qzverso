@@ -10,11 +10,7 @@
 
 <p align="center">
   
-  ![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-orange);
-  
-  ![Projeto](https://img.shields.io/badge/Projeto-Extens%C3%A3o-9333EA);
-  
-  ![License](https://img.shields.io/badge/License-Apache%202.0-blue);
+  ![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-orange); ![Projeto](https://img.shields.io/badge/Projeto-Extens%C3%A3o-9333EA); ![License](https://img.shields.io/badge/License-Apache%202.0-blue);
   
 </p>
 
