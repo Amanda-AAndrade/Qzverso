@@ -1,65 +1,147 @@
-# 🌌 Qzverso — Portal de Divulgação &amp; Hub Literário
+# 🌌 Qzverso — Um Universo de Histórias
 
-&gt; **Projeto de Extensão Universitária em Engenharia de Software**  
-&gt; *Uma experiência moderna e intuitiva de descoberta literária inspirada em plataformas de entretenimento.*
+<p align="center">
+  <img src="qzverso.jpg" width="180" alt="Logo Qzverso">
+</p>
 
----
+<p align="center">
+  <strong>Uma história pode ser o começo de um universo inteiro.</strong>
+</p>
 
-## 📖 Sobre o Projeto
-
-O **Qzverso** é um portal dinâmico voltado para a divulgação de histórias, parcerias, projetos e produtos integrados ao seu próprio universo literário [1, 2].
-
-Com uma proposta visual inspirada no formato de descoberta das grandes plataformas de entretenimento, o portal apresenta obras por meio de capas de alto impacto, sinopses envolventes e informações detalhadas [1]. O Qzverso funciona como uma **vitrine de curadoria e hub de navegação**: ele não disponibiliza a leitura integral das obras na plataforma, mas conecta os leitores diretamente aos locais externos onde cada texto está oficialmente publicado e pronto para leitura [1].
-
-Além da divulgação literária, o Qzverso reserva espaços dedicados para a vitrine de parceiros, projetos colaboradores e catálogo de produtos e iniciativas associadas ao ecossistema [2].
-
----
-
-## 🎯 Objetivos de Extensão &amp; Impacto Social
-
-Como **Projeto de Extensão em Engenharia de Software**, o Qzverso atende aos seguintes pilares:
-
-1. **Fomento à Literatura**: Facilita a ponte entre leitoras(es) e obras literárias através de uma interface de descoberta atraente [1].
-2. **Espaço Exclusivo para Escritoras**: Oferece uma área restrita e intuitiva para que as autoras gerenciem suas publicações [2].
-3. **Inovação Técnica &amp; Automação**: Aplica conceitos avançados de software, incluindo o processamento automatizado de arquivos `.docx` no backend para ingestão de capítulos [2].
+<p align="center">
+  ![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-orange)
+  ![Projeto](https://img.shields.io/badge/Projeto-Extens%C3%A3o-9333EA)
+  ![License](https://img.shields.io/badge/License-Apache%202.0-blue)
+</p>
 
 ---
 
-## 🚀 Funcionalidades Principais
+## ✨ Sobre o Qzverso
 
-* 🔐 **Cadastro e Autenticação de Leitores**: Sistema seguro de criação de conta e acesso personalizado para os leitores [2].
-* ✍️ **Área Exclusiva para Escritoras**: Painel de gestão restrito para publicação e edição de obras e capítulos [2].
-* 📚 **Publicação de Histórias e Capítulos**: Estruturação organizada de obras, informações e links externos de leitura [1, 2].
-* 📄 **Importação Automática via DOCX**: Módulo de ingestão que realiza a parsing de capítulos diretamente de arquivos no formato `.docx` [2].
-* 🤝 **Divulgação de Parceiros e Produtos**: Espaço exclusivo para promoção de iniciativas parceiras e catálogo de produtos [2].
+O **Qzverso** é um portal digital de divulgação e descoberta literária, criado para conectar histórias, escritoras, leitores e iniciativas parceiras.
+
+Sua origem está na cultura de fãs de Camila Cabello e Lauren Jauregui. A partir dessa inspiração, as escritoras Qz, Julia e Marina desenvolveram fanfics que cresceram para além de uma única história, criando personagens próprios, narrativas conectadas e um universo literário compartilhado.
+
+O nome **Qzverso** representa justamente essa expansão criativa: uma inspiração que se transformou em um universo de histórias.
+
+O portal funciona como uma vitrine literária. Apresenta capas, títulos, sinopses e informações sobre as obras, direcionando os leitores aos ambientes externos onde podem acessar a leitura integral.
+
+## 🎯 Propósito do projeto
+
+- **Divulgação literária:** facilitar a descoberta das histórias e de suas autoras.
+- **Diversidade narrativa:** valorizar diferentes personagens, identidades, características sexuais, orientações e experiências presentes nas obras.
+- **Conexão com leitores:** aproximar o público das histórias por meio de uma vitrine organizada.
+- **Fortalecimento de parcerias:** divulgar iniciativas e produtos que fazem parte do ecossistema Qzverso.
+- **Desenvolvimento tecnológico:** aplicar conhecimentos de Engenharia de Software na construção e evolução do portal.
+
+## 🤝 Nosso ecossistema
+
+O Qzverso conecta iniciativas que contribuem para o crescimento desse universo.
+
+### HMD Oficial
+
+Parceria ligada à cultura de fãs e à criação de produtos, incluindo roupas que podem divulgar a identidade da HMD e as histórias do Qzverso.
+
+🔗 [Conheça a HMD Oficial](https://hmdoficial.lojavirtualnuvem.com.br/)
+
+### Fanficando
+
+Plataforma parceira destinada à publicação das histórias e à disponibilização da leitura integral das obras.
+
+🔗 [Acesse o Fanficando](https://www.fanficando.com/)
+
+## 📚 Funcionalidades do portal
+
+| Funcionalidade | Situação |
+|---|---|
+| Vitrine de histórias | Em implementação |
+| Apresentação de capas e sinopses | Em implementação |
+| Busca e filtros de histórias | Em implementação |
+| Redirecionamento para leitura externa | Em implementação |
+| Divulgação de parcerias | Em implementação |
+| Divulgação de produtos | Em implementação |
+| Área administrativa das escritoras | Em desenvolvimento |
+| Integração com API e banco de dados | Planejado / em desenvolvimento |
+
+*Os status devem ser atualizados conforme a validação de cada funcionalidade.*
+
+## 🛠️ Tecnologias & Ferramentas
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=html,css,js,git,github,vscode"
+       alt="Tecnologias utilizadas no Qzverso">
+</p>
+
+
+### Tecnologias planejadas
+
+As tecnologias de backend, banco de dados e infraestrutura serão documentadas aqui conforme sua implementação e validação no projeto.
+
+## 🗂️ Estrutura do projeto
+
+```text
+Qzverso/
+├── index.html
+├── perfil.html
+├── styles.css
+├── app.js
+├── qzverso.jpg
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+## 🚀 Como visualizar
+
+O projeto possui uma versão publicada para consulta:
+
+🔗 [Acessar Qzverso](https://amanda-aandrade.github.io/Qzverso/)
+
+Para obter o código:
+
+```bash
+git clone https://github.com/Amanda-AAndrade/Qzverso.git
+```
+
+Entre na pasta:
+
+```bash
+cd Qzverso
+```
+
+Abra o arquivo `index.html` no navegador ou utilize a extensão Live Server do Visual Studio Code.
+
+> Observação: funcionalidades que dependam de backend não estarão disponíveis apenas com a abertura dos arquivos estáticos. A integração deverá ser configurada conforme o ambiente de execução.
+
+## 🧭 Roadmap
+
+- [x] Criação do repositório e estrutura inicial do frontend.
+- [x] Desenvolvimento inicial da identidade visual.
+- [ ] Refinamento da interface e responsividade.
+- [ ] Consolidação dos requisitos do sistema.
+- [ ] Modelagem do banco de dados.
+- [ ] Desenvolvimento e integração do backend.
+- [ ] Implementação da área administrativa.
+- [ ] Integração com as informações das parcerias.
+- [ ] Realização de testes com as escritoras e leitores convidados.
+- [ ] Evolução e documentação da versão validada.
+
+## 👩‍💻 Desenvolvimento
+
+**Desenvolvedora:** Amanda Anália da Silva Andrade
+
+Projeto desenvolvido no contexto da graduação em Engenharia de Software, com foco em desenvolvimento web, arquitetura de software, organização de dados e construção de soluções digitais.
+
+## 📖 Créditos e direitos autorais
+
+O código-fonte está identificado sob Apache License 2.0, conforme os termos do arquivo `LICENSE`.
+
+As histórias, personagens originais, sinopses, capas, artes, marcas e demais conteúdos criativos pertencem às suas respectivas titulares, conforme as autorizações e os direitos aplicáveis.
+
+Elementos associados a artistas e obras de terceiros devem respeitar os direitos de seus respectivos titulares.
 
 ---
 
-## 🛠️ Stack Tecnológico
-
-A arquitetura do sistema será e está sendo dividida em camadas bem definidas para garantir desempenho e escalabilidade:
-
-| Camada             | Tecnologia              | Descrição                                                              |
-| ------------------ | ----------------------- | -----------------------------------------------------------------------|
-| **Frontend**       | HTML5, CSS3, JavaScript | Interface responsiva e interativa no estilo vitrine de streaming [2]   |
-| **Backend**        | FastAPI (Python)        | API REST de alta performance e parser para importação de .docx [2]     |
-| **Banco de Dados** | PostgreSQL              | Armazenamento relacional de usuários, obras, capítulos e parceiros [2] |
-| **Analytics &amp; BI** | Power BI            | Dashboard para análise de métricas de engajamento e cliques [2]        |
-
----
-
-## 🗄️ Estrutura do Banco de Dados &amp; Scripts BI
-
-O projeto acompanhará os scripts de banco de dados prontos para execução no PostgreSQL:
-
-* `schema-qzverso.sql`: Script DDL para criação das tabelas (`usuarios`, `historias`, `capitulos`, `parceiros`, `produtos`) com integridade referencial e índices.
-* `queries-bi-qzverso.sql`: Conjunto de *Views* otimizadas para integração direta com o Power BI, cobrindo métricas de leitores, capítulos importados e parceiros.
-
----
-
-## 📜 Licenciamento Híbrido
-
-O repositório adota um modelo de **Licenciamento Híbrido** para atender aos requisitos acadêmicos/profissionais sem comprometer os direitos de marca:
-
-1. **Código-Fonte (Engine &amp; Arquitetura)**: Licenciado sob a **[Apache License 2.0](LICENSE)**. O código (FastAPI, esquemas SQL, parser `.docx` e Frontend) está aberto para avaliação acadêmica, auditorias de código e exibição em portfólios de Engenharia de Software.
-2. **Marca &amp; Conteúdo Literário**: O nome **Qzverso**, marcas registradas, logotipos, sinopses, artes e obras são de propriedade intelectual exclusiva das autoras (**Copyright © Todos os Direitos Reservados**). É vedada qualquer reprodução comercial ou uso do nome e elementos narrativos por terceiros.
+<p align="center">
+  <strong>Qzverso — Uma história pode ser o começo de um universo inteiro.</strong>
+</p>
