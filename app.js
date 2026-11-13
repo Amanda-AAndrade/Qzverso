@@ -1,331 +1,374 @@
 /* ============================================================
-   QZVERSO — FRONTEND INTERACTION CONTROLLER (V2)
+   QZVERSO — CONTROLADOR DO FRONT-END
+   Interface estática com integração de API opcional.
    ============================================================ */
 
-const API_URL = "http://127.0.0.1:8000/api";
+const API_URL = String(window.QZVERSO_CONFIG && window.QZVERSO_CONFIG.apiUrl ? window.QZVERSO_CONFIG.apiUrl : "").trim().replace(/\/+$/, "");
 let historiasCache = [];
+let categoriaAtual = "todas";
 let token = localStorage.getItem("qz_token");
-let userData = JSON.parse(localStorage.getItem("qz_user") || "{}");
+let userData = lerUsuarioSalvo();
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", inicializarAplicacao);
+
+function inicializarAplicacao() {
     checkAuthState();
-    carregarHistorias();
-    carregarParceiros();
-    carregarProdutos();
-});
+    if (document.getElementById("grid-historias")) carregarHistorias();
+    if (document.getElementById("grid-parceiros")) renderizarParceiros();
 
-// ------------------------------------------------------------
-// API FETCHERS
-// ------------------------------------------------------------
-async function carregarHistorias() {
-    try {
-        const res = await fetch(`${API_URL}/historias`);
-        if (!res.ok) throw new Error("Falha ao buscar histórias");
-        historiasCache = await res.json();
-        renderizarHistorias(historiasCache);
-        atualizarSelectObras(historiasCache);
-    } catch (err) {
-        console.warn("API indisponível, exibindo dados de demonstração local:", err);
-        historiasCache = getHistoriasDemo();
-        renderizarHistorias(historiasCache);
-        atualizarSelectObras(historiasCache);
+    document.querySelectorAll(".modal-overlay").forEach(function (modal) {
+        modal.addEventListener("click", function (event) {
+            if (event.target === modal) closeModal(modal.id);
+        });
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            document.querySelectorAll(".modal-overlay").forEach(function (modal) {
+                if (modal.style.display === "flex") closeModal(modal.id);
+            });
+        }
+    });
+}
+
+function lerUsuarioSalvo() {
+    try { return JSON.parse(localStorage.getItem("qz_user") || "{}"); }
+    catch (error) {
+        localStorage.removeItem("qz_user");
+        localStorage.removeItem("qz_token");
+        return {};
     }
+}
+
+async function requisicaoApi(caminho, opcoes) {
+    if (!API_URL) {
+        throw new Error("A API ainda não está conectada a esta versão do Qzverso. O catálogo público continua disponível; autenticação e administração dependem do backend.");
+    }
+    const resposta = await fetch(API_URL + caminho, opcoes || {});
+    let dados = {};
+    try { dados = await resposta.json(); } catch (error) { dados = {}; }
+    if (!resposta.ok) throw new Error(dados.detail || dados.message || "Não foi possível concluir a solicitação.");
+    return dados;
+}
+
+/* CATÁLOGO */
+async function carregarHistorias() {
+    if (API_URL) {
+        try {
+            const dados = await requisicaoApi("/historias");
+            historiasCache = Array.isArray(dados) ? dados : [];
+            if (!historiasCache.length) throw new Error("A API não retornou histórias.");
+        } catch (erro) {
+            console.warn("Catálogo remoto indisponível; usando dados demonstrativos.", erro);
+            historiasCache = getHistoriasDemo();
+        }
+    } else {
+        historiasCache = getHistoriasDemo();
+    }
+    aplicarFiltros();
+    renderizarDestaque();
 }
 
 function renderizarHistorias(lista) {
-    const grid = document.getElementById("grid-historias");
-    if (!lista || lista.length === 0) {
-        grid.innerHTML = `<p class="text-muted">Nenhuma história encontrada nesta categoria.</p>`;
+    const grade = document.getElementById("grid-historias");
+    if (!grade) return;
+
+    if (!lista || !lista.length) {
+        grade.innerHTML = '<div class="empty-state"><span class="empty-state-icon"><i class="fa-solid fa-book-open"></i></span><h3>Nenhuma história encontrada</h3><p>Tente outro termo ou limpe os filtros para ver todas as obras.</p><button type="button" class="btn-secondary-glass" onclick="limparBusca()">Limpar filtros</button></div>';
         return;
     }
 
-    grid.innerHTML = lista.map(h => `
-        <div class="story-card" onclick="openHistoriaModal('${h.id}')">
-            <div class="card-cover-wrapper">
-                <img src="${h.capa_url || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop'}" class="card-cover-img" alt="${escapeHtml(h.titulo)}">
-                <span class="card-platform-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> Externo</span>
-            </div>
-            <div class="card-body">
-                <div class="card-title-text">${escapeHtml(h.titulo)}</div>
-                <div class="card-author-text"><i class="fa-solid fa-pen-nib"></i> ${escapeHtml(h.escritora_nome || 'Escritora Qzverso')}</div>
-                <div class="card-synopsis-snippet">${escapeHtml(h.sinopse)}</div>
-                <div class="card-footer-action">
-                    <span><i class="fa-solid fa-eye"></i> ${h.visualizacoes || 0} acessos</span>
-                    <span>Saiba mais &rarr;</span>
-                </div>
-            </div>
-        </div>
-    `).join("");
+    grade.innerHTML = lista.map(function (h) {
+        const id = escapeHtml(String(h.id || ""));
+        const titulo = escapeHtml(h.titulo || "Obra sem título");
+        const autora = escapeHtml(h.escritora_nome || "Escritora Qzverso");
+        const sinopse = escapeHtml(h.sinopse || "Sinopse ainda não cadastrada.");
+        const capa = escapeHtml(obterImagemSegura(h.capa_url) || "qzverso.jpg");
+        const total = Number(h.visualizacoes);
+        const acessos = Number.isFinite(total) ? total.toLocaleString("pt-BR") : "0";
+        return '<article class="story-card"><button type="button" class="story-card-button" data-story-id="' + id + '" aria-label="Ver detalhes de ' + titulo + '">' +
+            '<div class="card-cover-wrapper"><img src="' + capa + '" class="card-cover-img" alt="Capa de ' + titulo + '" loading="lazy"><span class="card-platform-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> Leitura externa</span></div>' +
+            '<div class="card-body"><div class="card-title-text">' + titulo + '</div><div class="card-author-text"><i class="fa-solid fa-pen-nib"></i> ' + autora + '</div>' +
+            '<div class="card-synopsis-snippet">' + sinopse + '</div><div class="card-footer-action"><span><i class="fa-solid fa-eye"></i> ' + acessos + ' acessos</span><span>Ver detalhes <i class="fa-solid fa-arrow-right"></i></span></div></div>' +
+            '</button></article>';
+    }).join("");
+
+    grade.querySelectorAll(".story-card-button").forEach(function (button) {
+        button.addEventListener("click", function () { openHistoriaModal(button.getAttribute("data-story-id")); });
+    });
+    grade.querySelectorAll("img").forEach(function (image) {
+        image.addEventListener("error", function () { image.src = "qzverso.jpg"; }, { once: true });
+    });
 }
 
-async function carregarParceiros() {
-    const grid = document.getElementById("grid-parceiros");
-    try {
-        const res = await fetch(`${API_URL}/parceiros`);
-        const parceiros = await res.json();
-        if (parceiros.length === 0) throw new Error();
-        grid.innerHTML = parceiros.map(p => `
-            <div class="story-card p-3" style="padding:1.5rem;">
-                <h3 style="color:var(--primary-glow); margin-bottom:0.5rem;"><i class="fa-solid fa-bookmark"></i> ${escapeHtml(p.nome)}</h3>
-                <p style="font-size:0.9rem; color:var(--text-muted);">${escapeHtml(p.descricao || '')}</p>
-            </div>
-        `).join("");
-    } catch {
-        grid.innerHTML = `
-            <div class="story-card p-3" style="padding:1.5rem;">
-                <h3 style="color:var(--primary-glow); margin-bottom:0.5rem;"><i class="fa-solid fa-book-bookmark"></i> Editora Parceira</h3>
-                <p style="font-size:0.9rem; color:var(--text-muted);">Editora e selo literário independente focado na publicação de novos talentos e escritoras da literatura fantástica.</p>
-            </div>
-        `;
+function renderizarDestaque() {
+    const h = historiasCache[0];
+    const imagem = document.getElementById("hero-feature-cover");
+    const titulo = document.getElementById("hero-feature-title");
+    const autora = document.getElementById("hero-feature-author");
+    const link = document.getElementById("hero-feature-link");
+    if (!h || !imagem || !titulo || !autora || !link) return;
+
+    imagem.src = obterImagemSegura(h.capa_url) || "qzverso.jpg";
+    imagem.alt = "Capa de " + (h.titulo || "obra em destaque");
+    titulo.textContent = h.titulo || "Obra em destaque";
+    autora.textContent = h.escritora_nome || "Escritora Qzverso";
+    const url = obterLinkExternoSeguro(h.link_leitura_externo);
+    if (url) {
+        link.href = url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.innerHTML = 'Continuar na plataforma <i class="fa-solid fa-arrow-up-right-from-square"></i>';
+    } else {
+        link.href = "#vitrine";
+        link.removeAttribute("target");
+        link.textContent = "Ver detalhes na vitrine";
     }
 }
 
-async function carregarProdutos() {
-    const grid = document.getElementById("grid-produtos");
-    try {
-        const res = await fetch(`${API_URL}/produtos`);
-        const produtos = await res.json();
-        if (produtos.length === 0) throw new Error();
-        grid.innerHTML = produtos.map(p => `
-            <div class="story-card p-3" style="padding:1.5rem;">
-                <h3 style="color:white; margin-bottom:0.4rem;">${escapeHtml(p.nome)}</h3>
-                <p style="color:var(--accent-cyan); font-weight:700;">R$ ${p.preco ? p.preco.toFixed(2) : '15,00'}</p>
-                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.5rem;">${escapeHtml(p.descricao || '')}</p>
-            </div>
-        `).join("");
-    } catch {
-        grid.innerHTML = `
-            <div class="story-card p-3" style="padding:1.5rem;">
-                <h3 style="color:white; margin-bottom:0.4rem;">Marcador Qzverso Colecionável</h3>
-                <p style="color:var(--accent-cyan); font-weight:700;">R$ 15,00</p>
-                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.5rem;">Marcador de página metálico exclusivo com arte temática do universo.</p>
-            </div>
-        `;
-    }
-}
-
-// ------------------------------------------------------------
-// MODAL DETAILS & FILTERS
-// ------------------------------------------------------------
 function openHistoriaModal(id) {
-    const h = historiasCache.find(item => item.id === id) || historiasCache[0];
-    if (!h) return;
+    const h = historiasCache.find(function (item) { return String(item.id) === String(id); });
+    const conteudo = document.getElementById("modal-historia-content");
+    if (!h || !conteudo) return;
 
-    const modalContent = document.getElementById("modal-historia-content");
-    modalContent.innerHTML = `
-        <div class="modal-cover">
-            <img src="${h.capa_url || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop'}" style="width:100%; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.6);" alt="${escapeHtml(h.titulo)}">
-        </div>
-        <div class="modal-info">
-            <span class="hero-badge"><i class="fa-solid fa-circle-check"></i> Obra Catalogada</span>
-            <h2 style="font-size:2rem; margin:0.5rem 0; color:white;">${escapeHtml(h.titulo)}</h2>
-            <p style="color:var(--primary-glow); font-weight:600; margin-bottom:1rem;"><i class="fa-solid fa-pen-nib"></i> Por ${escapeHtml(h.escritora_nome || 'Escritora Qzverso')}</p>
-            
-            <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.7; margin-bottom:1.8rem;">
-                ${escapeHtml(h.sinopse)}
-            </p>
+    const titulo = escapeHtml(h.titulo || "Obra sem título");
+    const autora = escapeHtml(h.escritora_nome || "Escritora Qzverso");
+    const sinopse = escapeHtml(h.sinopse || "Sinopse ainda não cadastrada.");
+    const capa = escapeHtml(obterImagemSegura(h.capa_url) || "qzverso.jpg");
+    const url = obterLinkExternoSeguro(h.link_leitura_externo);
+    const acao = url
+        ? '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer" class="btn-primary-glow modal-read-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ler na plataforma oficial</a>'
+        : '<p class="development-note"><i class="fa-solid fa-circle-info"></i> O link oficial de leitura ainda não foi cadastrado.</p>';
 
-            <div style="background:rgba(255,255,255,0.04); padding:1rem; border-radius:8px; border-left:3px solid var(--accent-cyan); margin-bottom:1.5rem; font-size:0.85rem; color:var(--text-muted);">
-                <i class="fa-solid fa-circle-info"></i> <strong>Nota de Redirecionamento:</strong> O Qzverso não disponibiliza a leitura integral das obras no portal. Ao clicar abaixo, você será direcionado(a) ao espaço oficial onde a história está publicada.
-            </div>
-
-            <a href="${h.link_leitura_externo}" target="_blank" rel="noopener noreferrer" class="btn-primary-glow" style="text-decoration:none; display:inline-flex; width:100%; justify-content:center;">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i> Ler História na Plataforma Oficial
-            </a>
-        </div>
-    `;
+    conteudo.innerHTML = '<div class="modal-cover"><img src="' + capa + '" class="modal-cover-img" alt="Capa de ' + titulo + '"></div>' +
+        '<div class="modal-info"><span class="hero-badge"><i class="fa-solid fa-bookmark"></i> Obra catalogada</span><h2>' + titulo + '</h2>' +
+        '<p class="modal-author"><i class="fa-solid fa-pen-nib"></i> Por ' + autora + '</p><p class="modal-synopsis">' + sinopse + '</p>' +
+        '<div class="redirect-note"><i class="fa-solid fa-circle-info"></i><span>O Qzverso apresenta e divulga as obras. A leitura integral acontece na plataforma externa indicada pela autoria.</span></div>' +
+        acao + '</div>';
     openModal("modal-historia");
 }
 
 function openFeaturedModal() {
-    if (historiasCache.length > 0) {
-        openHistoriaModal(historiasCache[0].id);
-    }
+    if (historiasCache.length) openHistoriaModal(historiasCache[0].id);
+    else document.getElementById("vitrine")?.scrollIntoView({ behavior: "smooth" });
 }
 
-function filtrarCategoria(cat) {
-    document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
-    event.target.classList.add("active");
-
-    if (cat === 'todas') {
-        renderizarHistorias(historiasCache);
-    } else {
-        const filtradas = historiasCache.filter(h => h.titulo.toLowerCase().includes(cat) || h.sinopse.toLowerCase().includes(cat));
-        renderizarHistorias(filtradas.length > 0 ? filtradas : historiasCache);
-    }
+function filtrarCategoria(categoria, botao) {
+    categoriaAtual = categoria || "todas";
+    document.querySelectorAll(".filter-pills .pill").forEach(function (item) { item.classList.remove("active"); });
+    if (botao) botao.classList.add("active");
+    aplicarFiltros();
 }
 
-function filtrarHistorias() {
-    const query = document.getElementById("input-busca").value.toLowerCase();
-    const filtradas = historiasCache.filter(h => 
-        h.titulo.toLowerCase().includes(query) || 
-        h.sinopse.toLowerCase().includes(query) ||
-        (h.escritora_nome && h.escritora_nome.toLowerCase().includes(query))
-    );
+function filtrarHistorias() { aplicarFiltros(); }
+
+function limparBusca() {
+    const busca = document.getElementById("input-busca");
+    if (busca) busca.value = "";
+    categoriaAtual = "todas";
+    document.querySelectorAll(".filter-pills .pill").forEach(function (item, index) {
+        item.classList.toggle("active", index === 0);
+    });
+    aplicarFiltros();
+}
+
+function aplicarFiltros() {
+    const campo = document.getElementById("input-busca");
+    const termo = normalizarTexto(campo ? campo.value : "");
+    const filtradas = historiasCache.filter(function (h) {
+        const autora = normalizarTexto(h.escritora_nome || "");
+        const categoriaOk = categoriaAtual === "todas" || autora.includes(normalizarTexto(categoriaAtual));
+        const texto = normalizarTexto([h.titulo || "", h.sinopse || "", h.escritora_nome || ""].join(" "));
+        return categoriaOk && (!termo || texto.includes(termo));
+    });
     renderizarHistorias(filtradas);
+    const status = document.getElementById("catalog-status");
+    if (status) status.textContent = filtradas.length + (filtradas.length === 1 ? " obra encontrada" : " obras encontradas");
 }
 
-// ------------------------------------------------------------
-// AUTH & DASHBOARD TABS
-// ------------------------------------------------------------
-function openModal(id) { document.getElementById(id).style.display = "flex"; }
-function closeModal(id) { document.getElementById(id).style.display = "none"; }
+function renderizarParceiros() {
+    const grade = document.getElementById("grid-parceiros");
+    if (!grade) return;
+    const parceiros = [
+        { nome: "Fanficando", tipo: "Plataforma de leitura", descricao: "Ambiente externo onde as histórias são publicadas para leitura integral.", url: "https://www.fanficando.com/", icone: "fa-book-open" },
+        { nome: "HMD Oficial", tipo: "Loja parceira", descricao: "Iniciativa ligada à cultura de fãs e a produtos que dialogam com o universo criativo do projeto.", url: "https://hmdoficial.lojavirtualnuvem.com.br/", icone: "fa-store" }
+    ];
+    grade.innerHTML = parceiros.map(function (p) {
+        return '<article class="partner-card"><span class="partner-icon"><i class="fa-solid ' + p.icone + '"></i></span><span class="partner-type">' + escapeHtml(p.tipo) + '</span><h3>' + escapeHtml(p.nome) + '</h3><p>' + escapeHtml(p.descricao) + '</p><a href="' + escapeHtml(p.url) + '" target="_blank" rel="noopener noreferrer" class="text-link">Visitar parceiro <i class="fa-solid fa-arrow-up-right-from-square"></i></a></article>';
+    }).join("");
+}
+
+/* MODAIS E ABAS */
+function openModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.style.display = "flex";
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    const closeButton = modal.querySelector(".modal-close");
+    if (closeButton) closeButton.focus();
+}
+
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+    if (!document.querySelector('.modal-overlay[aria-hidden="false"]')) document.body.classList.remove("modal-open");
+}
 
 function switchAuthMode(mode) {
-    const formLogin = document.getElementById("form-login");
-    const formRegistro = document.getElementById("form-registro");
-    const btnLogin = document.getElementById("btn-tab-login");
-    const btnReg = document.getElementById("btn-tab-registro");
-
-    if (mode === 'login') {
-        formLogin.style.display = "block";
-        formRegistro.style.display = "none";
-        btnLogin.classList.add("active");
-        btnReg.classList.remove("active");
-    } else {
-        formLogin.style.display = "none";
-        formRegistro.style.display = "block";
-        btnLogin.classList.remove("active");
-        btnReg.classList.add("active");
-    }
+    const login = document.getElementById("form-login");
+    const register = document.getElementById("form-registro");
+    const loginButton = document.getElementById("btn-tab-login");
+    const registerButton = document.getElementById("btn-tab-registro");
+    if (!login || !register || !loginButton || !registerButton) return;
+    const showLogin = mode === "login";
+    login.style.display = showLogin ? "block" : "none";
+    register.style.display = showLogin ? "none" : "block";
+    loginButton.classList.toggle("active", showLogin);
+    registerButton.classList.toggle("active", !showLogin);
 }
 
-function switchDashTab(tab) {
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
-    
-    if (tab === 'nova-obra') {
-        document.getElementById("tab-nova-obra").style.display = "block";
-        event.target.classList.add("active");
-    } else {
-        document.getElementById("tab-importar-docx").style.display = "block";
-        event.target.classList.add("active");
-    }
+function switchDashTab(tab, button) {
+    document.querySelectorAll(".tab-btn").forEach(function (item) { item.classList.remove("active"); });
+    document.querySelectorAll(".tab-content").forEach(function (item) { item.style.display = "none"; item.classList.remove("active"); });
+    const panel = document.getElementById(tab === "nova-obra" ? "tab-nova-obra" : "tab-importar-docx");
+    if (panel) { panel.style.display = "block"; panel.classList.add("active"); }
+    if (button) button.classList.add("active");
 }
 
-async function handleLogin(e) {
-    e.preventDefault();
-    const email = document.getElementById("login-email").value;
+/* AUTENTICAÇÃO E PAINEL */
+async function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById("login-email").value.trim();
     const senha = document.getElementById("login-senha").value;
-
     try {
-        const res = await fetch(`${API_URL}/auth/login`, {
+        const data = await requisicaoApi("/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, senha })
+            body: JSON.stringify({ email: email, senha: senha })
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || "Erro ao entrar");
-
-        localStorage.setItem("qz_token", data.access_token);
-        localStorage.setItem("qz_user", JSON.stringify({ nome: data.nome, tipo: data.tipo_usuario }));
+        if (!data.access_token) throw new Error("A resposta da API não trouxe um token de acesso.");
         token = data.access_token;
-        userData = { nome: data.nome, tipo: data.tipo_usuario };
-
+        userData = { nome: data.nome || email, tipo: data.tipo_usuario || "leitor" };
+        localStorage.setItem("qz_token", token);
+        localStorage.setItem("qz_user", JSON.stringify(userData));
         checkAuthState();
         closeModal("modal-auth");
-        alert(`Bem-vinda(o), ${data.nome}!`);
-    } catch (err) {
-        alert(err.message);
-    }
+        showToast("Acesso realizado com sucesso.", "success");
+    } catch (error) { showToast(error.message, "error"); }
 }
 
-async function handleRegistro(e) {
-    e.preventDefault();
-    const nome = document.getElementById("reg-nome").value;
-    const email = document.getElementById("reg-email").value;
+async function handleRegistro(event) {
+    event.preventDefault();
+    const nome = document.getElementById("reg-nome").value.trim();
+    const email = document.getElementById("reg-email").value.trim();
     const senha = document.getElementById("reg-senha").value;
-    const tipo_usuario = "leitor"; // Todo novo cadastro no portal entra como leitor por padrão
-
     try {
-        const res = await fetch(`${API_URL}/auth/registro`, {
+        await requisicaoApi("/auth/registro", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome, email, senha, tipo_usuario })
+            body: JSON.stringify({ nome: nome, email: email, senha: senha, tipo_usuario: "leitor" })
         });
-        if (!res.ok) {
-            const errData = await res.json();
-            throw new Error(errData.detail || "Erro ao cadastrar");
-        }
-        alert("Conta criada com sucesso! Faça login agora.");
+        showToast("Conta criada. Entre com seu e-mail e senha.", "success");
         switchAuthMode("login");
-    } catch (err) {
-        alert(err.message);
-    }
+        document.getElementById("login-email").value = email;
+    } catch (error) { showToast(error.message, "error"); }
 }
 
-async function handleNovaObra(e) {
-    e.preventDefault();
-    const titulo = document.getElementById("obra-titulo").value;
-    const sinopse = document.getElementById("obra-sinopse").value;
-    const capa_url = document.getElementById("obra-capa").value;
-    const link_leitura_externo = document.getElementById("obra-link").value;
+async function handleNovaObra(event) {
+    event.preventDefault();
+    if (!token) { showToast("Entre com uma conta autorizada para publicar uma obra.", "error"); return; }
+
+    const titulo = document.getElementById("obra-titulo").value.trim();
+    const sinopse = document.getElementById("obra-sinopse").value.trim();
+    const capa_url = document.getElementById("obra-capa").value.trim();
+    const link = obterLinkExternoSeguro(document.getElementById("obra-link").value.trim());
+    if (!link) { showToast("Informe um endereço HTTP ou HTTPS válido para a leitura oficial.", "error"); return; }
 
     try {
-        const res = await fetch(`${API_URL}/historias`, {
+        await requisicaoApi("/historias", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify({ titulo, sinopse, capa_url, link_leitura_externo })
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+            body: JSON.stringify({ titulo: titulo, sinopse: sinopse, capa_url: obterImagemSegura(capa_url), link_leitura_externo: link })
         });
-        if (!res.ok) throw new Error("Erro ao publicar obra.");
-        alert("História publicada na vitrine com sucesso!");
         document.getElementById("form-nova-obra").reset();
-        carregarHistorias();
-    } catch (err) {
-        alert(err.message);
-    }
+        await carregarHistorias();
+        showToast("Obra enviada para a vitrine.", "success");
+    } catch (error) { showToast(error.message, "error"); }
 }
 
 function checkAuthState() {
-    if (token && userData.nome) {
-        document.getElementById("btn-login-trigger").style.display = "none";
-        document.getElementById("user-badge").style.display = "flex";
-        document.getElementById("user-name-display").textContent = userData.nome;
-        
-        if (userData.tipo === "escritora" || userData.tipo === "admin") {
-            document.getElementById("link-escritora-nav").style.display = "inline-flex";
-            document.getElementById("escritoras").style.display = "block";
-        }
-    }
+    const loginButton = document.getElementById("btn-login-trigger");
+    const userBadge = document.getElementById("user-badge");
+    const userName = document.getElementById("user-name-display");
+    const writerLink = document.getElementById("link-escritora-nav");
+    const writerPanel = document.getElementById("escritoras");
+    const authenticated = Boolean(token && userData && userData.nome);
+
+    if (loginButton) loginButton.style.display = authenticated ? "none" : "inline-flex";
+    if (userBadge) userBadge.style.display = authenticated ? "flex" : "none";
+    if (userName && authenticated) userName.textContent = userData.nome;
+
+    const isWriter = authenticated && ["escritora", "admin"].includes(userData.tipo);
+    if (writerLink) writerLink.style.display = isWriter ? "inline-flex" : "none";
+    if (writerPanel) writerPanel.style.display = isWriter ? "block" : "none";
 }
 
 function logout() {
     localStorage.removeItem("qz_token");
     localStorage.removeItem("qz_user");
-    location.reload();
+    token = null;
+    userData = {};
+    checkAuthState();
+    showToast("Você saiu da sua conta.", "success");
 }
 
-function atualizarSelectObras(lista) {
-    const select = document.getElementById("docx-select-historia");
-    if (!select) return;
-    select.innerHTML = lista.map(h => `<option value="${h.id}">${escapeHtml(h.titulo)}</option>`).join("");
+/* UTILITÁRIOS */
+function normalizarTexto(value) {
+    return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-function escapeHtml(str) {
-    return str ? str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") : "";
+function escapeHtml(value) {
+    return String(value == null ? "" : value)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+function obterLinkExternoSeguro(value) {
+    try {
+        const url = new URL(String(value || ""));
+        return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+    } catch (error) { return ""; }
+}
+
+function obterImagemSegura(value) {
+    if (!value) return "";
+    try {
+        const url = new URL(String(value), window.location.href);
+        return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+    } catch (error) { return ""; }
+}
+
+function showToast(message, type) {
+    const toast = document.getElementById("app-toast");
+    if (!toast) { window.alert(message); return; }
+    toast.textContent = message;
+    toast.className = "app-toast visible " + (type || "info");
+    window.clearTimeout(showToast.timeoutId);
+    showToast.timeoutId = window.setTimeout(function () { toast.className = "app-toast"; }, 4800);
 }
 
 function getHistoriasDemo() {
-    return [
-        {
-            id: "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33",
-            titulo: "The Weather Girl",
-            sinopse: `Lauren Baker acreditava que estava no caminho certo para o sucesso quando se tornou colunista júnior de um dos maiores jornais impressos de Chicago. No entanto, suas opiniões fortes e sua atitude ousada em um ambiente conservador acabaram custando seu emprego. Após enfrentar um período difícil, uma improvável oportunidade surge: apresentar a previsão do tempo na emissora de maior audiência de Illinois. Embora longe de seus planos iniciais, essa nova fase traz uma perspectiva inesperada para sua vida profissional.
-
-Enquanto navega por uma rotina agitada, uma vida amorosa desastrosa e expectativas frustradas, Lauren cruza o caminho de Camila, uma mulher de bem com a vida e cheia de talentos que, após um divórcio conturbado, sustenta-se como motorista de aplicativo.
-
-Quando Lauren decide desistir do amor, entre o caos diário e as surpresas da vida, será que alguém realmente se importará em ficar?
-
-Uma história de encontros improváveis, recomeços e beleza do amor que surge quando menos se espera.`,
-            capa_url: "https://www.fanficando.com/assets/capa2-0dfa16b2.png",
-            link_leitura_externo: "https://www.fanficando.com/story/187",
-            escritora_nome: "Qz,Julia e Qzverso",
-            visualizacoes: 596,
-            tempo_de_leitura: "37h22 min",
-            status: "concluída",
-        }
-    ];
+    return [{
+        id: "weather-girl",
+        titulo: "The Weather Girl",
+        sinopse: "Lauren Baker acreditava que estava no caminho certo para o sucesso quando se tornou colunista júnior de um dos maiores jornais impressos de Chicago. No entanto, suas opiniões fortes e sua atitude ousada em um ambiente conservador acabaram custando seu emprego. Após enfrentar um período difícil, uma improvável oportunidade surge: apresentar a previsão do tempo na emissora de maior audiência de Illinois. Embora longe de seus planos iniciais, essa nova fase traz uma perspectiva inesperada para sua vida profissional.\n\nEnquanto navega por uma rotina agitada, uma vida amorosa desastrosa e expectativas frustradas, Lauren cruza o caminho de Camila, uma mulher de bem com a vida e cheia de talentos que, após um divórcio conturbado, sustenta-se como motorista de aplicativo.\n\nQuando Lauren decide desistir do amor, entre o caos diário e as surpresas da vida, será que alguém realmente se importará em ficar? Uma história de encontros improváveis, recomeços e beleza do amor que surge quando menos se espera.",
+        capa_url: "https://www.fanficando.com/assets/capa2-0dfa16b2.png",
+        link_leitura_externo: "https://www.fanficando.com/story/187",
+        escritora_nome: "Qz, Julia e Qzverso",
+        visualizacoes: 596,
+        status: "concluída"
+    }];
 }
