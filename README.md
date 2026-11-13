@@ -1,147 +1,204 @@
-# 🌌 Qzverso — Um Universo de Histórias
+# Qzverso — Um Universo de Histórias
 
 <p align="center">
-  <img src="qzverso.jpg" width="180" alt="Logo Qzverso">
+  <img src="qzverso.jpg" width="150" alt="Símbolo Qzverso">
 </p>
 
-<p align="center">
-  <strong>Uma história pode ser o começo de um universo inteiro.</strong>
-</p>
+<p align="center"><strong>Uma história pode ser o começo de um universo inteiro.</strong></p>
 
 <p align="center">
-  
-  ![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-orange); ![Projeto](https://img.shields.io/badge/Projeto-Extens%C3%A3o-9333EA); ![License](https://img.shields.io/badge/License-Apache%202.0-blue);
-  
+  <img src="https://img.shields.io/badge/status-em%20desenvolvimento-9333EA" alt="Status: em desenvolvimento">
+  <img src="https://img.shields.io/badge/front--end-HTML%20%7C%20CSS%20%7C%20JavaScript-38BDF8" alt="Stack: HTML, CSS e JavaScript">
+  <img src="https://img.shields.io/badge/licen%C3%A7a-Apache%202.0-blue" alt="Licença Apache 2.0">
 </p>
 
 ---
 
-## ✨ Sobre o Qzverso
+## Sobre o projeto
 
-O **Qzverso** é um portal digital de divulgação e descoberta literária, criado para conectar histórias, escritoras, leitores e iniciativas parceiras.
+O **Qzverso** é um portal de descoberta e divulgação literária criado para aproximar histórias, escritoras e leitores. A plataforma reúne informações sobre as obras — como título, capa, autoria e sinopse — e direciona o público aos ambientes externos onde a leitura integral está disponível.
 
-Sua origem está na cultura de fãs de Camila Cabello e Lauren Jauregui. A partir dessa inspiração, as escritoras Qz, Julia e Marina desenvolveram fanfics que cresceram para além de uma única história, criando personagens próprios, narrativas conectadas e um universo literário compartilhado.
+O projeto surgiu da cultura de fãs e da criação de narrativas que se expandiram para além de uma única história. Com o tempo, esse trabalho criativo ganhou identidade própria, personagens e um universo compartilhado pelas escritoras Qz, Julia e Marina.
 
-O nome **Qzverso** representa justamente essa expansão criativa: uma inspiração que se transformou em um universo de histórias.
+O portal não hospeda os capítulos completos. Sua função é apresentar as obras e facilitar o caminho até suas plataformas oficiais de publicação.
 
-O portal funciona como uma vitrine literária. Apresenta capas, títulos, sinopses e informações sobre as obras, direcionando os leitores aos ambientes externos onde podem acessar a leitura integral.
+## Objetivos
 
-## 🎯 Propósito do projeto
+- Organizar a divulgação das obras em uma vitrine única.
+- Facilitar a descoberta por título, sinopse e autoria.
+- Valorizar a produção literária independente e o protagonismo feminino.
+- Conectar o público a plataformas de leitura e iniciativas parceiras.
+- Evoluir o projeto com práticas de desenvolvimento, documentação e organização de software.
 
-- **Divulgação literária:** facilitar a descoberta das histórias e de suas autoras.
-- **Diversidade narrativa:** valorizar diferentes personagens, identidades, características sexuais, orientações e experiências presentes nas obras.
-- **Conexão com leitores:** aproximar o público das histórias por meio de uma vitrine organizada.
-- **Fortalecimento de parcerias:** divulgar iniciativas e produtos que fazem parte do ecossistema Qzverso.
-- **Desenvolvimento tecnológico:** aplicar conhecimentos de Engenharia de Software na construção e evolução do portal.
+## Funcionalidades e situação atual
 
-## 🤝 Nosso ecossistema
-
-O Qzverso conecta iniciativas que contribuem para o crescimento desse universo.
-
-### HMD Oficial
-
-Parceria ligada à cultura de fãs e à criação de produtos, incluindo roupas que podem divulgar a identidade da HMD e as histórias do Qzverso.
-
-🔗 [Conheça a HMD Oficial](https://hmdoficial.lojavirtualnuvem.com.br/)
-
-### Fanficando
-
-Plataforma parceira destinada à publicação das histórias e à disponibilização da leitura integral das obras.
-
-🔗 [Acesse o Fanficando](https://www.fanficando.com/)
-
-## 📚 Funcionalidades do portal
-
-| Funcionalidade | Situação |
+| Recurso | Situação nesta versão |
 |---|---|
-| Vitrine de histórias | Em implementação |
-| Apresentação de capas e sinopses | Em implementação |
-| Busca e filtros de histórias | Em implementação |
-| Redirecionamento para leitura externa | Em implementação |
-| Divulgação de parcerias | Em implementação |
-| Divulgação de produtos | Em implementação |
-| Área administrativa das escritoras | Em desenvolvimento |
-| Integração com API e banco de dados | Planejado / em desenvolvimento |
+| Interface pública responsiva | Implementada |
+| Vitrine de histórias | Implementada com conteúdo demonstrativo local |
+| Busca por título, sinopse e escritora | Implementada |
+| Filtros por escritora | Implementados |
+| Modal com detalhes da obra | Implementado |
+| Redirecionamento para leitura externa | Implementado para a obra demonstrativa |
+| Apresentação de parceiros | Implementada |
+| Autenticação e cadastro | Interface preparada; depende de API |
+| Publicação de obras | Interface preparada; depende de API e autorização |
+| Importação de capítulos DOCX | Em desenvolvimento; não está ativa |
+| Perfil e preferências do leitor | Planejados; dependem de API e persistência |
 
-*Os status devem ser atualizados conforme a validação de cada funcionalidade.*
+> **Importante:** o repositório contém atualmente o front-end. Não há serviço de backend ou banco de dados versionado nesta estrutura. Sem a configuração de uma API compatível, login, cadastro e publicação não funcionam. O catálogo público utiliza dados demonstrativos definidos em \`app.js\`.
 
-## 🛠️ Tecnologias & Ferramentas
+## Tecnologias
 
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=html,css,js,git,github,vscode"
-       alt="Tecnologias utilizadas no Qzverso">
-</p>
+**Implementadas no front-end**
+- HTML5 — estrutura e semântica.
+- CSS3 — layout responsivo, componentes e identidade visual.
+- JavaScript — renderização do catálogo, busca, filtros, modais e interações.
 
+**Recursos externos**
+- Google Fonts — tipografia Outfit e Plus Jakarta Sans.
+- Font Awesome — biblioteca de ícones.
 
-### Tecnologias planejadas
+Frameworks de backend, banco de dados e infraestrutura não devem ser considerados parte da stack implementada enquanto não forem integrados e versionados neste repositório.
 
-As tecnologias de backend, banco de dados e infraestrutura serão documentadas aqui conforme sua implementação e validação no projeto.
+## Estrutura de arquivos
 
-## 🗂️ Estrutura do projeto
-
-```text
+\`\`\`text
 Qzverso/
-├── index.html
-├── perfil.html
-├── styles.css
-├── app.js
-├── qzverso.jpg
-├── README.md
-├── LICENSE
+├── index.html      # Página principal e estrutura do portal
+├── perfil.html     # Página informativa da área de perfil
+├── styles.css      # Identidade visual e responsividade
+├── app.js          # Busca, filtros, catálogo, modais e integração opcional
+├── qzverso.jpg     # Símbolo visual do projeto
+├── README.md       # Documentação
+├── LICENSE         # Licença
 └── .gitignore
-```
+\`\`\`
 
-## 🚀 Como visualizar
+## Como executar localmente
 
-O projeto possui uma versão publicada para consulta:
+O projeto é um front-end estático e não exige instalação de dependências via npm.
 
-🔗 [Acessar Qzverso](https://amanda-aandrade.github.io/Qzverso/)
+### 1. Clonar o repositório
 
-Para obter o código:
-
-```bash
+\`\`\`bash
 git clone https://github.com/Amanda-AAndrade/Qzverso.git
-```
+\`\`\`
 
-Entre na pasta:
+### 2. Entrar na pasta
 
-```bash
+\`\`\`bash
 cd Qzverso
-```
+\`\`\`
 
-Abra o arquivo `index.html` no navegador ou utilize a extensão Live Server do Visual Studio Code.
+### 3. Iniciar um servidor local
 
-> Observação: funcionalidades que dependam de backend não estarão disponíveis apenas com a abertura dos arquivos estáticos. A integração deverá ser configurada conforme o ambiente de execução.
+Com Python 3:
 
-## 🧭 Roadmap
+**Windows**
+\`\`\`powershell
+py -m http.server 5500
+\`\`\`
 
-- [x] Criação do repositório e estrutura inicial do frontend.
-- [x] Desenvolvimento inicial da identidade visual.
-- [ ] Refinamento da interface e responsividade.
-- [ ] Consolidação dos requisitos do sistema.
-- [ ] Modelagem do banco de dados.
-- [ ] Desenvolvimento e integração do backend.
-- [ ] Implementação da área administrativa.
-- [ ] Integração com as informações das parcerias.
-- [ ] Realização de testes com as escritoras e leitores convidados.
-- [ ] Evolução e documentação da versão validada.
+**Linux ou macOS**
+\`\`\`bash
+python3 -m http.server 5500
+\`\`\`
 
-## 👩‍💻 Desenvolvimento
+### 4. Abrir no navegador
 
-**Desenvolvedora:** Amanda Anália da Silva Andrade
+\`\`\`text
+http://localhost:5500
+\`\`\`
 
-Projeto desenvolvido no contexto da graduação em Engenharia de Software, com foco em desenvolvimento web, arquitetura de software, organização de dados e construção de soluções digitais.
+Também é possível abrir a pasta no Visual Studio Code e executar o projeto com a extensão Live Server.
 
-## 📖 Créditos e direitos autorais
+## Comandos úteis de desenvolvimento
 
-O código-fonte está identificado sob Apache License 2.0, conforme os termos do arquivo `LICENSE`.
+Verificar alterações locais:
 
-As histórias, personagens originais, sinopses, capas, artes, marcas e demais conteúdos criativos pertencem às suas respectivas titulares, conforme as autorizações e os direitos aplicáveis.
+\`\`\`bash
+git status
+\`\`\`
 
-Elementos associados a artistas e obras de terceiros devem respeitar os direitos de seus respectivos titulares.
+Atualizar a cópia local antes de começar:
+
+\`\`\`bash
+git pull origin main
+\`\`\`
+
+Verificar a sintaxe do JavaScript com Node.js:
+
+\`\`\`bash
+node --check app.js
+\`\`\`
+
+Adicionar e registrar alterações:
+
+\`\`\`bash
+git add .
+git commit -m "feat: aprimora portal Qzverso"
+git push origin main
+\`\`\`
+
+Não é necessário executar \`npm install\` nesta versão, pois o projeto não possui dependências instaladas por npm nem um processo de build.
+
+## Integração futura com API
+
+O front-end aceita uma URL de API opcional. Para habilitar as rotas de autenticação e gerenciamento, configure \`window.QZVERSO_CONFIG\` antes de carregar \`app.js\` no final de \`index.html\`:
+
+\`\`\`html
+<script>
+  window.QZVERSO_CONFIG = {
+    apiUrl: "https://SEU-DOMINIO/api"
+  };
+</script>
+<script src="app.js"></script>
+\`\`\`
+
+A API deverá disponibilizar, no mínimo, as rotas consumidas pelo front-end:
+- \`GET /historias\`
+- \`POST /auth/login\`
+- \`POST /auth/registro\`
+- \`POST /historias\` para publicação autenticada
+
+O servidor também deverá permitir requisições CORS originadas do domínio publicado do Qzverso. Utilize HTTPS no ambiente público. Não coloque senhas, chaves privadas ou credenciais no JavaScript do navegador.
+
+Enquanto a API não estiver configurada, a página utiliza o catálogo demonstrativo e mantém indisponíveis as operações que exigem conta ou persistência.
+
+## Publicação no GitHub Pages
+
+O projeto pode ser publicado como site estático:
+
+1. Abra **Settings → Pages** no repositório.
+2. Em **Build and deployment**, selecione **Deploy from a branch**.
+3. Escolha a branch \`main\` e a pasta \`/ (root)\`.
+4. Salve e aguarde a publicação automática do GitHub Pages.
+
+Endereço público:
+
+[https://amanda-aandrade.github.io/Qzverso/](https://amanda-aandrade.github.io/Qzverso/)
+
+## Próximas etapas
+
+- [x] Consolidar a estrutura inicial do front-end.
+- [x] Refinar a identidade visual e a navegação.
+- [x] Implementar busca, filtros e modal de detalhes.
+- [x] Organizar a apresentação do ecossistema parceiro.
+- [ ] Validar o catálogo e os metadados de todas as obras com as escritoras.
+- [ ] Definir contratos e requisitos da API.
+- [ ] Modelar e implementar persistência de dados.
+- [ ] Implementar autenticação e autorização no backend.
+- [ ] Concluir o painel administrativo e a importação DOCX.
+- [ ] Implementar perfil, preferências e regras de classificação indicativa.
+- [ ] Adicionar testes automatizados e documentação da API.
+
+## Créditos e direitos
+
+**Desenvolvimento:** Amanda Andrade.
+
+O código-fonte está identificado sob a licença Apache 2.0, conforme o arquivo \`LICENSE\`. A licença do código não transfere direitos sobre histórias, personagens, capas, ilustrações, marcas ou demais conteúdos criativos. Esses materiais pertencem às respectivas titulares e devem ser utilizados conforme as autorizações aplicáveis.
 
 ---
 
-<p align="center">
-  <strong>Qzverso — Uma história pode ser o começo de um universo inteiro.</strong>
-</p>
+<p align="center"><strong>Qzverso — Uma história pode ser o começo de um universo inteiro.</strong></p>
