@@ -41,7 +41,7 @@ O portal não hospeda os capítulos completos. Sua função é apresentar as obr
 | Modal com detalhes da obra | Implementado |
 | Redirecionamento para leitura externa | Implementado para a obra demonstrativa |
 | Apresentação de parceiros | Implementada |
-| Autenticação e cadastro | Interface preparada; depende de API |
+| Login e cadastro | Formulários estilizados, validação de confirmação de senha e chamadas preparadas; autenticação real depende de API |
 | Publicação de obras | Interface preparada; depende de API e autorização |
 | Importação de capítulos DOCX | Em desenvolvimento; não está ativa |
 | Perfil e preferências do leitor | Planejados; dependem de API e persistência |
