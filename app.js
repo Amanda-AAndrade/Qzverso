@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", inicializarAplicacao);
 
 function inicializarAplicacao() {
     checkAuthState();
-    if (document.getElementById("grid-historias")) carregarHistorias();
+    atualizarEstadoAutenticacao();
+    switchAuthMode("login");    if (document.getElementById("grid-historias")) carregarHistorias();
     if (document.getElementById("grid-parceiros")) renderizarParceiros();
 
     document.querySelectorAll(".modal-overlay").forEach(function (modal) {
@@ -217,17 +218,44 @@ function closeModal(id) {
     if (!document.querySelector('.modal-overlay[aria-hidden="false"]')) document.body.classList.remove("modal-open");
 }
 
+function atualizarEstadoAutenticacao() {
+    const status = document.getElementById("auth-status");
+    const message = document.getElementById("auth-status-text");
+    if (!status || !message) return;
+
+    const configurada = Boolean(API_URL);
+    status.classList.toggle("is-configured", configurada);
+    const icon = status.querySelector("i");
+    if (icon) icon.className = configurada ? "fa-solid fa-circle-check" : "fa-solid fa-circle-info";
+
+    message.textContent = configurada
+        ? "Endereço da API configurado. A disponibilidade do acesso depende de o serviço estar ativo."
+        : "A interface está pronta, mas entrar e criar conta só funcionarão depois que o serviço de autenticação for conectado.";
+}
+
 function switchAuthMode(mode) {
     const login = document.getElementById("form-login");
     const register = document.getElementById("form-registro");
     const loginButton = document.getElementById("btn-tab-login");
     const registerButton = document.getElementById("btn-tab-registro");
+    const title = document.getElementById("auth-title");
+    const description = document.getElementById("auth-description");
     if (!login || !register || !loginButton || !registerButton) return;
+
     const showLogin = mode === "login";
-    login.style.display = showLogin ? "block" : "none";
-    register.style.display = showLogin ? "none" : "block";
+    login.style.display = showLogin ? "grid" : "none";
+    register.style.display = showLogin ? "none" : "grid";
+    login.setAttribute("aria-hidden", String(!showLogin));
+    register.setAttribute("aria-hidden", String(showLogin));
     loginButton.classList.toggle("active", showLogin);
     registerButton.classList.toggle("active", !showLogin);
+    loginButton.setAttribute("aria-selected", String(showLogin));
+    registerButton.setAttribute("aria-selected", String(!showLogin));
+
+    if (title) title.textContent = showLogin ? "Boas-vindas de volta" : "Crie sua conta";
+    if (description) description.textContent = showLogin
+        ? "Entre para continuar explorando o universo Qzverso."
+        : "Faça parte da comunidade e descubra novas histórias.";
 }
 
 function switchDashTab(tab, button) {
@@ -265,6 +293,14 @@ async function handleRegistro(event) {
     const nome = document.getElementById("reg-nome").value.trim();
     const email = document.getElementById("reg-email").value.trim();
     const senha = document.getElementById("reg-senha").value;
+    const confirmacao = document.getElementById("reg-confirma-senha").value;
+
+    if (senha !== confirmacao) {
+        showToast("As senhas não coincidem. Confira os dois campos.", "error");
+        document.getElementById("reg-confirma-senha").focus();
+        return;
+    }
+
     try {
         await requisicaoApi("/auth/registro", {
             method: "POST",
@@ -272,8 +308,10 @@ async function handleRegistro(event) {
             body: JSON.stringify({ nome: nome, email: email, senha: senha, tipo_usuario: "leitor" })
         });
         showToast("Conta criada. Entre com seu e-mail e senha.", "success");
+        document.getElementById("form-registro").reset();
         switchAuthMode("login");
         document.getElementById("login-email").value = email;
+        document.getElementById("login-senha").value = "";
     } catch (error) { showToast(error.message, "error"); }
 }
 
