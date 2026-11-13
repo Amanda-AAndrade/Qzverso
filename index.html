@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qzverso — Portal & Hub de Divulgação Literária</title>
+    <title>Qzverso — Um Universo de Histórias</title>
+    <meta name="description" content="Descubra histórias, conheça suas escritoras e encontre os caminhos oficiais para continuar a leitura no universo Qzverso.">
+    <meta name="theme-color" content="#0a0a0f">
     <!-- Tipografia Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,14 +27,16 @@
             <!-- Barra de Busca -->
             <div class="nav-search-bar">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="input-busca" placeholder="Pesquisar obras, autoras (Qz, Julia, Marina)..." onkeyup="filtrarHistorias()">
+                <label class="sr-only" for="input-busca">Buscar histórias por título, sinopse ou escritora</label>
+                <input type="search" id="input-busca" placeholder="Buscar histórias ou escritoras..." oninput="filtrarHistorias()" autocomplete="off">
             </div>
 
             <!-- Links de Navegação -->
             <nav class="nav-menu">
                 <a href="#hero" class="nav-link active"><i class="fa-solid fa-compass"></i> Início</a>
                 <a href="#vitrine" class="nav-link"><i class="fa-solid fa-book-open"></i> Vitrine</a>
-                <a href="#parceiros" class="nav-link"><i class="fa-solid fa-store"></i> Ecossistema</a>
+                <a href="#sobre" class="nav-link"><i class="fa-solid fa-sparkles"></i> O universo</a>
+                <a href="#parceiros" class="nav-link"><i class="fa-solid fa-handshake"></i> Parcerias</a>
                 <a href="#escritoras" class="nav-link nav-escritora" id="link-escritora-nav" style="display: none;"><i class="fa-solid fa-feather-pointed"></i> Área da Escritora</a>
             </nav>
 
@@ -49,138 +53,118 @@
         </div>
     </header>
 
-    <!-- Hero Spotlight -->
+    <!-- Hero editorial -->
     <section class="hero-banner" id="hero">
         <div class="hero-overlay"></div>
-        <div class="hero-container">
-            <div class="hero-badge"><i class="fa-solid fa-star"></i> DESTAQUE DO UNIVERSO QZVERSO</div>
-            <h1 class="hero-title" id="hero-title">O Universo Literário de Qzverso</h1>
-            <div class="hero-meta">
-                <span class="meta-tag author"><i class="fa-solid fa-feather"></i> Escritoras: Qz, Julia e Marina</span>
-                <span class="meta-tag genre">Fantasia, Romance, Drama, Ação  &amp; Ficção</span>
+        <div class="hero-layout">
+            <div class="hero-container">
+                <div class="hero-badge"><i class="fa-solid fa-star"></i> UM UNIVERSO DE HISTÓRIAS</div>
+                <h1 class="hero-title">Toda história abre uma nova possibilidade.</h1>
+                <div class="hero-meta">
+                    <span class="meta-tag author"><i class="fa-solid fa-feather"></i> Qz, Julia e Marina</span>
+                    <span class="meta-tag genre">Fantasia · Romance · Drama · Ficção</span>
                 </div>
-            <p class="hero-description" id="hero-sinopse">
-                Explore uma experiência inspirada no formato de descoberta das grandes plataformas de entretenimento. 
-                Conheça capas de alto impacto, sinopses envolventes e acesse o link para ler as obras completas nas plataformas oficiais.
-            </p>
-            <div class="hero-actions">
-                <button class="btn-primary-glow" onclick="openFeaturedModal()">
-                    <i class="fa-solid fa-circle-info"></i> Ver Detalhes &amp; Onde Ler
-                </button>
-                <a href="#vitrine" class="btn-secondary-glass">
-                    <i class="fa-solid fa-layer-group"></i> Explorar Vitrine
-                </a>
+                <p class="hero-description">Descubra narrativas, conheça quem escreve e encontre os caminhos oficiais para continuar a leitura. O Qzverso aproxima histórias, escritoras e leitores em um só lugar.</p>
+                <div class="hero-actions">
+                    <a href="#vitrine" class="btn-primary-glow"><i class="fa-solid fa-book-open"></i> Explorar histórias</a>
+                    <a href="#sobre" class="btn-secondary-glass"><i class="fa-solid fa-sparkles"></i> Conhecer o Qzverso</a>
+                </div>
             </div>
+            <aside class="hero-feature" aria-label="Obra em destaque">
+                <div class="hero-feature-media">
+                    <img id="hero-feature-cover" src="qzverso.jpg" alt="Capa da obra em destaque" loading="lazy">
+                    <span class="hero-feature-kicker"><i class="fa-solid fa-bookmark"></i> EM DESTAQUE</span>
+                </div>
+                <div class="hero-feature-body">
+                    <p class="hero-feature-overline">Uma leitura para descobrir</p>
+                    <h2 id="hero-feature-title">Explore a vitrine literária</h2>
+                    <p id="hero-feature-author">Histórias de Qz, Julia e Marina</p>
+                    <a id="hero-feature-link" href="#vitrine" class="hero-feature-link">Conhecer a obra <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </aside>
         </div>
     </section>
 
     <!-- Conteúdo Principal -->
     <main class="main-layout">
-        
-        <!-- Filtros Rápidos -->
-        <section class="filter-section">
-            <div class="filter-pills">
-                <button class="pill active" onclick="filtrarCategoria('todas')">Todas as Obras</button>
-                <button class="pill" onclick="filtrarCategoria('Qz')"><i class="fa-solid fa-user-pen"></i> Obras da Qz</button>
-                <button class="pill" onclick="filtrarCategoria('julia')"><i class="fa-solid fa-user-pen"></i> Obras da Julia</button>
-                <button class="pill" onclick="filtrarCategoria('marina')"><i class="fa-solid fa-user-pen"></i> Obras da Marina</button>
-                </div>
+        <section class="discovery-strip" aria-label="Como funciona o Qzverso">
+            <article class="discovery-item"><span class="discovery-icon"><i class="fa-solid fa-compass"></i></span><div><h2>Descubra</h2><p>Encontre histórias por título, sinopse ou escritora.</p></div></article>
+            <article class="discovery-item"><span class="discovery-icon"><i class="fa-solid fa-book-open"></i></span><div><h2>Conheça</h2><p>Veja detalhes e conheça o universo de cada obra.</p></div></article>
+            <article class="discovery-item"><span class="discovery-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span><div><h2>Continue a leitura</h2><p>Acesse a plataforma oficial de publicação.</p></div></article>
         </section>
 
-        <!-- Vitrine de Histórias -->
         <section id="vitrine" class="section-container">
-            <div class="section-header">
-                <h2><i class="fa-solid fa-fire-flame-curated"></i> Vitrine de Histórias</h2>
-                <p>Descubra novas obras, leia as sinopses e acesse o link de redirecionamento para a leitura integral no local oficial.</p>
+            <div class="section-heading-row">
+                <div class="section-header">
+                    <span class="section-eyebrow">CATÁLOGO LITERÁRIO</span>
+                    <h2><i class="fa-solid fa-book-open"></i> Vitrine de Histórias</h2>
+                    <p>Uma seleção de narrativas para encontrar sua próxima leitura.</p>
+                </div>
+                <p class="catalog-status" id="catalog-status" aria-live="polite">Carregando histórias...</p>
             </div>
+            <div class="filter-section">
+                <div class="filter-pills" role="group" aria-label="Filtrar histórias por escritora">
+                    <button type="button" class="pill active" onclick="filtrarCategoria('todas', this)">Todas as obras</button>
+                    <button type="button" class="pill" onclick="filtrarCategoria('qz', this)"><i class="fa-solid fa-pen-nib"></i> Qz</button>
+                    <button type="button" class="pill" onclick="filtrarCategoria('julia', this)"><i class="fa-solid fa-pen-nib"></i> Julia</button>
+                    <button type="button" class="pill" onclick="filtrarCategoria('marina', this)"><i class="fa-solid fa-pen-nib"></i> Marina</button>
+                    <button type="button" class="pill pill-clear" onclick="limparBusca()"><i class="fa-solid fa-rotate-left"></i> Limpar filtros</button>
+                </div>
+            </div>
+            <div class="story-grid" id="grid-historias" aria-live="polite"></div>
+        </section>
 
-            <div class="story-grid" id="grid-historias">
-                <!-- Renderizado via app.js -->
+        <section id="sobre" class="manifesto-section">
+            <div class="manifesto-copy">
+                <span class="section-eyebrow">ALÉM DAS PÁGINAS</span>
+                <h2>Histórias conectam pessoas. Universos aproximam leitores.</h2>
+                <p>O Qzverso nasceu da paixão por narrativas e da vontade de dar mais espaço às histórias e a quem as escreve. O que começou como uma inspiração compartilhada cresceu para se tornar um universo criativo próprio.</p>
+                <p>Este portal funciona como ponto de descoberta: reúne informações sobre as obras e direciona cada leitor à plataforma responsável pela publicação integral.</p>
+                <a href="#vitrine" class="text-link">Encontrar uma história <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <div class="manifesto-art" aria-hidden="true">
+                <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+                <div class="manifesto-symbol"><i class="fa-solid fa-book-open-reader"></i></div>
+                <span class="manifesto-word word-one">imaginação</span><span class="manifesto-word word-two">conexão</span><span class="manifesto-word word-three">narrativa</span>
             </div>
         </section>
 
-        <!-- Parceiros e Produtos -->
         <section id="parceiros" class="section-container">
             <div class="section-header">
-                <h2><i class="fa-solid fa-handshake"></i> Parceiros &amp; Ecossistema Literário</h2>
-                <p>Divulgação de iniciativas, editoras parceiras e colaboradores do universo literário.</p>
+                <span class="section-eyebrow">CONEXÕES DO UNIVERSO</span>
+                <h2><i class="fa-solid fa-handshake"></i> Ecossistema &amp; Parcerias</h2>
+                <p>Conheça iniciativas que fazem parte da experiência Qzverso.</p>
             </div>
-
             <div class="partner-grid" id="grid-parceiros"></div>
-
-            <div class="section-header mt-5">
-                <h2><i class="fa-solid fa-bag-shopping"></i> Produtos &amp; Projetos</h2>
-                <p>Marcadores colecionáveis, exemplares físicos e produtos parceiros.</p>
-            </div>
-
-            <div class="product-grid" id="grid-produtos"></div>
         </section>
 
-        <!-- Painel da Escritora -->
         <section id="escritoras" class="section-container" style="display: none;">
             <div class="dashboard-card">
                 <div class="dashboard-header">
+                    <span class="section-eyebrow">ÁREA RESTRITA</span>
                     <h2><i class="fa-solid fa-feather-pointed"></i> Painel da Escritora</h2>
-                    <p>Gestão e publicação de obras literárias para Qz, Julia e Marina com importador automático de capítulos (.docx).</p>
+                    <p>Área reservada para gestão e publicação de obras. A disponibilidade depende da integração com a API do projeto.</p>
                 </div>
-
                 <div class="tab-buttons">
-                    <button class="tab-btn active" onclick="switchDashTab('nova-obra')"><i class="fa-solid fa-plus"></i> Publicar Nova Obra</button>
-                    <button class="tab-btn" onclick="switchDashTab('importar-docx')"><i class="fa-solid fa-file-word"></i> Importar Capítulo (.DOCX)</button>
+                    <button type="button" class="tab-btn active" onclick="switchDashTab('nova-obra', this)"><i class="fa-solid fa-plus"></i> Nova obra</button>
+                    <button type="button" class="tab-btn" onclick="switchDashTab('importar-docx', this)"><i class="fa-solid fa-file-word"></i> Importação DOCX</button>
                 </div>
-
                 <div class="tab-content active" id="tab-nova-obra">
                     <form id="form-nova-obra" onsubmit="handleNovaObra(event)">
-                        <div class="form-group">
-                            <label><i class="fa-solid fa-heading"></i> Título da Obra</label>
-                            <input type="text" id="obra-titulo" placeholder="Ex: O Segredo de Qzverso" required>
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fa-solid fa-align-left"></i> Sinopse Envolvente</label>
-                            <textarea id="obra-sinopse" rows="4" placeholder="Escreva uma sinopse fascinante..." required></textarea>
-                        </div>
+                        <div class="form-group"><label for="obra-titulo"><i class="fa-solid fa-heading"></i> Título da obra</label><input type="text" id="obra-titulo" placeholder="Ex.: O Segredo de Qzverso" required></div>
+                        <div class="form-group"><label for="obra-sinopse"><i class="fa-solid fa-align-left"></i> Sinopse</label><textarea id="obra-sinopse" rows="4" placeholder="Apresente sua história..." required></textarea></div>
                         <div class="form-row">
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-image"></i> URL da Capa (Imagem)</label>
-                                <input type="url" id="obra-capa" placeholder="https://exemplo.com/capa.jpg">
-                            </div>
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-link"></i> Link Externo para Leitura Integral</label>
-                                <input type="url" id="obra-link" placeholder="https://plataformadeleitura.com/sua-obra" required>
-                            </div>
+                            <div class="form-group"><label for="obra-capa"><i class="fa-solid fa-image"></i> URL da capa</label><input type="url" id="obra-capa" placeholder="https://exemplo.com/capa.jpg"></div>
+                            <div class="form-group"><label for="obra-link"><i class="fa-solid fa-link"></i> Link oficial de leitura</label><input type="url" id="obra-link" placeholder="https://..." required></div>
                         </div>
-                        <button type="submit" class="btn-primary-glow w-100"><i class="fa-solid fa-paper-plane"></i> Publicar Obra na Vitrine</button>
+                        <button type="submit" class="btn-primary-glow w-100"><i class="fa-solid fa-paper-plane"></i> Publicar obra</button>
                     </form>
                 </div>
-
                 <div class="tab-content" id="tab-importar-docx" style="display: none;">
-                    <form id="form-docx" onsubmit="handleImportarDocx(event)">
-                        <div class="form-group">
-                            <label><i class="fa-solid fa-book"></i> Selecione a Obra</label>
-                            <select id="docx-select-historia" required>
-                                <option value="">Carregando obras...</option>
-                            </select>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-list-ol"></i> Número do Capítulo</label>
-                                <input type="number" id="docx-numero" min="1" value="1" required>
-                            </div>
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-font"></i> Título do Capítulo (Opcional)</label>
-                                <input type="text" id="docx-titulo" placeholder="Ex: Capítulo 1 — O Portal">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fa-solid fa-file-word"></i> Arquivo Word (.docx)</label>
-                            <input type="file" id="docx-file" accept=".docx" required>
-                        </div>
-                        <button type="submit" class="btn-primary-glow w-100"><i class="fa-solid fa-cloud-arrow-up"></i> Processar &amp; Salvar Capítulo</button>
-                    </form>
+                    <div class="development-note"><i class="fa-solid fa-code"></i><div><strong>Importação de capítulos em desenvolvimento</strong><p>O fluxo de leitura de arquivos .docx ainda depende da implementação e integração do serviço de backend. O recurso não está ativo nesta versão do portal.</p></div></div>
                 </div>
             </div>
         </section>
-
     </main>
 
     <!-- Rodapé Completo -->
@@ -203,7 +187,8 @@
                 <h4>Navegação</h4>
                 <a href="#hero">Início</a>
                 <a href="#vitrine">Vitrine Literária</a>
-                <a href="#parceiros">Ecossistema &amp; Produtos</a>
+                <a href="#sobre">Sobre o Qzverso</a>
+                <a href="#parceiros">Parcerias</a>
             </div>
             <div class="footer-social">
                 <h4>Escritoras Oficiais</h4>
@@ -236,6 +221,7 @@
                 <button class="auth-tab-btn" id="btn-tab-registro" onclick="switchAuthMode('registro')">Criar Conta</button>
             </div>
 
+            <p class="auth-note">O acesso a contas depende da conexão com o serviço de autenticação do projeto.</p>
             <form id="form-login" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label><i class="fa-solid fa-envelope"></i> E-mail</label>
@@ -258,14 +244,9 @@
         <label><i class="fa-solid fa-envelope"></i> E-mail</label>
         <input type="email" id="reg-email" placeholder="seuemail@exemplo.com" required>
     </div>
-    <!-- NOVO CAMPO DE DATA DE NASCIMENTO -->
-    <div class="form-group">
-        <label><i class="fa-solid fa-cake-candles"></i> Data de Nascimento</label>
-        <input type="date" id="reg-data-nascimento" required>
-    </div>
     <div class="form-group">
         <label><i class="fa-solid fa-lock"></i> Senha</label>
-        <input type="password" id="reg-senha" placeholder="Mínimo 6 caracteres" required>
+        <input type="password" id="reg-senha" placeholder="Mínimo 6 caracteres" minlength="6" required>
     </div>
     <button type="submit" class="btn-primary-glow w-100">
         <i class="fa-solid fa-user-plus"></i> Criar Minha Conta
@@ -274,6 +255,7 @@
         </div>
     </div>
 
+    <div id="app-toast" class="app-toast" role="status" aria-live="polite"></div>
     <script src="app.js"></script>
 </body>
 </html>
