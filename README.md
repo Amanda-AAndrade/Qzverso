@@ -46,7 +46,7 @@ O portal não hospeda os capítulos completos. Sua função é apresentar as obr
 | Importação de capítulos DOCX | Em desenvolvimento; não está ativa |
 | Perfil e preferências do leitor | Planejados; dependem de API e persistência |
 
-> **Importante:** o repositório contém atualmente o front-end. Não há serviço de backend ou banco de dados versionado nesta estrutura. Sem a configuração de uma API compatível, login, cadastro e publicação não funcionam. O catálogo público utiliza dados demonstrativos definidos em \`app.js\`.
+> **Importante:** o repositório contém atualmente o front-end. Não há serviço de backend ou banco de dados versionado nesta estrutura. Sem a configuração de uma API compatível, login, cadastro e publicação não funcionam. O catálogo público utiliza dados demonstrativos definidos em `app.js`.
 
 ## Tecnologias
 
@@ -63,7 +63,7 @@ Frameworks de backend, banco de dados e infraestrutura não devem ser considerad
 
 ## Estrutura de arquivos
 
-\`\`\`text
+```text
 Qzverso/
 ├── index.html      # Página principal e estrutura do portal
 ├── perfil.html     # Página informativa da área de perfil
@@ -73,7 +73,7 @@ Qzverso/
 ├── README.md       # Documentação
 ├── LICENSE         # Licença
 └── .gitignore
-\`\`\`
+```
 
 ## Como executar localmente
 
@@ -81,35 +81,35 @@ O projeto é um front-end estático e não exige instalação de dependências v
 
 ### 1. Clonar o repositório
 
-\`\`\`bash
+```bash
 git clone https://github.com/Amanda-AAndrade/Qzverso.git
-\`\`\`
+```
 
 ### 2. Entrar na pasta
 
-\`\`\`bash
+```bash
 cd Qzverso
-\`\`\`
+```
 
 ### 3. Iniciar um servidor local
 
 Com Python 3:
 
 **Windows**
-\`\`\`powershell
+```powershell
 py -m http.server 5500
-\`\`\`
+```
 
 **Linux ou macOS**
-\`\`\`bash
+```bash
 python3 -m http.server 5500
-\`\`\`
+```
 
 ### 4. Abrir no navegador
 
-\`\`\`text
+```text
 http://localhost:5500
-\`\`\`
+```
 
 Também é possível abrir a pasta no Visual Studio Code e executar o projeto com a extensão Live Server.
 
@@ -117,50 +117,50 @@ Também é possível abrir a pasta no Visual Studio Code e executar o projeto co
 
 Verificar alterações locais:
 
-\`\`\`bash
+```bash
 git status
-\`\`\`
+```
 
 Atualizar a cópia local antes de começar:
 
-\`\`\`bash
+```bash
 git pull origin main
-\`\`\`
+```
 
 Verificar a sintaxe do JavaScript com Node.js:
 
-\`\`\`bash
+```bash
 node --check app.js
-\`\`\`
+```
 
 Adicionar e registrar alterações:
 
-\`\`\`bash
+```bash
 git add .
 git commit -m "feat: aprimora portal Qzverso"
 git push origin main
-\`\`\`
+```
 
-Não é necessário executar \`npm install\` nesta versão, pois o projeto não possui dependências instaladas por npm nem um processo de build.
+Não é necessário executar `npm install` nesta versão, pois o projeto não possui dependências instaladas por npm nem um processo de build.
 
 ## Integração futura com API
 
-O front-end aceita uma URL de API opcional. Para habilitar as rotas de autenticação e gerenciamento, configure \`window.QZVERSO_CONFIG\` antes de carregar \`app.js\` no final de \`index.html\`:
+O front-end aceita uma URL de API opcional. Para habilitar as rotas de autenticação e gerenciamento, configure `window.QZVERSO_CONFIG` antes de carregar `app.js` no final de `index.html`:
 
-\`\`\`html
+```html
 <script>
   window.QZVERSO_CONFIG = {
     apiUrl: "https://SEU-DOMINIO/api"
   };
 </script>
 <script src="app.js"></script>
-\`\`\`
+```
 
 A API deverá disponibilizar, no mínimo, as rotas consumidas pelo front-end:
-- \`GET /historias\`
-- \`POST /auth/login\`
-- \`POST /auth/registro\`
-- \`POST /historias\` para publicação autenticada
+- `GET /historias`
+- `POST /auth/login`
+- `POST /auth/registro`
+- `POST /historias` para publicação autenticada
 
 O servidor também deverá permitir requisições CORS originadas do domínio publicado do Qzverso. Utilize HTTPS no ambiente público. Não coloque senhas, chaves privadas ou credenciais no JavaScript do navegador.
 
@@ -172,7 +172,7 @@ O projeto pode ser publicado como site estático:
 
 1. Abra **Settings → Pages** no repositório.
 2. Em **Build and deployment**, selecione **Deploy from a branch**.
-3. Escolha a branch \`main\` e a pasta \`/ (root)\`.
+3. Escolha a branch `main` e a pasta `/ (root)`.
 4. Salve e aguarde a publicação automática do GitHub Pages.
 
 Endereço público:
@@ -197,7 +197,7 @@ Endereço público:
 
 **Desenvolvimento:** Amanda Andrade.
 
-O código-fonte está identificado sob a licença Apache 2.0, conforme o arquivo \`LICENSE\`. A licença do código não transfere direitos sobre histórias, personagens, capas, ilustrações, marcas ou demais conteúdos criativos. Esses materiais pertencem às respectivas titulares e devem ser utilizados conforme as autorizações aplicáveis.
+O código-fonte está identificado sob a licença Apache 2.0, conforme o arquivo `LICENSE`. A licença do código não transfere direitos sobre histórias, personagens, capas, ilustrações, marcas ou demais conteúdos criativos. Esses materiais pertencem às respectivas titulares e devem ser utilizados conforme as autorizações aplicáveis.
 
 ---
 
