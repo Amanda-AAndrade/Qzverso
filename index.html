@@ -212,46 +212,57 @@
         </div>
     </div>
 
-    <div id="modal-auth" class="modal-overlay">
-        <div class="modal-glass modal-auth-box">
-            <button class="modal-close" onclick="closeModal('modal-auth')">&times;</button>
-            
-            <div class="auth-tabs">
-                <button class="auth-tab-btn active" id="btn-tab-login" onclick="switchAuthMode('login')">Entrar</button>
-                <button class="auth-tab-btn" id="btn-tab-registro" onclick="switchAuthMode('registro')">Criar Conta</button>
+    <div id="modal-auth" class="modal-overlay" aria-hidden="true">
+        <div class="modal-glass modal-auth-box" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+            <button type="button" class="modal-close" onclick="closeModal('modal-auth')" aria-label="Fechar janela de autenticação">&times;</button>
+
+            <div class="auth-heading">
+                <span class="auth-eyebrow">QZVERSO · ÁREA DE LEITORES</span>
+                <h2 id="auth-title">Boas-vindas de volta</h2>
+                <p id="auth-description">Entre para continuar explorando o universo Qzverso.</p>
             </div>
 
-            <p class="auth-note">O acesso a contas depende da conexão com o serviço de autenticação do projeto.</p>
-            <form id="form-login" onsubmit="handleLogin(event)">
+            <div class="auth-tabs" role="tablist" aria-label="Escolha uma opção de acesso">
+                <button type="button" class="auth-tab-btn active" id="btn-tab-login" role="tab" aria-selected="true" aria-controls="form-login" onclick="switchAuthMode('login')">Entrar</button>
+                <button type="button" class="auth-tab-btn" id="btn-tab-registro" role="tab" aria-selected="false" aria-controls="form-registro" onclick="switchAuthMode('registro')">Criar conta</button>
+            </div>
+
+            <div class="auth-status-note" id="auth-status" role="status" aria-live="polite">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span id="auth-status-text">A autenticação depende da conexão com o serviço do projeto.</span>
+            </div>
+
+            <form id="form-login" class="auth-form" role="tabpanel" aria-labelledby="btn-tab-login" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label><i class="fa-solid fa-envelope"></i> E-mail</label>
-                    <input type="email" id="login-email" placeholder="seuemail@exemplo.com" required>
+                    <label for="login-email"><i class="fa-solid fa-envelope" aria-hidden="true"></i> E-mail</label>
+                    <input type="email" id="login-email" name="email" placeholder="seuemail@exemplo.com" autocomplete="email" inputmode="email" required>
                 </div>
                 <div class="form-group">
-                    <label><i class="fa-solid fa-lock"></i> Senha</label>
-                    <input type="password" id="login-senha" placeholder="••••••••" required>
+                    <label for="login-senha"><i class="fa-solid fa-lock" aria-hidden="true"></i> Senha</label>
+                    <input type="password" id="login-senha" name="senha" placeholder="Digite sua senha" autocomplete="current-password" required>
                 </div>
-                <button type="submit" class="btn-primary-glow w-100"><i class="fa-solid fa-right-to-bracket"></i> Acessar Portal</button>
+                <button type="submit" class="btn-primary-glow w-100 auth-submit"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i> Acessar portal</button>
             </form>
 
-<!-- Form de Registro no index.html com Data de Nascimento -->
-<form id="form-registro" onsubmit="handleRegistro(event)" style="display: none;">
-    <div class="form-group">
-        <label><i class="fa-solid fa-user"></i> Nome Completo</label>
-        <input type="text" id="reg-nome" placeholder="Seu nome completo" required>
-    </div>
-    <div class="form-group">
-        <label><i class="fa-solid fa-envelope"></i> E-mail</label>
-        <input type="email" id="reg-email" placeholder="seuemail@exemplo.com" required>
-    </div>
-    <div class="form-group">
-        <label><i class="fa-solid fa-lock"></i> Senha</label>
-        <input type="password" id="reg-senha" placeholder="Mínimo 6 caracteres" minlength="6" required>
-    </div>
-    <button type="submit" class="btn-primary-glow w-100">
-        <i class="fa-solid fa-user-plus"></i> Criar Minha Conta
-    </button>
-</form>
+            <form id="form-registro" class="auth-form" role="tabpanel" aria-labelledby="btn-tab-registro" onsubmit="handleRegistro(event)" style="display: none;" aria-hidden="true">
+                <div class="form-group">
+                    <label for="reg-nome"><i class="fa-solid fa-user" aria-hidden="true"></i> Nome completo</label>
+                    <input type="text" id="reg-nome" name="nome" placeholder="Como gostaria de ser chamada(o)?" autocomplete="name" minlength="2" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email"><i class="fa-solid fa-envelope" aria-hidden="true"></i> E-mail</label>
+                    <input type="email" id="reg-email" name="email" placeholder="seuemail@exemplo.com" autocomplete="email" inputmode="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-senha"><i class="fa-solid fa-lock" aria-hidden="true"></i> Senha</label>
+                    <input type="password" id="reg-senha" name="senha" placeholder="Crie uma senha com pelo menos 6 caracteres" autocomplete="new-password" minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-confirma-senha"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Confirmar senha</label>
+                    <input type="password" id="reg-confirma-senha" name="confirmacao-senha" placeholder="Digite a senha novamente" autocomplete="new-password" minlength="6" required>
+                </div>
+                <button type="submit" class="btn-primary-glow w-100 auth-submit"><i class="fa-solid fa-user-plus" aria-hidden="true"></i> Criar minha conta</button>
+            </form>
         </div>
     </div>
 
