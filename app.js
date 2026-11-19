@@ -410,3 +410,29 @@ function getHistoriasDemo() {
         status: "concluída"
     }];
 }
+
+}
+
+function getHistoriasDemo() {
+    return [{
+        id: "ke club",
+        titulo: "KE Club",
+        sinopse: "Entre tantos outros bares pelas ruas de Nova York, o KE Bar seria apenas mais um, se não fosse a porta de entrada do lugar perfeito para satisfazer todos os seus desejos do corpo e luxúria: O KE Club.
+
+Dona da melhor noite novaiorquina, da metade dos negócios ilícitos da cidade e de uma beleza matadora, Karla Escorpia pode ser seu melhor sonho ou seu pior pesadelo e Lauren Foster acaba de descobrir isso ao atravessar seu caminho. Como alguém que não tem nada a perder, suas escolhas são claras: 
+
+Morra por ela ou pelas mãos dela.
+
+Lauren intersexual.
+
+ATENÇÃO: Contém cenas de sexo explícito, drogas ilícitas, palavrões e violência.
+
+Esta obra utiliza nomes e imagens de pessoas públicas, mas que em nada condiz com a realidade. Todo o conteúdo narrado é totalmente fictício.",
+        capa_url: "https://assets.fanficando.com/fanficando/covers/4bb82161-367c-4f1b-980b-e2bf5d89a829.webp.",
+        link_leitura_externo: "https://www.fanficando.com/story/653",
+        escritora_nome: "Qz,Marina e Qzverso ",
+        visualizacoes: 1,1 mil,
+        status: "em andamento ",
+        atualizacao: "16/11/2026"
+    }];
+}
