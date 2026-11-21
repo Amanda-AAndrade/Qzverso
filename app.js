@@ -222,8 +222,8 @@ function aplicarFiltros() {
     const campo = document.getElementById("input-busca");
     const termo = normalizarTexto(campo ? campo.value : "");
     const filtradas = historiasCache.filter(function (h) {
-        const autora = normalizarTexto(h.escritora_nome || "");
-        const categoriaOk = categoriaAtual === "todas" || autora.includes(normalizarTexto(categoriaAtual));
+        const autorias = Array.isArray(h.escritoras_ids) ? h.escritoras_ids : [];
+        const categoriaOk = categoriaAtual === "todas" || autorias.includes(categoriaAtual);
         const texto = normalizarTexto([h.titulo || "", h.sinopse || "", h.escritora_nome || ""].join(" "));
         return categoriaOk && (!termo || texto.includes(termo));
     });
@@ -453,6 +453,7 @@ function getHistoriasDemo() {
             capa_url: "assets/covers/the-weather-girl.jpg",
             link_leitura_externo: "https://www.fanficando.com/story/187",
             escritora_nome: "Qz, Julia Laura e Qzverso",
+            escritoras_ids: ["qz", "julia", "qzverso"],
             status: "Concluída",
             generos: ["Comédia"],
             classificacao: "18+",
@@ -466,6 +467,7 @@ function getHistoriasDemo() {
             capa_url: "assets/covers/ke-club.jpg",
             link_leitura_externo: "https://www.fanficando.com/story/653",
             escritora_nome: "Qz, Marina e Qzverso",
+            escritoras_ids: ["qz", "marina", "qzverso"],
             status: "Em andamento",
             generos: ["Ação"],
             classificacao: "18+",
@@ -495,6 +497,7 @@ function getHistoriasDemo() {
             link_leitura_externo: "https://www.fanficando.com/author/282",
             link_tipo: "perfil",
             escritora_nome: "Julia Laura e Qzverso",
+            escritoras_ids: ["julia", "qzverso"],
             status: "Concluída",
             generos: ["Fanfic"],
             classificacao: "16",
