@@ -35,18 +35,18 @@ O portal não hospeda os capítulos completos. Sua função é apresentar as obr
 | Recurso | Situação nesta versão |
 |---|---|
 | Interface pública responsiva | Implementada |
-| Vitrine de histórias | Implementada com conteúdo demonstrativo local |
+| Vitrine de histórias | Implementada com cinco obras identificadas nos perfis Fanficando de Qz, Julia Laura e Marina |
 | Busca por título, sinopse e escritora | Implementada |
 | Filtros por escritora | Implementados |
-| Modal com detalhes da obra | Implementado |
-| Redirecionamento para leitura externa | Implementado para a obra demonstrativa |
+| Modal com detalhes da obra | Implementado com sinopse, autoria, status, gênero, classificação etária e capítulos disponíveis |
+| Redirecionamento para leitura externa | Implementado; duas obras têm link direto confirmado e as demais direcionam ao perfil da escritora no Fanficando |
 | Apresentação de parceiros | Implementada |
 | Login e cadastro | Formulários estilizados, validação de confirmação de senha e chamadas preparadas; autenticação real depende de API |
 | Publicação de obras | Interface preparada; depende de API e autorização |
 | Importação de capítulos DOCX | Em desenvolvimento; não está ativa |
 | Perfil e preferências do leitor | Planejados; dependem de API e persistência |
 
-> **Importante:** o repositório contém atualmente o front-end. Não há serviço de backend ou banco de dados versionado nesta estrutura. Sem a configuração de uma API compatível, login, cadastro e publicação não funcionam. O catálogo público utiliza dados demonstrativos definidos em `app.js`.
+> **Importante:** o repositório contém atualmente o front-end. Não há serviço de backend ou banco de dados versionado nesta estrutura. Sem a configuração de uma API compatível, login, cadastro e publicação não funcionam. O catálogo público é montado localmente pela função `getHistoriasDemo()` em `app.js`. Os dados foram organizados a partir das capturas dos perfis públicos do Fanficando fornecidas para esta atualização. Visualizações e curtidas não são exibidas porque não estavam disponíveis de forma legível nas capturas; esses números não foram estimados. Quando a prévia de uma sinopse estava truncada no perfil, o modal informa que se trata de um trecho. As capas desta primeira versão foram recortadas das capturas fornecidas e podem ser substituídas pelas imagens originais em maior resolução.
 
 ## Tecnologias
 
@@ -70,6 +70,8 @@ Qzverso/
 ├── styles.css      # Identidade visual e responsividade
 ├── app.js          # Busca, filtros, catálogo, modais e integração opcional
 ├── qzverso.jpg     # Símbolo visual do projeto
+├── assets/
+│   └── covers/    # Capas das cinco histórias cadastradas na vitrine
 ├── README.md       # Documentação
 ├── LICENSE         # Licença
 └── .gitignore
@@ -185,7 +187,9 @@ Endereço público:
 - [x] Refinar a identidade visual e a navegação.
 - [x] Implementar busca, filtros e modal de detalhes.
 - [x] Organizar a apresentação do ecossistema parceiro.
-- [ ] Validar o catálogo e os metadados de todas as obras com as escritoras.
+- [x] Cadastrar as cinco histórias visíveis nos perfis Fanficando fornecidos.
+- [ ] Substituir os recortes das capas pelos arquivos originais em alta resolução.
+- [ ] Completar links diretos, sinopses integrais e estatísticas quando disponíveis.
 - [ ] Definir contratos e requisitos da API.
 - [ ] Modelar e implementar persistência de dados.
 - [ ] Implementar autenticação e autorização no backend.
