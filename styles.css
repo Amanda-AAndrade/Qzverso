@@ -364,19 +364,26 @@ h1, h2, h3, h4, .brand-name {
 .card-cover-wrapper {
     position: relative;
     width: 100%;
-    height: 320px;
+    aspect-ratio: 2 / 3;
+    height: auto;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #09080f;
 }
 
 .card-cover-img {
+    display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.35s ease;
 }
 
 .story-card:hover .card-cover-img {
-    transform: scale(1.08);
+    transform: scale(1.025);
 }
 
 .card-platform-badge {
@@ -634,7 +641,8 @@ h1, h2, h3, h4, .brand-name {
 .card-cover-img, .modal-cover-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
 }
 
 
@@ -800,7 +808,9 @@ h1, h2, h3, h4, .brand-name {
 .hero-feature{width:min(100%,410px);justify-self:end;padding:1rem;border:1px solid rgba(192,132,252,.3);border-radius:24px;background:linear-gradient(155deg,rgba(34,24,48,.88),rgba(14,14,23,.94));box-shadow:0 24px 70px rgba(0,0,0,.38),0 0 40px rgba(147,51,234,.13);backdrop-filter:blur(16px);transform:rotate(1deg)}
 .hero-feature-media{position:relative;height:245px;overflow:hidden;border-radius:16px;background:radial-gradient(circle at 50% 35%,rgba(192,132,252,.25),rgba(10,10,15,.95))}
 .hero-feature-media::after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(10,10,15,.65));pointer-events:none}
-.hero-feature-media img{width:100%;height:100%;display:block;object-fit:cover}
+.hero-feature-media{background:#09080f}
+.hero-feature-media::after{display:none}
+.hero-feature-media img{width:100%;height:100%;display:block;object-fit:contain;object-position:center}
 .hero-feature-kicker{position:absolute;z-index:1;top:14px;left:14px;display:inline-flex;align-items:center;gap:.45rem;padding:.42rem .72rem;border:1px solid rgba(255,255,255,.2);border-radius:30px;background:rgba(10,10,15,.65);color:#ead7ff;font-size:.68rem;font-weight:800;letter-spacing:.09em}
 .hero-feature-body{padding:1.05rem .35rem .35rem}
 .hero-feature-overline,.section-eyebrow,.partner-type{color:var(--primary-glow);font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
