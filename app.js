@@ -85,12 +85,23 @@ function renderizarHistorias(lista) {
         const autora = escapeHtml(h.escritora_nome || "Escritora Qzverso");
         const sinopse = escapeHtml(h.sinopse || "Sinopse ainda não cadastrada.");
         const capa = escapeHtml(obterImagemSegura(h.capa_url) || "qzverso.jpg");
-        const total = Number(h.visualizacoes);
-        const acessos = Number.isFinite(total) ? total.toLocaleString("pt-BR") : "0";
+        const status = h.status ? '<span class="story-meta-chip story-status">' + escapeHtml(h.status) + '</span>' : "";
+        const generos = Array.isArray(h.generos) ? h.generos.filter(Boolean).map(function (genero) {
+            return '<span class="story-meta-chip">' + escapeHtml(genero) + '</span>';
+        }).join("") : "";
+        const visualizacoes = h.visualizacoes_texto || (Number.isFinite(Number(h.visualizacoes)) ? Number(h.visualizacoes).toLocaleString("pt-BR") : "");
+        const metricas = [];
+        if (visualizacoes) metricas.push('<span><i class="fa-solid fa-eye"></i> ' + escapeHtml(visualizacoes) + ' visualizações</span>');
+        if (h.curtidas_texto || h.curtidas != null) metricas.push('<span><i class="fa-solid fa-heart"></i> ' + escapeHtml(h.curtidas_texto || Number(h.curtidas).toLocaleString("pt-BR")) + ' curtidas</span>');
+        if (h.classificacao_texto || h.classificacao != null) metricas.push('<span><i class="fa-solid fa-star"></i> ' + escapeHtml(h.classificacao_texto || String(h.classificacao)) + '</span>');
+        const metadados = status || generos ? '<div class="story-meta-row">' + status + generos + '</div>' : "";
+        const metricasHtml = metricas.length ? '<div class="story-metrics">' + metricas.join("") + '</div>' : "";
+
         return '<article class="story-card"><button type="button" class="story-card-button" data-story-id="' + id + '" aria-label="Ver detalhes de ' + titulo + '">' +
             '<div class="card-cover-wrapper"><img src="' + capa + '" class="card-cover-img" alt="Capa de ' + titulo + '" loading="lazy"><span class="card-platform-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> Leitura externa</span></div>' +
             '<div class="card-body"><div class="card-title-text">' + titulo + '</div><div class="card-author-text"><i class="fa-solid fa-pen-nib"></i> ' + autora + '</div>' +
-            '<div class="card-synopsis-snippet">' + sinopse + '</div><div class="card-footer-action"><span><i class="fa-solid fa-eye"></i> ' + acessos + ' acessos</span><span>Ver detalhes <i class="fa-solid fa-arrow-right"></i></span></div></div>' +
+            metadados + '<div class="card-synopsis-snippet">' + sinopse + '</div>' + metricasHtml +
+            '<div class="card-footer-action"><span>Fanficando</span><span>Ver detalhes <i class="fa-solid fa-arrow-right"></i></span></div></div>' +
             '</button></article>';
     }).join("");
 
@@ -141,9 +152,25 @@ function openHistoriaModal(id) {
         ? '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer" class="btn-primary-glow modal-read-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ler na plataforma oficial</a>'
         : '<p class="development-note"><i class="fa-solid fa-circle-info"></i> O link oficial de leitura ainda não foi cadastrado.</p>';
 
+    const metadados = [];
+    if (h.status) metadados.push('<span class="story-meta-chip story-status">' + escapeHtml(h.status) + '</span>');
+    if (Array.isArray(h.generos)) h.generos.filter(Boolean).forEach(function (genero) {
+        metadados.push('<span class="story-meta-chip">' + escapeHtml(genero) + '</span>');
+    });
+    if (h.atualizacao) metadados.push('<span class="story-meta-chip">Atualizada em ' + escapeHtml(h.atualizacao) + '</span>');
+
+    const metricas = [];
+    const visualizacoes = h.visualizacoes_texto || (Number.isFinite(Number(h.visualizacoes)) ? Number(h.visualizacoes).toLocaleString("pt-BR") : "");
+    if (visualizacoes) metricas.push('<span><i class="fa-solid fa-eye"></i> ' + escapeHtml(visualizacoes) + ' visualizações</span>');
+    if (h.curtidas_texto || h.curtidas != null) metricas.push('<span><i class="fa-solid fa-heart"></i> ' + escapeHtml(h.curtidas_texto || Number(h.curtidas).toLocaleString("pt-BR")) + ' curtidas</span>');
+    if (h.classificacao_texto || h.classificacao != null) metricas.push('<span><i class="fa-solid fa-star"></i> ' + escapeHtml(h.classificacao_texto || String(h.classificacao)) + '</span>');
+
     conteudo.innerHTML = '<div class="modal-cover"><img src="' + capa + '" class="modal-cover-img" alt="Capa de ' + titulo + '"></div>' +
         '<div class="modal-info"><span class="hero-badge"><i class="fa-solid fa-bookmark"></i> Obra catalogada</span><h2>' + titulo + '</h2>' +
-        '<p class="modal-author"><i class="fa-solid fa-pen-nib"></i> Por ' + autora + '</p><p class="modal-synopsis">' + sinopse + '</p>' +
+        '<p class="modal-author"><i class="fa-solid fa-pen-nib"></i> Por ' + autora + '</p>' +
+        (metadados.length ? '<div class="story-meta-row story-modal-meta">' + metadados.join("") + '</div>' : '') +
+        (metricas.length ? '<div class="story-metrics story-modal-metrics">' + metricas.join("") + '</div>' : '') +
+        '<p class="modal-synopsis">' + sinopse + '</p>' +
         '<div class="redirect-note"><i class="fa-solid fa-circle-info"></i><span>O Qzverso apresenta e divulga as obras. A leitura integral acontece na plataforma externa indicada pela autoria.</span></div>' +
         acao + '</div>';
     openModal("modal-historia");
