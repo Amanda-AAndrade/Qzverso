@@ -1114,3 +1114,300 @@ h1, h2, h3, h4, .brand-name {
         transition: none;
     }
 }
+
+/* ============================================================
+   QZVERSO — RESPONSIVIDADE MOBILE (AJUSTE DEFINITIVO)
+   Cabeçalho no fluxo da página para não cobrir o conteúdo.
+   ============================================================ */
+@media (max-width: 768px) {
+    html {
+        scroll-padding-top: 1rem;
+    }
+
+    .navbar-glass {
+        position: sticky;
+        top: 0;
+        left: auto;
+        width: 100%;
+        padding: 0.55rem 0.9rem 0.45rem;
+    }
+
+    .nav-container {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "brand actions"
+            "menu menu";
+        align-items: center;
+        justify-content: initial;
+        gap: 0.45rem 0.65rem;
+        width: 100%;
+    }
+
+    .brand-logo {
+        grid-area: brand;
+        min-width: 0;
+        gap: 0.5rem;
+    }
+
+    .brand-logo-img {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 34px;
+    }
+
+    .brand-name {
+        font-size: 1.25rem;
+        line-height: 1.1;
+        white-space: nowrap;
+    }
+
+    .nav-search-bar {
+        display: none;
+    }
+
+    .nav-actions {
+        grid-area: actions;
+        display: flex;
+        align-items: center;
+        justify-self: end;
+        margin: 0;
+    }
+
+    .btn-glow {
+        min-height: 36px;
+        padding: 0.45rem 0.85rem;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        white-space: nowrap;
+    }
+
+    .nav-menu {
+        grid-area: menu;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.55rem;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        padding: 0.1rem 0 0.15rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .nav-menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-link {
+        flex: 0 0 auto;
+        gap: 0.28rem;
+        font-size: 0.78rem;
+        line-height: 1.35;
+        white-space: nowrap;
+    }
+
+    .hero-banner {
+        min-height: 0;
+        margin-top: 0;
+        padding: 2.2rem 1rem 2.5rem;
+        background-position: center;
+    }
+
+    .hero-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.8rem;
+        width: 100%;
+    }
+
+    .hero-container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        text-align: center;
+    }
+
+    .hero-title {
+        max-width: 100%;
+        font-size: clamp(1.8rem, 6vw, 2.2rem);
+        line-height: 1.16;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-meta {
+        justify-content: center;
+    }
+
+    .hero-description {
+        max-width: 42rem;
+        margin-right: auto;
+        margin-left: auto;
+        font-size: 0.95rem;
+        line-height: 1.65;
+    }
+
+    .hero-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        width: 100%;
+        gap: 0.75rem;
+    }
+
+    .hero-actions .btn-primary-glow,
+    .hero-actions .btn-secondary-glass {
+        width: 100%;
+        min-height: 48px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero-feature {
+        width: min(100%, 430px);
+        justify-self: center;
+        transform: none;
+    }
+
+    .main-layout {
+        width: 100%;
+        margin: 1.6rem auto;
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    .discovery-strip {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.75rem;
+        margin-bottom: 3rem;
+    }
+
+    .section-container {
+        min-width: 0;
+        margin-bottom: 3rem;
+    }
+
+    .section-heading-row {
+        display: block;
+    }
+
+    .section-header h2 {
+        align-items: flex-start;
+        font-size: clamp(1.35rem, 5vw, 1.65rem);
+        line-height: 1.2;
+    }
+
+    .catalog-status {
+        margin: 0 0 1rem;
+    }
+
+    .filter-pills {
+        gap: 0.55rem;
+        padding: 0.1rem 0.1rem 0.8rem;
+        margin-bottom: 1rem;
+        overscroll-behavior-x: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pill {
+        flex: 0 0 auto;
+        padding: 0.48rem 0.85rem;
+        font-size: 0.82rem;
+    }
+
+    .pill-clear {
+        margin-left: 0;
+    }
+
+    .story-grid,
+    .partner-grid,
+    .product-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+    }
+
+    .story-card,
+    .partner-card,
+    .discovery-item {
+        min-width: 0;
+    }
+
+    .manifesto-section {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+        margin: 1rem 0 3rem;
+        padding: 1.35rem;
+    }
+
+    .manifesto-copy h2 {
+        font-size: clamp(1.65rem, 6vw, 2.15rem);
+    }
+
+    .manifesto-art {
+        min-height: 190px;
+    }
+
+    .footer-glass {
+        margin-top: 3rem;
+        padding: 2.2rem 1rem 1.2rem;
+    }
+
+    .footer-container {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.6rem;
+    }
+
+    .footer-ods {
+        align-items: flex-start;
+    }
+
+    .modal-overlay {
+        align-items: flex-start;
+        overflow-y: auto;
+        padding: 0.75rem;
+    }
+
+    .modal-glass {
+        width: 100%;
+        max-width: 100%;
+        margin: auto 0;
+        padding: 1.35rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .navbar-glass {
+        padding-right: 0.7rem;
+        padding-left: 0.7rem;
+    }
+
+    .nav-container {
+        column-gap: 0.4rem;
+    }
+
+    .nav-menu {
+        justify-content: flex-start;
+        gap: 0.75rem;
+    }
+
+    .nav-link {
+        font-size: 0.74rem;
+    }
+
+    .brand-name {
+        font-size: 1.16rem;
+    }
+
+    .btn-glow {
+        padding-right: 0.72rem;
+        padding-left: 0.72rem;
+    }
+
+    .main-layout {
+        padding-right: 0.85rem;
+        padding-left: 0.85rem;
+    }
+}
