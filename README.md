@@ -18,7 +18,7 @@
 
 O **Qzverso** é um portal de descoberta e divulgação literária criado para aproximar histórias, escritoras e leitores. A plataforma reúne informações sobre as obras — como título, capa, autoria e sinopse — e direciona o público aos ambientes externos onde a leitura integral está disponível.
 
-O projeto surgiu da cultura de fãs e da criação de narrativas que se expandiram para além de uma única história. Com o tempo, esse trabalho criativo ganhou identidade própria, personagens e um universo compartilhado pelas escritoras Qz, Julia e Marina.
+O projeto surgiu da cultura de fãs e da criação de narrativas que se expandiram para além de uma única história. Com o tempo, esse trabalho criativo ganhou identidade própria, personagens e um universo compartilhado pelas escritoras Qz, Julia Laura e Marina.
 
 O portal não hospeda os capítulos completos. Sua função é apresentar as obras e facilitar o caminho até suas plataformas oficiais de publicação.
 
