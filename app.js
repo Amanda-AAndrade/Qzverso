@@ -73,7 +73,6 @@ async function carregarHistorias() {
 function renderizarHistorias(lista) {
     const grade = document.getElementById("grid-historias");
     if (!grade) return;
-
     if (!lista || !lista.length) {
         grade.innerHTML = '<div class="empty-state"><span class="empty-state-icon"><i class="fa-solid fa-book-open"></i></span><h3>Nenhuma história encontrada</h3><p>Tente outro termo ou limpe os filtros para ver todas as obras.</p><button type="button" class="btn-secondary-glass" onclick="limparBusca()">Limpar filtros</button></div>';
         return;
@@ -85,24 +84,31 @@ function renderizarHistorias(lista) {
         const autora = escapeHtml(h.escritora_nome || "Escritora Qzverso");
         const sinopse = escapeHtml(h.sinopse || "Sinopse ainda não cadastrada.");
         const capa = escapeHtml(obterImagemSegura(h.capa_url) || "qzverso.jpg");
-        const status = h.status ? '<span class="story-meta-chip story-status">' + escapeHtml(h.status) + '</span>' : "";
-        const generos = Array.isArray(h.generos) ? h.generos.filter(Boolean).map(function (genero) {
-            return '<span class="story-meta-chip">' + escapeHtml(genero) + '</span>';
-        }).join("") : "";
-        const visualizacoes = h.visualizacoes_texto || (Number.isFinite(Number(h.visualizacoes)) ? Number(h.visualizacoes).toLocaleString("pt-BR") : "");
-        const metricas = [];
-        if (visualizacoes) metricas.push('<span><i class="fa-solid fa-eye"></i> ' + escapeHtml(visualizacoes) + ' visualizações</span>');
-        if (h.curtidas_texto || h.curtidas != null) metricas.push('<span><i class="fa-solid fa-heart"></i> ' + escapeHtml(h.curtidas_texto || Number(h.curtidas).toLocaleString("pt-BR")) + ' curtidas</span>');
-        if (h.classificacao_texto || h.classificacao != null) metricas.push('<span><i class="fa-solid fa-star"></i> ' + escapeHtml(h.classificacao_texto || String(h.classificacao)) + '</span>');
-        const metadados = status || generos ? '<div class="story-meta-row">' + status + generos + '</div>' : "";
-        const metricasHtml = metricas.length ? '<div class="story-metrics">' + metricas.join("") + '</div>' : "";
+        const metadados = [];
+        if (h.status) metadados.push('<span class="story-meta-chip story-status">' + escapeHtml(h.status) + '</span>');
+        if (Array.isArray(h.generos)) h.generos.filter(Boolean).forEach(function (genero) {
+            metadados.push('<span class="story-meta-chip">' + escapeHtml(genero) + '</span>');
+        });
+        if (h.classificacao) metadados.push('<span class="story-meta-chip story-rating"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> ' + escapeHtml(h.classificacao) + '</span>');
+        if (h.capitulos != null) metadados.push('<span class="story-meta-chip"><i class="fa-solid fa-book-open" aria-hidden="true"></i> ' + escapeHtml(String(h.capitulos)) + (Number(h.capitulos) === 1 ? ' capítulo' : ' capítulos') + '</span>');
 
+        const metricas = [];
+        if (h.visualizacoes_texto || h.visualizacoes != null) {
+            const valor = h.visualizacoes_texto || Number(h.visualizacoes).toLocaleString("pt-BR");
+            metricas.push('<span><i class="fa-solid fa-eye"></i> ' + escapeHtml(valor) + ' visualizações</span>');
+        }
+        if (h.curtidas_texto || h.curtidas != null) {
+            const valor = h.curtidas_texto || Number(h.curtidas).toLocaleString("pt-BR");
+            metricas.push('<span><i class="fa-solid fa-heart"></i> ' + escapeHtml(valor) + ' curtidas</span>');
+        }
+
+        const metaHtml = metadados.length ? '<div class="story-meta-row">' + metadados.join("") + '</div>' : "";
+        const metricasHtml = metricas.length ? '<div class="story-metrics">' + metricas.join("") + '</div>' : "";
         return '<article class="story-card"><button type="button" class="story-card-button" data-story-id="' + id + '" aria-label="Ver detalhes de ' + titulo + '">' +
-            '<div class="card-cover-wrapper"><img src="' + capa + '" class="card-cover-img" alt="Capa de ' + titulo + '" loading="lazy"><span class="card-platform-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> Leitura externa</span></div>' +
+            '<div class="card-cover-wrapper"><img src="' + capa + '" class="card-cover-img" alt="Capa de ' + titulo + '" loading="lazy"><span class="card-platform-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> Fanficando</span></div>' +
             '<div class="card-body"><div class="card-title-text">' + titulo + '</div><div class="card-author-text"><i class="fa-solid fa-pen-nib"></i> ' + autora + '</div>' +
-            metadados + '<div class="card-synopsis-snippet">' + sinopse + '</div>' + metricasHtml +
-            '<div class="card-footer-action"><span>Fanficando</span><span>Ver detalhes <i class="fa-solid fa-arrow-right"></i></span></div></div>' +
-            '</button></article>';
+            metaHtml + '<div class="card-synopsis-snippet">' + sinopse + '</div>' + metricasHtml +
+            '<div class="card-footer-action"><span>Fanficando</span><span>Ver detalhes <i class="fa-solid fa-arrow-right"></i></span></div></div></button></article>';
     }).join("");
 
     grade.querySelectorAll(".story-card-button").forEach(function (button) {
@@ -148,31 +154,43 @@ function openHistoriaModal(id) {
     const sinopse = escapeHtml(h.sinopse || "Sinopse ainda não cadastrada.");
     const capa = escapeHtml(obterImagemSegura(h.capa_url) || "qzverso.jpg");
     const url = obterLinkExternoSeguro(h.link_leitura_externo);
+    const linkEhPerfil = h.link_tipo === "perfil";
     const acao = url
-        ? '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer" class="btn-primary-glow modal-read-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ler na plataforma oficial</a>'
-        : '<p class="development-note"><i class="fa-solid fa-circle-info"></i> O link oficial de leitura ainda não foi cadastrado.</p>';
+        ? '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer" class="btn-primary-glow modal-read-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> ' + (linkEhPerfil ? 'Ver perfil no Fanficando' : 'Ler no Fanficando') + '</a>'
+        : '<p class="development-note"><i class="fa-solid fa-circle-info"></i> O link externo ainda não foi cadastrado.</p>';
 
     const metadados = [];
     if (h.status) metadados.push('<span class="story-meta-chip story-status">' + escapeHtml(h.status) + '</span>');
     if (Array.isArray(h.generos)) h.generos.filter(Boolean).forEach(function (genero) {
         metadados.push('<span class="story-meta-chip">' + escapeHtml(genero) + '</span>');
     });
+    if (h.classificacao) metadados.push('<span class="story-meta-chip story-rating"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> Classificação ' + escapeHtml(h.classificacao) + '</span>');
+    if (h.capitulos != null) metadados.push('<span class="story-meta-chip"><i class="fa-solid fa-book-open" aria-hidden="true"></i> ' + escapeHtml(String(h.capitulos)) + (Number(h.capitulos) === 1 ? ' capítulo' : ' capítulos') + '</span>');
     if (h.atualizacao) metadados.push('<span class="story-meta-chip">Atualizada em ' + escapeHtml(h.atualizacao) + '</span>');
 
     const metricas = [];
-    const visualizacoes = h.visualizacoes_texto || (Number.isFinite(Number(h.visualizacoes)) ? Number(h.visualizacoes).toLocaleString("pt-BR") : "");
-    if (visualizacoes) metricas.push('<span><i class="fa-solid fa-eye"></i> ' + escapeHtml(visualizacoes) + ' visualizações</span>');
-    if (h.curtidas_texto || h.curtidas != null) metricas.push('<span><i class="fa-solid fa-heart"></i> ' + escapeHtml(h.curtidas_texto || Number(h.curtidas).toLocaleString("pt-BR")) + ' curtidas</span>');
-    if (h.classificacao_texto || h.classificacao != null) metricas.push('<span><i class="fa-solid fa-star"></i> ' + escapeHtml(h.classificacao_texto || String(h.classificacao)) + '</span>');
+    if (h.visualizacoes_texto || h.visualizacoes != null) {
+        const valor = h.visualizacoes_texto || Number(h.visualizacoes).toLocaleString("pt-BR");
+        metricas.push('<span><i class="fa-solid fa-eye"></i> ' + escapeHtml(valor) + ' visualizações</span>');
+    }
+    if (h.curtidas_texto || h.curtidas != null) {
+        const valor = h.curtidas_texto || Number(h.curtidas).toLocaleString("pt-BR");
+        metricas.push('<span><i class="fa-solid fa-heart"></i> ' + escapeHtml(valor) + ' curtidas</span>');
+    }
+
+    const observacaoSinopse = h.sinopse_completa === false
+        ? '<p class="auth-note">Trecho exibido na prévia do perfil Fanficando. Consulte o perfil para ver a sinopse completa e os dados atualizados.</p>'
+        : '';
+    const observacaoLink = linkEhPerfil
+        ? '<div class="redirect-note"><i class="fa-solid fa-circle-info"></i><span>O link abre o perfil da escritora no Fanficando. Localize a obra na lista de histórias para continuar.</span></div>'
+        : '<div class="redirect-note"><i class="fa-solid fa-circle-info"></i><span>O Qzverso apresenta e divulga as obras. A leitura integral acontece na página original no Fanficando.</span></div>';
 
     conteudo.innerHTML = '<div class="modal-cover"><img src="' + capa + '" class="modal-cover-img" alt="Capa de ' + titulo + '"></div>' +
-        '<div class="modal-info"><span class="hero-badge"><i class="fa-solid fa-bookmark"></i> Obra catalogada</span><h2>' + titulo + '</h2>' +
+        '<div class="modal-info"><span class="hero-badge"><i class="fa-solid fa-bookmark"></i> Catálogo Qzverso</span><h2>' + titulo + '</h2>' +
         '<p class="modal-author"><i class="fa-solid fa-pen-nib"></i> Por ' + autora + '</p>' +
         (metadados.length ? '<div class="story-meta-row story-modal-meta">' + metadados.join("") + '</div>' : '') +
         (metricas.length ? '<div class="story-metrics story-modal-metrics">' + metricas.join("") + '</div>' : '') +
-        '<p class="modal-synopsis">' + sinopse + '</p>' +
-        '<div class="redirect-note"><i class="fa-solid fa-circle-info"></i><span>O Qzverso apresenta e divulga as obras. A leitura integral acontece na plataforma externa indicada pela autoria.</span></div>' +
-        acao + '</div>';
+        '<p class="modal-synopsis">' + sinopse + '</p>' + observacaoSinopse + observacaoLink + acao + '</div>';
     openModal("modal-historia");
 }
 
@@ -431,22 +449,72 @@ function getHistoriasDemo() {
             id: "weather-girl",
             titulo: "The Weather Girl",
             sinopse: "Lauren Baker acreditava que estava no caminho certo para o sucesso quando se tornou colunista júnior de um dos maiores jornais impressos de Chicago. No entanto, suas opiniões fortes e sua atitude ousada em um ambiente conservador acabaram custando seu emprego. Após enfrentar um período difícil, uma improvável oportunidade surge: apresentar a previsão do tempo na emissora de maior audiência de Illinois. Embora longe de seus planos iniciais, essa nova fase traz uma perspectiva inesperada para sua vida profissional.\n\nEnquanto navega por uma rotina agitada, uma vida amorosa desastrosa e expectativas frustradas, Lauren cruza o caminho de Camila, uma mulher de bem com a vida e cheia de talentos que, após um divórcio conturbado, sustenta-se como motorista de aplicativo.\n\nQuando Lauren decide desistir do amor, entre o caos diário e as surpresas da vida, será que alguém realmente se importará em ficar? Uma história de encontros improváveis, recomeços e beleza do amor que surge quando menos se espera.",
-            capa_url: "https://assets.fanficando.com/fanficando/covers/bve7g7gu807bnokjwk6f.webp",
+            sinopse_completa: true,
+            capa_url: "assets/covers/the-weather-girl.jpg",
             link_leitura_externo: "https://www.fanficando.com/story/187",
             escritora_nome: "Qz, Julia Laura e Qzverso",
-            visualizacoes: 625,
-            status: "Concluída"
+            status: "Concluída",
+            generos: ["Comédia"],
+            classificacao: "18+",
+            capitulos: 30
         },
         {
             id: "ke-club",
             titulo: "KE Club",
             sinopse: "Entre tantos outros bares pelas ruas de Nova York, o KE Bar seria apenas mais um, se não fosse a porta de entrada do lugar perfeito para satisfazer todos os seus desejos do corpo e luxúria: O KE Club.\n\nDona da melhor noite novaiorquina, da metade dos negócios ilícitos da cidade e de uma beleza matadora, Karla Escorpia pode ser seu melhor sonho ou seu pior pesadelo e Lauren Foster acaba de descobrir isso ao atravessar seu caminho. Como alguém que não tem nada a perder, suas escolhas são claras:\n\nMorra por ela ou pelas mãos dela.\n\nLauren intersexual.\n\nATENÇÃO: Contém cenas de sexo explícito, drogas ilícitas, palavrões e violência.\n\nEsta obra utiliza nomes e imagens de pessoas públicas, mas em nada condiz com a realidade. Todo o conteúdo narrado é totalmente fictício.",
-            capa_url: "https://assets.fanficando.com/fanficando/covers/4bb82161-367c-4f1b-980b-e2bf5d89a829.webp",
+            sinopse_completa: true,
+            capa_url: "assets/covers/ke-club.jpg",
             link_leitura_externo: "https://www.fanficando.com/story/653",
             escritora_nome: "Qz, Marina e Qzverso",
-            visualizacoes_texto: "1,1 mil",
             status: "Em andamento",
-            atualizacao: "16/11/2026"
+            generos: ["Ação"],
+            classificacao: "18+",
+            capitulos: 51
+        },
+        {
+            id: "ke-club-gadot-margot",
+            titulo: "KE Club - Gadot e Margot (One Shot)",
+            sinopse: "Quando o KE Club ainda dava seus primeiros passos para o sucesso que viria a tornar-se anos à frente, Gal Gadot escolheu ser a pessoa fiel de Karla Escorpia. Contudo, a prévia da sinopse aparece cortada no perfil do Fanficando.",
+            sinopse_completa: false,
+            capa_url: "assets/covers/ke-club-gadot-margot.jpg",
+            link_leitura_externo: "https://www.fanficando.com/author/365",
+            link_tipo: "perfil",
+            escritora_nome: "Qz, Marina e Qzverso",
+            status: "Concluída",
+            generos: ["Romance"],
+            classificacao: "18+",
+            capitulos: 1,
+            atualizacao: "06/10/2026"
+        },
+        {
+            id: "todo-dia-elas-cronicas",
+            titulo: "Todo dia, elas. - Crônicas",
+            sinopse: "Em meio à rotina dos dias que parecem iguais, existem histórias que insistem em nascer nos detalhes (ou pensamentos também). Esta é uma coletânea de crônicas, conforme o trecho de apresentação exibido no perfil do Fanficando.",
+            sinopse_completa: false,
+            capa_url: "assets/covers/todo-dia-elas.jpg",
+            link_leitura_externo: "https://www.fanficando.com/author/282",
+            link_tipo: "perfil",
+            escritora_nome: "Julia Laura e Qzverso",
+            status: "Concluída",
+            generos: ["Fanfic"],
+            classificacao: "16",
+            capitulos: 3,
+            atualizacao: "02/11/2026"
+        },
+        {
+            id: "ultraviolence",
+            titulo: "ULTRAVIOLENCE",
+            sinopse: "No submundo intocável da máfia toscana, Lauren Baldoni construiu sua autoridade com frieza e estratégia, desafiando estruturas geracionais que jamais deveriam ser questionadas, conforme o trecho de apresentação exibido no perfil do Fanficando.",
+            sinopse_completa: false,
+            capa_url: "assets/covers/ultraviolence.jpg",
+            link_leitura_externo: "https://www.fanficando.com/author/282",
+            link_tipo: "perfil",
+            escritora_nome: "Julia Laura e Qzverso",
+            status: "Em andamento",
+            generos: ["Fanfic"],
+            classificacao: "18+",
+            capitulos: 4,
+            atualizacao: "25/09/2026"
         }
     ];
 }
