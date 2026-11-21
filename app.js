@@ -399,40 +399,27 @@ function showToast(message, type) {
 }
 
 function getHistoriasDemo() {
-    return [{
-        id: "weather-girl",
-        titulo: "The Weather Girl",
-        sinopse: "Lauren Baker acreditava que estava no caminho certo para o sucesso quando se tornou colunista júnior de um dos maiores jornais impressos de Chicago. No entanto, suas opiniões fortes e sua atitude ousada em um ambiente conservador acabaram custando seu emprego. Após enfrentar um período difícil, uma improvável oportunidade surge: apresentar a previsão do tempo na emissora de maior audiência de Illinois. Embora longe de seus planos iniciais, essa nova fase traz uma perspectiva inesperada para sua vida profissional.\n\nEnquanto navega por uma rotina agitada, uma vida amorosa desastrosa e expectativas frustradas, Lauren cruza o caminho de Camila, uma mulher de bem com a vida e cheia de talentos que, após um divórcio conturbado, sustenta-se como motorista de aplicativo.\n\nQuando Lauren decide desistir do amor, entre o caos diário e as surpresas da vida, será que alguém realmente se importará em ficar? Uma história de encontros improváveis, recomeços e beleza do amor que surge quando menos se espera.",
-        capa_url: "https://assets.fanficando.com/fanficando/covers/bve7g7gu807bnokjwk6f.webp",
-        link_leitura_externo: "https://www.fanficando.com/story/187",
-        escritora_nome: "Qz, Julia e Qzverso",
-        visualizacoes: 625,
-        status: "concluída"
-    }];
-}
-
-}
-
-function getHistoriasDemo() {
-    return [{
-        id: "ke club",
-        titulo: "KE Club",
-        sinopse: "Entre tantos outros bares pelas ruas de Nova York, o KE Bar seria apenas mais um, se não fosse a porta de entrada do lugar perfeito para satisfazer todos os seus desejos do corpo e luxúria: O KE Club.
-
-Dona da melhor noite novaiorquina, da metade dos negócios ilícitos da cidade e de uma beleza matadora, Karla Escorpia pode ser seu melhor sonho ou seu pior pesadelo e Lauren Foster acaba de descobrir isso ao atravessar seu caminho. Como alguém que não tem nada a perder, suas escolhas são claras: 
-
-Morra por ela ou pelas mãos dela.
-
-Lauren intersexual.
-
-ATENÇÃO: Contém cenas de sexo explícito, drogas ilícitas, palavrões e violência.
-
-Esta obra utiliza nomes e imagens de pessoas públicas, mas que em nada condiz com a realidade. Todo o conteúdo narrado é totalmente fictício.",
-        capa_url: "https://assets.fanficando.com/fanficando/covers/4bb82161-367c-4f1b-980b-e2bf5d89a829.webp.",
-        link_leitura_externo: "https://www.fanficando.com/story/653",
-        escritora_nome: "Qz,Marina e Qzverso ",
-        visualizacoes: 1,1 mil,
-        status: "em andamento ",
-        atualizacao: "16/11/2026"
-    }];
+    return [
+        {
+            id: "weather-girl",
+            titulo: "The Weather Girl",
+            sinopse: "Lauren Baker acreditava que estava no caminho certo para o sucesso quando se tornou colunista júnior de um dos maiores jornais impressos de Chicago. No entanto, suas opiniões fortes e sua atitude ousada em um ambiente conservador acabaram custando seu emprego. Após enfrentar um período difícil, uma improvável oportunidade surge: apresentar a previsão do tempo na emissora de maior audiência de Illinois. Embora longe de seus planos iniciais, essa nova fase traz uma perspectiva inesperada para sua vida profissional.\n\nEnquanto navega por uma rotina agitada, uma vida amorosa desastrosa e expectativas frustradas, Lauren cruza o caminho de Camila, uma mulher de bem com a vida e cheia de talentos que, após um divórcio conturbado, sustenta-se como motorista de aplicativo.\n\nQuando Lauren decide desistir do amor, entre o caos diário e as surpresas da vida, será que alguém realmente se importará em ficar? Uma história de encontros improváveis, recomeços e beleza do amor que surge quando menos se espera.",
+            capa_url: "https://assets.fanficando.com/fanficando/covers/bve7g7gu807bnokjwk6f.webp",
+            link_leitura_externo: "https://www.fanficando.com/story/187",
+            escritora_nome: "Qz, Julia Laura e Qzverso",
+            visualizacoes: 625,
+            status: "Concluída"
+        },
+        {
+            id: "ke-club",
+            titulo: "KE Club",
+            sinopse: "Entre tantos outros bares pelas ruas de Nova York, o KE Bar seria apenas mais um, se não fosse a porta de entrada do lugar perfeito para satisfazer todos os seus desejos do corpo e luxúria: O KE Club.\n\nDona da melhor noite novaiorquina, da metade dos negócios ilícitos da cidade e de uma beleza matadora, Karla Escorpia pode ser seu melhor sonho ou seu pior pesadelo e Lauren Foster acaba de descobrir isso ao atravessar seu caminho. Como alguém que não tem nada a perder, suas escolhas são claras:\n\nMorra por ela ou pelas mãos dela.\n\nLauren intersexual.\n\nATENÇÃO: Contém cenas de sexo explícito, drogas ilícitas, palavrões e violência.\n\nEsta obra utiliza nomes e imagens de pessoas públicas, mas em nada condiz com a realidade. Todo o conteúdo narrado é totalmente fictício.",
+            capa_url: "https://assets.fanficando.com/fanficando/covers/4bb82161-367c-4f1b-980b-e2bf5d89a829.webp",
+            link_leitura_externo: "https://www.fanficando.com/story/653",
+            escritora_nome: "Qz, Marina e Qzverso",
+            visualizacoes_texto: "1,1 mil",
+            status: "Em andamento",
+            atualizacao: "16/11/2026"
+        }
+    ];
 }
