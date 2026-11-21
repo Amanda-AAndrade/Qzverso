@@ -1513,3 +1513,15 @@ h1, h2, h3, h4, .brand-name {
 .story-card-button {
     text-align: left;
 }
+
+/* CONTRASTE DO TITULO PRINCIPAL */
+#hero .hero-title {
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.9),
+        0 0 22px rgba(10, 10, 15, 0.72);
+}
