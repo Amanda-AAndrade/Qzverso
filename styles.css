@@ -1483,3 +1483,23 @@ h1, h2, h3, h4, .brand-name {
         font-size: 0.72rem;
     }
 }
+
+/* CLASSIFICAÇÃO INDICATIVA E LEITURA NO CATÁLOGO */
+.story-meta-chip.story-rating {
+    border-color: rgba(250, 204, 21, 0.28);
+    background: rgba(250, 204, 21, 0.08);
+    color: #fde68a;
+}
+
+.story-meta-chip i {
+    margin-right: 0.28rem;
+    font-size: 0.65rem;
+}
+
+.card-synopsis-snippet {
+    line-height: 1.55;
+}
+
+.story-card-button {
+    text-align: left;
+}
