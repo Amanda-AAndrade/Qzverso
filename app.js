@@ -474,7 +474,7 @@ function getHistoriasDemo() {
         {
             id: "ke-club-gadot-margot",
             titulo: "KE Club - Gadot e Margot (One Shot)",
-            sinopse: "Quando o KE Club ainda dava seus primeiros passos para o sucesso que viria a tornar-se anos à frente, Gal Gadot escolheu ser a pessoa fiel de Karla Escorpia. Contudo, a prévia da sinopse aparece cortada no perfil do Fanficando.",
+            sinopse: "Quando o KE Club ainda dava seus primeiros passos para o sucesso que viria a tornar-se anos à frente, Gal Gadot escolheu ser a pessoa fiel de Karla Escorpia. Contudo...",
             sinopse_completa: false,
             capa_url: "assets/covers/ke-club-gadot-margot.jpg",
             link_leitura_externo: "https://www.fanficando.com/author/365",
@@ -489,7 +489,7 @@ function getHistoriasDemo() {
         {
             id: "todo-dia-elas-cronicas",
             titulo: "Todo dia, elas. - Crônicas",
-            sinopse: "Em meio à rotina dos dias que parecem iguais, existem histórias que insistem em nascer nos detalhes (ou pensamentos também). Esta é uma coletânea de crônicas, conforme o trecho de apresentação exibido no perfil do Fanficando.",
+            sinopse: "Em meio à rotina dos dias que parecem iguais, existem histórias que insistem em nascer nos detalhes (ou pensamentos também). Esta é uma coletânea de crônicas...",
             sinopse_completa: false,
             capa_url: "assets/covers/todo-dia-elas.jpg",
             link_leitura_externo: "https://www.fanficando.com/author/282",
@@ -504,7 +504,7 @@ function getHistoriasDemo() {
         {
             id: "ultraviolence",
             titulo: "ULTRAVIOLENCE",
-            sinopse: "No submundo intocável da máfia toscana, Lauren Baldoni construiu sua autoridade com frieza e estratégia, desafiando estruturas geracionais que jamais deveriam ser questionadas, conforme o trecho de apresentação exibido no perfil do Fanficando.",
+            sinopse: "No submundo intocável da máfia toscana, Lauren Baldoni construiu sua autoridade com frieza e estratégia, desafiando estruturas geracionais que jamais deveriam ser...",
             sinopse_completa: false,
             capa_url: "assets/covers/ultraviolence.jpg",
             link_leitura_externo: "https://www.fanficando.com/author/282",
