@@ -482,6 +482,7 @@ function getHistoriasDemo() {
             link_leitura_externo: "https://www.fanficando.com/author/365",
             link_tipo: "perfil",
             escritora_nome: "Qz, Marina e Qzverso",
+            escritoras_ids: ["qz", "marina", "qzverso"],
             status: "Concluída",
             generos: ["Romance"],
             classificacao: "18+",
