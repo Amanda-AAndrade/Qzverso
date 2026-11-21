@@ -1411,3 +1411,75 @@ h1, h2, h3, h4, .brand-name {
         padding-left: 0.85rem;
     }
 }
+
+/* METADADOS DAS OBRAS — GÊNERO, STATUS E MÉTRICAS */
+.story-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0 0.85rem;
+}
+
+.story-meta-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 25px;
+    padding: 0.22rem 0.58rem;
+    border: 1px solid rgba(192, 132, 252, 0.2);
+    border-radius: 999px;
+    background: rgba(147, 51, 234, 0.1);
+    color: #e9d5ff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.story-meta-chip.story-status {
+    border-color: rgba(56, 189, 248, 0.25);
+    background: rgba(56, 189, 248, 0.08);
+    color: #bae6fd;
+}
+
+.story-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 0.9rem;
+    margin: 0 0 0.9rem;
+    color: var(--text-dim);
+    font-size: 0.73rem;
+}
+
+.story-metrics span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+}
+
+.story-metrics i {
+    color: var(--primary-glow);
+}
+
+.story-modal-meta {
+    margin-bottom: 1rem;
+}
+
+.story-modal-metrics {
+    margin-bottom: 1.2rem;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .story-meta-row {
+        gap: 0.35rem;
+    }
+
+    .story-meta-chip {
+        font-size: 0.66rem;
+    }
+
+    .story-metrics {
+        gap: 0.45rem 0.75rem;
+        font-size: 0.72rem;
+    }
+}
