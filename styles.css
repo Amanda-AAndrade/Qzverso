@@ -1525,3 +1525,292 @@ h1, h2, h3, h4, .brand-name {
         0 2px 8px rgba(0, 0, 0, 0.9),
         0 0 22px rgba(10, 10, 15, 0.72);
 }
+
+/* ============================================================
+   QZVERSO — VITRINE DE LIVROS FLUTUANTES
+   Capas em perspectiva, animação suave e layout responsivo.
+   ============================================================ */
+
+.story-grid {
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    align-items: start;
+    gap: clamp(1.4rem, 3vw, 2.8rem);
+    padding: 1.25rem 0.25rem 2.4rem;
+    overflow: visible;
+}
+
+.story-card {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    display: flex;
+    align-items: stretch;
+}
+
+.story-card:hover {
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+}
+
+.story-card-button {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0.65rem 0.7rem 1.2rem;
+    border: 0;
+    border-radius: 18px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    text-align: center;
+    overflow: visible;
+    transition: background 0.3s ease, outline-color 0.3s ease;
+}
+
+.story-card-button:hover,
+.story-card-button:focus-visible {
+    background: linear-gradient(180deg, rgba(147, 51, 234, 0.075), rgba(147, 51, 234, 0));
+    outline: 1px solid rgba(192, 132, 252, 0.26);
+    outline-offset: 2px;
+}
+
+.card-cover-wrapper {
+    position: relative;
+    display: block;
+    width: clamp(145px, 74%, 205px);
+    max-width: 100%;
+    aspect-ratio: 600 / 938;
+    height: auto;
+    margin: 0 auto 1.2rem;
+    overflow: visible;
+    isolation: isolate;
+    perspective: 1100px;
+    background: transparent;
+    animation: qz-book-float 5.8s ease-in-out infinite;
+    filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.38));
+    will-change: transform;
+}
+
+.card-cover-wrapper::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 1.2%;
+    right: -3.8%;
+    width: 5.5%;
+    height: 97.5%;
+    border-radius: 0 5px 5px 0;
+    background: linear-gradient(90deg, #d8cfc0 0%, #f1e8d8 35%, #8e8178 100%);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.32);
+    transform: skewY(-1deg);
+}
+
+.card-cover-img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(235, 218, 255, 0.2);
+    border-radius: 7px 9px 9px 7px;
+    object-fit: contain;
+    object-position: center;
+    background: #100b18;
+    box-shadow:
+        8px 12px 24px rgba(0, 0, 0, 0.42),
+        2px 1px 0 rgba(255, 255, 255, 0.16);
+    transform: perspective(1000px) rotateY(-8deg) rotateZ(-1deg);
+    transform-origin: center center;
+    transition: transform 0.45s cubic-bezier(0.2, 0.75, 0.25, 1), box-shadow 0.45s ease;
+}
+
+.story-card:nth-child(2n) .card-cover-wrapper {
+    animation-delay: -1.8s;
+}
+
+.story-card:nth-child(3n) .card-cover-wrapper {
+    animation-delay: -3.2s;
+}
+
+.story-card:nth-child(4n) .card-cover-wrapper {
+    animation-delay: -4.5s;
+}
+
+.story-card:hover .card-cover-wrapper,
+.story-card:focus-within .card-cover-wrapper {
+    animation-play-state: paused;
+    transform: translateY(-8px) rotateZ(0deg);
+}
+
+.story-card:hover .card-cover-img,
+.story-card:focus-within .card-cover-img {
+    transform: perspective(1000px) rotateY(0deg) rotateZ(0deg) scale(1.035);
+    box-shadow:
+        12px 20px 34px rgba(0, 0, 0, 0.5),
+        0 0 24px rgba(168, 85, 247, 0.24);
+}
+
+.card-platform-badge {
+    z-index: 2;
+    top: 8px;
+    right: -9px;
+    font-size: 0.68rem;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card-body {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 0.25rem 0.5rem 0.4rem;
+    align-items: center;
+    text-align: center;
+    background: transparent;
+}
+
+.card-title-text {
+    width: 100%;
+    line-height: 1.35;
+}
+
+.card-author-text {
+    width: 100%;
+    line-height: 1.5;
+}
+
+.card-body .story-meta-row,
+.card-body .story-metrics {
+    justify-content: center;
+}
+
+.card-synopsis-snippet {
+    width: 100%;
+    text-align: center;
+}
+
+.card-footer-action {
+    width: 100%;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+@keyframes qz-book-float {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) rotateZ(-1deg);
+    }
+    50% {
+        transform: translate3d(0, -11px, 0) rotateZ(1deg);
+    }
+}
+
+/* A capa em destaque também recebe o movimento de livro suspenso. */
+.hero-feature-media {
+    overflow: visible;
+    background: transparent;
+}
+
+.hero-feature-media img {
+    object-fit: contain;
+    animation: qz-feature-float 6.4s ease-in-out infinite;
+    filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.42));
+}
+
+@keyframes qz-feature-float {
+    0%, 100% {
+        transform: translateY(0) rotateZ(-1deg);
+    }
+    50% {
+        transform: translateY(-8px) rotateZ(1deg);
+    }
+}
+
+/* Tablets e celulares: capas continuam flutuando, em grade compacta. */
+@media (max-width: 768px) {
+    .story-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.2rem 0.45rem;
+        padding: 1rem 0 2rem;
+    }
+
+    .story-card-button {
+        padding: 0.5rem 0.35rem 1rem;
+    }
+
+    .card-cover-wrapper {
+        width: clamp(118px, 76%, 165px);
+        margin-bottom: 0.95rem;
+    }
+
+    .card-platform-badge {
+        top: 6px;
+        right: -7px;
+        padding: 0.18rem 0.42rem;
+        font-size: 0.61rem;
+    }
+
+    .card-body {
+        padding: 0.2rem 0.25rem 0.35rem;
+    }
+
+    .card-title-text {
+        font-size: 0.98rem;
+    }
+
+    .card-author-text {
+        font-size: 0.75rem;
+        margin-bottom: 0.55rem;
+    }
+
+    .card-synopsis-snippet {
+        font-size: 0.78rem;
+        -webkit-line-clamp: 3;
+    }
+
+    .card-body .story-meta-chip {
+        font-size: 0.61rem;
+        padding: 0.2rem 0.42rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .story-grid {
+        grid-template-columns: 1fr;
+        gap: 1.4rem;
+    }
+
+    .card-cover-wrapper {
+        width: min(62%, 180px);
+    }
+
+    .card-title-text {
+        font-size: 1.05rem;
+    }
+
+    .card-author-text {
+        font-size: 0.82rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card-cover-wrapper,
+    .hero-feature-media img {
+        animation: none !important;
+    }
+
+    .card-cover-img {
+        transition: none;
+        transform: none;
+    }
+
+    .story-card:hover .card-cover-img,
+    .story-card:focus-within .card-cover-img {
+        transform: none;
+    }
+}
