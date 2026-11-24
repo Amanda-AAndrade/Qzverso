@@ -39,7 +39,7 @@ O portal não hospeda os capítulos completos. Sua função é apresentar as obr
 | Busca por título, sinopse e escritora | Implementada |
 | Filtros por escritora | Implementados |
 | Modal com detalhes da obra | Implementado com sinopse, autoria, status, gênero, classificação etária e capítulos disponíveis |
-| Redirecionamento para leitura externa | Fanficando com links cadastrados; Wattpad com acesso aos perfis das coautoras cujos perfis foram informados |
+| Redirecionamento para leitura externa | Fanficando com links cadastrados; Wattpad com acesso aos perfis de Qz e Julia e um link direto confirmado para ULTRAVIOLENCE |
 | Apresentação de parceiros | Implementada |
 | Login e cadastro | Formulários estilizados, validação de confirmação de senha e chamadas preparadas; autenticação real depende de API |
 | Publicação de obras | Interface preparada; depende de API e autorização |
@@ -70,8 +70,7 @@ Qzverso/
 ├── styles.css      # Identidade visual e responsividade
 ├── app.js          # Busca, filtros, catálogo, modais e integração opcional
 ├── qzverso.jpg     # Símbolo visual do projeto
-├── assets/
-│   └── covers/    # Capas das cinco histórias cadastradas na vitrine
+├── covers/        # Capas das cinco histórias cadastradas na vitrine
 ├── README.md       # Documentação
 ├── LICENSE         # Licença
 └── .gitignore
