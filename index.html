@@ -25,10 +25,12 @@
             </a>
 
             <!-- Barra de Busca -->
-            <div class="nav-search-bar">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <div class="nav-search-bar" role="search">
+                <button type="button" class="search-submit" id="btn-pesquisar" aria-label="Pesquisar histórias" title="Pesquisar histórias">
+                    <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                </button>
                 <label class="sr-only" for="input-busca">Buscar histórias por título, sinopse ou escritora</label>
-                <input type="search" id="input-busca" placeholder="Buscar histórias ou escritoras..." oninput="filtrarHistorias()" autocomplete="off">
+                <input type="search" id="input-busca" placeholder="Buscar por título, sinopse ou escritora..." autocomplete="off">
             </div>
 
             <!-- Links de Navegação -->
