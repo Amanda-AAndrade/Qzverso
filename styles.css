@@ -1978,3 +1978,14 @@ h1, h2, h3, h4, .brand-name {
         font-size: 0.52rem;
     }
 }
+
+
+.cover-pending-note {
+    display: block;
+    max-width: 220px;
+    margin: 0.6rem auto 0;
+    color: var(--text-dim);
+    font-size: 0.72rem;
+    line-height: 1.4;
+    text-align: center;
+}
