@@ -612,8 +612,7 @@ function getHistoriasDemo() {
             titulo: "My Wife's Secrets (Extended)",
             sinopse: "Obra disponível exclusivamente no Wattpad. A sinopse completa e os detalhes da publicação podem ser consultados diretamente na página original.",
             sinopse_completa: false,
-            capa_url: "qzverso.jpg",
-            capa_pendente: true,
+            capa_url: "covers/my-wifes-secrets-extended.png",
             link_wattpad_externo: "https://www.wattpad.com/story/323824414-my-wife%27s-secrets-extended",
             escritora_nome: "Qz",
             escritoras_ids: ["qz"]
