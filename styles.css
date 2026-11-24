@@ -1989,3 +1989,107 @@ h1, h2, h3, h4, .brand-name {
     line-height: 1.4;
     text-align: center;
 }
+
+
+/* MODAL DE LEITURA — DIMENSÕES RESPONSIVAS E ROLAGEM INTERNA */
+#modal-historia {
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: clamp(0.75rem, 2.5vh, 1.5rem);
+}
+
+#modal-historia .modal-glass {
+    width: min(100%, 1080px);
+    max-width: 1080px;
+    max-height: calc(100vh - 3rem);
+    max-height: calc(100dvh - 3rem);
+    margin: auto;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+}
+
+#modal-historia .modal-grid {
+    grid-template-columns: minmax(210px, 290px) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+#modal-historia .modal-cover {
+    position: sticky;
+    top: 0.25rem;
+    align-self: start;
+    width: 100%;
+    max-width: 290px;
+    margin: 0 auto;
+}
+
+#modal-historia .modal-cover-img {
+    width: min(100%, 270px);
+    max-height: min(68vh, 520px);
+    height: auto;
+    object-fit: contain;
+}
+
+#modal-historia .modal-info {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+#modal-historia .modal-info h2 {
+    padding-right: 2rem;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+    #modal-historia {
+        align-items: flex-start;
+        padding: 0.65rem;
+    }
+
+    #modal-historia .modal-glass {
+        width: 100%;
+        max-width: 620px;
+        max-height: calc(100vh - 1.3rem);
+        max-height: calc(100dvh - 1.3rem);
+        margin: 0 auto;
+        padding: 1.15rem;
+    }
+
+    #modal-historia .modal-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+    }
+
+    #modal-historia .modal-cover {
+        position: relative;
+        top: auto;
+        max-width: 190px;
+        padding-bottom: 0.35rem;
+    }
+
+    #modal-historia .modal-cover-img {
+        width: min(100%, 180px);
+        max-height: 270px;
+    }
+
+    #modal-historia .modal-info h2 {
+        font-size: clamp(1.45rem, 6vw, 1.9rem);
+    }
+
+    #modal-historia .modal-synopsis {
+        font-size: 0.92rem;
+        line-height: 1.65;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #modal-historia .modal-cover-img {
+        animation: none !important;
+    }
+}
