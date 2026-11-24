@@ -591,7 +591,7 @@ function getHistoriasDemo() {
             classificacao: "18+",
             capitulos: 4,
             atualizacao: "25/09/2026"
-        }
+        },
         {
             id: "my-wifes-secrets-extended",
             titulo: "My Wife's Secrets (Extended)",
