@@ -39,7 +39,7 @@ O portal não hospeda os capítulos completos. Sua função é apresentar as obr
 | Busca por título, sinopse e escritora | Implementada |
 | Filtros por escritora | Implementados |
 | Modal com detalhes da obra | Implementado com sinopse, autoria, status, gênero, classificação etária e capítulos disponíveis |
-| Redirecionamento para leitura externa | Implementado; duas obras têm link direto confirmado e as demais direcionam ao perfil da escritora no Fanficando |
+| Redirecionamento para leitura externa | Fanficando com links cadastrados; Wattpad com acesso aos perfis das coautoras cujos perfis foram informados |
 | Apresentação de parceiros | Implementada |
 | Login e cadastro | Formulários estilizados, validação de confirmação de senha e chamadas preparadas; autenticação real depende de API |
 | Publicação de obras | Interface preparada; depende de API e autorização |
@@ -189,7 +189,7 @@ Endereço público:
 - [x] Organizar a apresentação do ecossistema parceiro.
 - [x] Cadastrar as cinco histórias visíveis nos perfis Fanficando fornecidos.
 - [ ] Substituir os recortes das capas pelos arquivos originais em alta resolução.
-- [ ] Completar links diretos, sinopses integrais e estatísticas quando disponíveis.
+- [ ] Completar links diretos do Wattpad, sinopses integrais e estatísticas quando disponíveis.
 - [ ] Definir contratos e requisitos da API.
 - [ ] Modelar e implementar persistência de dados.
 - [ ] Implementar autenticação e autorização no backend.
