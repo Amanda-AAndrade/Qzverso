@@ -173,7 +173,7 @@ function openHistoriaModal(id) {
     const linkEhPerfil = h.link_tipo === "perfil";
     const acaoFanficando = url
         ? '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer" class="btn-primary-glow modal-read-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> ' + (linkEhPerfil ? 'Ver perfil no Fanficando' : 'Ler no Fanficando') + '</a>'
-        : '<p class="development-note"><i class="fa-solid fa-circle-info"></i> O link externo do Fanficando ainda não foi cadastrado.</p>';
+        : (urlWattpad ? "" : '<p class="development-note"><i class="fa-solid fa-circle-info"></i> O link externo do Fanficando ainda não foi cadastrado.</p>');
     const perfisWattpad = obterPerfisWattpad(h);
     const acaoLeituraWattpad = urlWattpad
         ? '<a href="' + escapeHtml(urlWattpad) + '" target="_blank" rel="noopener noreferrer" class="btn-primary-glow modal-read-link wattpad-read-link"><i class="fa-solid fa-book-open"></i> Abrir no Wattpad</a>'
