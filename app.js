@@ -56,19 +56,30 @@ async function requisicaoApi(caminho, opcoes) {
 
 /* CATÁLOGO */
 async function carregarHistorias() {
+    const historiasLocais = getHistoriasDemo();
+    let historiasRemotas = [];
+
     if (API_URL) {
         try {
             const dados = await requisicaoApi("/historias");
-            historiasCache = Array.isArray(dados) ? dados : [];
-            if (!historiasCache.length) throw new Error("A API não retornou histórias.");
+            historiasRemotas = Array.isArray(dados) ? dados : [];
         } catch (erro) {
-            console.warn("Catálogo remoto indisponível; usando dados demonstrativos.", erro);
-            historiasCache = getHistoriasDemo();
+            console.warn("Catálogo remoto indisponível; mantendo o catálogo local.", erro);
         }
-    } else {
-        historiasCache = getHistoriasDemo();
     }
-    // KE Club é a obra principal: não deixar a ordem da API definir o destaque.
+
+    // Une catálogo local e API por ID, preservando obras exclusivas do front-end.
+    const catalogo = new Map();
+    historiasLocais.forEach(function (historia) {
+        catalogo.set(String(historia.id), historia);
+    });
+    historiasRemotas.forEach(function (historia) {
+        const id = String(historia.id || "");
+        if (!id) return;
+        catalogo.set(id, Object.assign({}, catalogo.get(id) || {}, historia));
+    });
+
+    historiasCache = Array.from(catalogo.values());
     historiasCache.sort(function (a, b) {
         return Number(b.id === "ke-club") - Number(a.id === "ke-club");
     });
@@ -110,11 +121,13 @@ function renderizarHistorias(lista) {
 
         const metaHtml = metadados.length ? '<div class="story-meta-row">' + metadados.join("") + '</div>' : "";
         const metricasHtml = metricas.length ? '<div class="story-metrics">' + metricas.join("") + '</div>' : "";
+        const plataformaPrincipal = h.link_leitura_externo ? "Fanficando" : (h.link_wattpad_externo ? "Wattpad" : "Qzverso");
+        const iconePlataforma = plataformaPrincipal === "Wattpad" ? "fa-book-open" : "fa-arrow-up-right-from-square";
         return '<article class="story-card"><button type="button" class="story-card-button" data-story-id="' + id + '" aria-label="Ver detalhes de ' + titulo + '">' +
-            '<div class="card-cover-wrapper">' + (h.id === "ke-club" ? '<span class="card-main-badge">HISTÓRIA PRINCIPAL</span>' : '') + '<img src="' + capa + '" class="card-cover-img" alt="Capa de ' + titulo + '" loading="lazy"><span class="card-platform-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> Fanficando</span></div>' +
+            '<div class="card-cover-wrapper">' + (h.id === "ke-club" ? '<span class="card-main-badge">HISTÓRIA PRINCIPAL</span>' : '') + '<img src="' + capa + '" class="card-cover-img" alt="Capa de ' + titulo + '" loading="lazy"><span class="card-platform-badge"><i class="fa-solid ' + iconePlataforma + '"></i> ' + plataformaPrincipal + '</span></div>' +
             '<div class="card-body"><div class="card-title-text">' + titulo + '</div><div class="card-author-text"><i class="fa-solid fa-pen-nib"></i> ' + autora + '</div>' +
             metaHtml + '<div class="card-synopsis-snippet">' + sinopse + '</div>' + metricasHtml +
-            '<div class="card-footer-action"><span>Fanficando</span><span>Ver detalhes <i class="fa-solid fa-arrow-right"></i></span></div></div></button></article>';
+            '<div class="card-footer-action"><span>' + plataformaPrincipal + '</span><span>Ver detalhes <i class="fa-solid fa-arrow-right"></i></span></div></div></button></article>';
     }).join("");
 
     grade.querySelectorAll(".story-card-button").forEach(function (button) {
