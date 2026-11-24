@@ -205,7 +205,9 @@ function openHistoriaModal(id) {
     }
 
     const observacaoSinopse = h.sinopse_completa === false
-        ? '<p class="auth-note">Trecho exibido na prévia do perfil Fanficando. Consulte o perfil para ver a sinopse completa e os dados atualizados.</p>'
+        ? (urlWattpad
+            ? '<p class="auth-note">A sinopse completa e os detalhes atualizados desta obra estão disponíveis na página original do Wattpad.</p>'
+            : '<p class="auth-note">Trecho exibido na prévia do perfil Fanficando. Consulte o perfil para ver a sinopse completa e os dados atualizados.</p>')
         : '';
     const observacaoLink = url
         ? (linkEhPerfil
@@ -215,7 +217,7 @@ function openHistoriaModal(id) {
             ? '<div class="redirect-note"><i class="fa-solid fa-circle-info"></i><span>Esta obra está disponível exclusivamente no Wattpad.</span></div>'
             : '<div class="redirect-note"><i class="fa-solid fa-circle-info"></i><span>Os links de leitura serão adicionados assim que estiverem confirmados.</span></div>');
 
-    conteudo.innerHTML = '<div class="modal-cover"><img src="' + capa + '" class="modal-cover-img" alt="Capa de ' + titulo + '"></div>' +
+    conteudo.innerHTML = '<div class="modal-cover"><img src="' + capa + '" class="modal-cover-img" alt="Capa de ' + titulo + '">' + (h.capa_pendente ? '<small class="cover-pending-note">Capa oficial ainda não cadastrada.</small>' : '') + '</div>' +
         '<div class="modal-info"><span class="hero-badge"><i class="fa-solid fa-bookmark"></i> Catálogo Qzverso</span><h2>' + titulo + '</h2>' +
         '<p class="modal-author"><i class="fa-solid fa-pen-nib"></i> Por ' + autora + '</p>' +
         (metadados.length ? '<div class="story-meta-row story-modal-meta">' + metadados.join("") + '</div>' : '') +
@@ -598,6 +600,7 @@ function getHistoriasDemo() {
             sinopse: "Obra disponível exclusivamente no Wattpad. A sinopse completa e os detalhes da publicação podem ser consultados diretamente na página original.",
             sinopse_completa: false,
             capa_url: "qzverso.jpg",
+            capa_pendente: true,
             link_wattpad_externo: "https://www.wattpad.com/story/323824414-my-wife%27s-secrets-extended",
             escritora_nome: "Qz",
             escritoras_ids: ["qz"]
