@@ -39,7 +39,7 @@ O portal não hospeda os capítulos completos. Sua função é apresentar as obr
 | Busca por título, sinopse e escritora | Implementada |
 | Filtros por escritora | Implementados |
 | Modal com detalhes da obra | Implementado com sinopse, autoria, status, gênero, classificação etária e capítulos disponíveis |
-| Redirecionamento para leitura externa | Fanficando com links cadastrados; Wattpad com acesso aos perfis de Qz e Julia e um link direto confirmado para ULTRAVIOLENCE |
+| Redirecionamento para leitura externa | Fanficando com perfis de Qzverso, Qz, Julia Laura e Marina; Wattpad com perfis de Qz e Julia e link direto confirmado para ULTRAVIOLENCE |
 | Apresentação de parceiros | Implementada |
 | Login e cadastro | Formulários estilizados, validação de confirmação de senha e chamadas preparadas; autenticação real depende de API |
 | Publicação de obras | Interface preparada; depende de API e autorização |
@@ -47,6 +47,8 @@ O portal não hospeda os capítulos completos. Sua função é apresentar as obr
 | Perfil e preferências do leitor | Planejados; dependem de API e persistência |
 
 > **Importante:** o repositório contém atualmente o front-end. Não há serviço de backend ou banco de dados versionado nesta estrutura. Sem a configuração de uma API compatível, login, cadastro e publicação não funcionam. O catálogo público é montado localmente pela função `getHistoriasDemo()` em `app.js`. Os dados foram organizados a partir das capturas dos perfis públicos do Fanficando fornecidas para esta atualização. Visualizações e curtidas não são exibidas porque não estavam disponíveis de forma legível nas capturas; esses números não foram estimados. Quando a prévia de uma sinopse estava truncada no perfil, o modal informa que se trata de um trecho. As capas desta primeira versão foram recortadas das capturas fornecidas e podem ser substituídas pelas imagens originais em maior resolução.
+
+**Observação sobre coautoria:** Marina não possui página de publicação no Wattpad para estas obras porque a plataforma não permite cadastrar duas escritoras como coautoras. A autoria conjunta permanece indicada no Qzverso e nos links do Fanficando.
 
 ## Tecnologias
 
