@@ -87,7 +87,7 @@ function renderizarHistorias(lista) {
     grade.innerHTML = lista.map(function (h) {
         const id = escapeHtml(String(h.id || ""));
         const titulo = escapeHtml(h.titulo || "Obra sem título");
-        const autora = escapeHtml(h.escritora_nome || "Escritora Qzverso");
+        const autora = escapeHtml(h.escritora_nome || "Autoria não informada");
         const sinopse = escapeHtml(h.sinopse || "Sinopse ainda não cadastrada.");
         const capa = escapeHtml(obterImagemSegura(h.capa_url) || "qzverso.jpg");
         const metadados = [];
@@ -136,7 +136,7 @@ function renderizarDestaque() {
     imagem.src = obterImagemSegura(h.capa_url) || "qzverso.jpg";
     imagem.alt = "Capa de " + (h.titulo || "obra em destaque");
     titulo.textContent = h.titulo || "Obra em destaque";
-    autora.textContent = h.escritora_nome || "Escritora Qzverso";
+    autora.textContent = h.escritora_nome || "Autoria não informada";
     const url = obterLinkExternoSeguro(h.link_leitura_externo);
     if (url) {
         link.href = url;
@@ -165,7 +165,7 @@ function openHistoriaModal(id) {
     if (!h || !conteudo) return;
 
     const titulo = escapeHtml(h.titulo || "Obra sem título");
-    const autora = escapeHtml(h.escritora_nome || "Escritora Qzverso");
+    const autora = escapeHtml(h.escritora_nome || "Autoria não informada");
     const sinopse = escapeHtml(h.sinopse || "Sinopse ainda não cadastrada.");
     const capa = escapeHtml(obterImagemSegura(h.capa_url) || "qzverso.jpg");
     const url = obterLinkExternoSeguro(h.link_leitura_externo);
@@ -282,12 +282,10 @@ function aplicarFiltros() {
         const autorias = Array.isArray(h.escritoras_ids) ? h.escritoras_ids : [];
         const categoriaOk = categoriaAtual === "todas" || autorias.includes(categoriaAtual);
 
-        // Qzverso é a marca do portal, não uma escritora. Ela não deve fazer
-        // todas as obras aparecerem quando a pessoa pesquisa apenas "Qz".
+        // O portal Qzverso não é uma escritora; os filtros consideram apenas as autoras.
         const nomesAutores = autorias.length
-            ? autorias.filter(function (id) { return id !== "qzverso"; })
-                .map(function (id) { return nomesEscritoras[id] || ""; }).join(" ")
-            : String(h.escritora_nome || "").replace(/\\bqzverso\\b/gi, " ");
+            ? autorias.map(function (id) { return nomesEscritoras[id] || ""; }).join(" ")
+            : String(h.escritora_nome || "");
 
         const texto = normalizarTexto([
             h.titulo || "",
@@ -521,8 +519,8 @@ function getHistoriasDemo() {
             sinopse_completa: true,
             capa_url: "covers/the-weather-girl.jpg",
             link_leitura_externo: "https://www.fanficando.com/story/187",
-            escritora_nome: "Qz, Julia Laura e Qzverso",
-            escritoras_ids: ["qz", "julia", "qzverso"],
+            escritora_nome: "Qz e Julia Laura",
+            escritoras_ids: ["qz", "julia"],
             status: "Concluída",
             generos: ["Comédia"],
             classificacao: "18+",
@@ -535,8 +533,8 @@ function getHistoriasDemo() {
             sinopse_completa: true,
             capa_url: "covers/ke-club.jpg",
             link_leitura_externo: "https://www.fanficando.com/story/653",
-            escritora_nome: "Qz, Marina e Qzverso",
-            escritoras_ids: ["qz", "marina", "qzverso"],
+            escritora_nome: "Qz e Marina",
+            escritoras_ids: ["qz", "marina"],
             status: "Em andamento",
             generos: ["Ação"],
             classificacao: "18+",
@@ -550,8 +548,8 @@ function getHistoriasDemo() {
             capa_url: "covers/ke-club-gadot-margot.jpg",
             link_leitura_externo: "https://www.fanficando.com/author/365",
             link_tipo: "perfil",
-            escritora_nome: "Qz, Marina e Qzverso",
-            escritoras_ids: ["qz", "marina", "qzverso"],
+            escritora_nome: "Qz e Marina",
+            escritoras_ids: ["qz", "marina"],
             status: "Concluída",
             generos: ["Romance"],
             classificacao: "18+",
@@ -567,8 +565,8 @@ function getHistoriasDemo() {
             link_leitura_externo: "https://www.fanficando.com/author/282",
             link_tipo: "perfil",
             link_wattpad_externo: "https://www.wattpad.com/1648055904",
-            escritora_nome: "Julia Laura e Qzverso",
-            escritoras_ids: ["julia", "qzverso"],
+            escritora_nome: "Julia Laura",
+            escritoras_ids: ["julia"],
             status: "Concluída",
             generos: ["Fanfic"],
             classificacao: "16",
@@ -583,8 +581,8 @@ function getHistoriasDemo() {
             capa_url: "covers/ultraviolence.jpg",
             link_leitura_externo: "https://www.fanficando.com/author/282",
             link_tipo: "perfil",
-            escritora_nome: "Julia Laura e Qzverso",
-            escritoras_ids: ["julia", "qzverso"],
+            escritora_nome: "Julia Laura",
+            escritoras_ids: ["julia"],
             status: "Em andamento",
             generos: ["Fanfic"],
             classificacao: "18+",
