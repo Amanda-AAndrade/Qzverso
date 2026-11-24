@@ -2093,3 +2093,44 @@ h1, h2, h3, h4, .brand-name {
         animation: none !important;
     }
 }
+
+
+/* IDENTIDADE EDITORIAL — PÁGINA INICIAL E VITRINE */
+.qzverso-identity {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.48rem;
+    width: fit-content;
+    margin: -0.25rem 0 1.35rem;
+    padding: 0.48rem 0.85rem;
+    border: 1px solid rgba(192, 132, 252, 0.28);
+    border-radius: 999px;
+    background: linear-gradient(100deg, rgba(147, 51, 234, 0.16), rgba(192, 132, 252, 0.07));
+    color: #e9d5ff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    box-shadow: 0 6px 22px rgba(88, 28, 135, 0.12);
+}
+
+.qzverso-identity [aria-hidden="true"] {
+    color: #c084fc;
+    opacity: 0.8;
+}
+
+.qzverso-identity--catalog {
+    margin: 0.75rem 0 0;
+}
+
+@media (max-width: 760px) {
+    .qzverso-identity {
+        justify-content: center;
+        margin-bottom: 1rem;
+        font-size: 0.74rem;
+    }
+
+    .qzverso-identity--catalog {
+        justify-content: flex-start;
+    }
+}
