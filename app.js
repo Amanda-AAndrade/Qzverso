@@ -68,6 +68,10 @@ async function carregarHistorias() {
     } else {
         historiasCache = getHistoriasDemo();
     }
+    // KE Club é a obra principal: não deixar a ordem da API definir o destaque.
+    historiasCache.sort(function (a, b) {
+        return Number(b.id === "ke-club") - Number(a.id === "ke-club");
+    });
     aplicarFiltros();
     renderizarDestaque();
 }
@@ -122,7 +126,7 @@ function renderizarHistorias(lista) {
 }
 
 function renderizarDestaque() {
-    const h = historiasCache[0];
+    const h = historiasCache.find(function (item) { return item.id === "ke-club"; }) || historiasCache[0];
     const imagem = document.getElementById("hero-feature-cover");
     const titulo = document.getElementById("hero-feature-title");
     const autora = document.getElementById("hero-feature-author");
@@ -146,6 +150,15 @@ function renderizarDestaque() {
     }
 }
 
+function obterPerfisWattpad(h) {
+    const perfis = {
+        qz: { nome: "Qz", url: "https://www.wattpad.com/user/CabellitaQ" },
+        julia: { nome: "Julia", url: "https://www.wattpad.com/user/julia_katycats" }
+    };
+    const ids = Array.isArray(h && h.escritoras_ids) ? h.escritoras_ids : [];
+    return ids.filter(function (id) { return Boolean(perfis[id]); }).map(function (id) { return perfis[id]; });
+}
+
 function openHistoriaModal(id) {
     const h = historiasCache.find(function (item) { return String(item.id) === String(id); });
     const conteudo = document.getElementById("modal-historia-content");
@@ -157,9 +170,16 @@ function openHistoriaModal(id) {
     const capa = escapeHtml(obterImagemSegura(h.capa_url) || "qzverso.jpg");
     const url = obterLinkExternoSeguro(h.link_leitura_externo);
     const linkEhPerfil = h.link_tipo === "perfil";
-    const acao = url
+    const acaoFanficando = url
         ? '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer" class="btn-primary-glow modal-read-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> ' + (linkEhPerfil ? 'Ver perfil no Fanficando' : 'Ler no Fanficando') + '</a>'
-        : '<p class="development-note"><i class="fa-solid fa-circle-info"></i> O link externo ainda não foi cadastrado.</p>';
+        : '<p class="development-note"><i class="fa-solid fa-circle-info"></i> O link externo do Fanficando ainda não foi cadastrado.</p>';
+    const perfisWattpad = obterPerfisWattpad(h);
+    const acoesWattpad = perfisWattpad.length
+        ? '<div class="wattpad-profile-links"><span class="wattpad-links-label">Também no Wattpad</span>' + perfisWattpad.map(function (perfil) {
+            return '<a class="btn-secondary-glass wattpad-profile-link" href="' + escapeHtml(perfil.url) + '" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-book-open"></i> Perfil de ' + escapeHtml(perfil.nome) + '</a>';
+        }).join("") + '<small>Os links abrem os perfis das coautoras; o endereço direto de cada história será incluído quando confirmado.</small></div>'
+        : "";
+    const acoesExternas = acaoFanficando + acoesWattpad;
 
     const metadados = [];
     if (h.status) metadados.push('<span class="story-meta-chip story-status">' + escapeHtml(h.status) + '</span>');
@@ -192,7 +212,7 @@ function openHistoriaModal(id) {
         '<p class="modal-author"><i class="fa-solid fa-pen-nib"></i> Por ' + autora + '</p>' +
         (metadados.length ? '<div class="story-meta-row story-modal-meta">' + metadados.join("") + '</div>' : '') +
         (metricas.length ? '<div class="story-metrics story-modal-metrics">' + metricas.join("") + '</div>' : '') +
-        '<p class="modal-synopsis">' + sinopse + '</p>' + observacaoSinopse + observacaoLink + acao + '</div>';
+        '<p class="modal-synopsis">' + sinopse + '</p>' + observacaoSinopse + observacaoLink + acoesExternas + '</div>';
     openModal("modal-historia");
 }
 
@@ -297,8 +317,7 @@ function openModal(id) {
     modal.style.display = "flex";
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
-    const closeButton = modal.querySelector(".modal-close");
-    if (closeButton) closeButton.focus();
+    const closeButton = modal.querySelector(".modal-close");    if (closeButton) closeButton.focus();
 }
 
 function closeModal(id) {
