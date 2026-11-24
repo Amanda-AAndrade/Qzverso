@@ -111,7 +111,7 @@ function renderizarHistorias(lista) {
         const metaHtml = metadados.length ? '<div class="story-meta-row">' + metadados.join("") + '</div>' : "";
         const metricasHtml = metricas.length ? '<div class="story-metrics">' + metricas.join("") + '</div>' : "";
         return '<article class="story-card"><button type="button" class="story-card-button" data-story-id="' + id + '" aria-label="Ver detalhes de ' + titulo + '">' +
-            '<div class="card-cover-wrapper"><img src="' + capa + '" class="card-cover-img" alt="Capa de ' + titulo + '" loading="lazy"><span class="card-platform-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> Fanficando</span></div>' +
+            '<div class="card-cover-wrapper">' + (h.id === "ke-club" ? '<span class="card-main-badge">HISTÓRIA PRINCIPAL</span>' : '') + '<img src="' + capa + '" class="card-cover-img" alt="Capa de ' + titulo + '" loading="lazy"><span class="card-platform-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> Fanficando</span></div>' +
             '<div class="card-body"><div class="card-title-text">' + titulo + '</div><div class="card-author-text"><i class="fa-solid fa-pen-nib"></i> ' + autora + '</div>' +
             metaHtml + '<div class="card-synopsis-snippet">' + sinopse + '</div>' + metricasHtml +
             '<div class="card-footer-action"><span>Fanficando</span><span>Ver detalhes <i class="fa-solid fa-arrow-right"></i></span></div></div></button></article>';
@@ -169,17 +169,21 @@ function openHistoriaModal(id) {
     const sinopse = escapeHtml(h.sinopse || "Sinopse ainda não cadastrada.");
     const capa = escapeHtml(obterImagemSegura(h.capa_url) || "qzverso.jpg");
     const url = obterLinkExternoSeguro(h.link_leitura_externo);
+    const urlWattpad = obterLinkExternoSeguro(h.link_wattpad_externo);
     const linkEhPerfil = h.link_tipo === "perfil";
     const acaoFanficando = url
         ? '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer" class="btn-primary-glow modal-read-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> ' + (linkEhPerfil ? 'Ver perfil no Fanficando' : 'Ler no Fanficando') + '</a>'
         : '<p class="development-note"><i class="fa-solid fa-circle-info"></i> O link externo do Fanficando ainda não foi cadastrado.</p>';
     const perfisWattpad = obterPerfisWattpad(h);
+    const acaoLeituraWattpad = urlWattpad
+        ? '<a href="' + escapeHtml(urlWattpad) + '" target="_blank" rel="noopener noreferrer" class="btn-primary-glow modal-read-link wattpad-read-link"><i class="fa-solid fa-book-open"></i> Abrir no Wattpad</a>'
+        : "";
     const acoesWattpad = perfisWattpad.length
         ? '<div class="wattpad-profile-links"><span class="wattpad-links-label">Também no Wattpad</span>' + perfisWattpad.map(function (perfil) {
             return '<a class="btn-secondary-glass wattpad-profile-link" href="' + escapeHtml(perfil.url) + '" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-book-open"></i> Perfil de ' + escapeHtml(perfil.nome) + '</a>';
-        }).join("") + '<small>Os links abrem os perfis das coautoras; o endereço direto de cada história será incluído quando confirmado.</small></div>'
+        }).join("") + (urlWattpad ? "" : '<small>Os links abrem os perfis das coautoras; o endereço direto desta história ainda não foi confirmado.</small>') + '</div>'
         : "";
-    const acoesExternas = acaoFanficando + acoesWattpad;
+    const acoesExternas = acaoFanficando + acaoLeituraWattpad + acoesWattpad;
 
     const metadados = [];
     if (h.status) metadados.push('<span class="story-meta-chip story-status">' + escapeHtml(h.status) + '</span>');
@@ -562,6 +566,7 @@ function getHistoriasDemo() {
             capa_url: "covers/todo-dia-elas.jpg",
             link_leitura_externo: "https://www.fanficando.com/author/282",
             link_tipo: "perfil",
+            link_wattpad_externo: "https://www.wattpad.com/1648055904",
             escritora_nome: "Julia Laura e Qzverso",
             escritoras_ids: ["julia", "qzverso"],
             status: "Concluída",
