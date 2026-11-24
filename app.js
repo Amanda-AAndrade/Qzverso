@@ -579,6 +579,7 @@ function getHistoriasDemo() {
             link_leitura_externo: "https://www.fanficando.com/author/282",
             link_tipo: "perfil",
             escritora_nome: "Julia Laura e Qzverso",
+            escritoras_ids: ["julia", "qzverso"],
             status: "Em andamento",
             generos: ["Fanfic"],
             classificacao: "18+",
