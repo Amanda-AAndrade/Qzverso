@@ -1890,13 +1890,15 @@ h1, h2, h3, h4, .brand-name {
     border: 1px solid rgba(235, 218, 255, 0.2);
     border-radius: 8px;
     box-shadow: 10px 18px 30px rgba(0, 0, 0, 0.48);
+    transform: translate3d(0, 0, 0);
     transform-origin: center center;
-    animation: qz-modal-cover-float 5.8s ease-in-out infinite;
+    will-change: transform;
+    animation: qz-modal-cover-float 4.8s ease-in-out infinite;
 }
 
 @keyframes qz-modal-cover-float {
     0%, 100% { transform: translateY(0) rotateZ(-1deg) rotateY(-4deg); }
-    50% { transform: translateY(-12px) rotateZ(1deg) rotateY(2deg); }
+    50% { transform: translate3d(0, -14px, 0) rotateZ(1.2deg) rotateY(3deg); }
 }
 
 .wattpad-profile-links {
