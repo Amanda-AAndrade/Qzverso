@@ -14,7 +14,9 @@ document.addEventListener("DOMContentLoaded", inicializarAplicacao);
 function inicializarAplicacao() {
     checkAuthState();
     atualizarEstadoAutenticacao();
-    switchAuthMode("login");    if (document.getElementById("grid-historias")) carregarHistorias();
+    switchAuthMode("login");
+    inicializarBusca();
+    if (document.getElementById("grid-historias")) carregarHistorias();
     if (document.getElementById("grid-parceiros")) renderizarParceiros();
 
     document.querySelectorAll(".modal-overlay").forEach(function (modal) {
@@ -206,7 +208,32 @@ function filtrarCategoria(categoria, botao) {
     aplicarFiltros();
 }
 
-function filtrarHistorias() { aplicarFiltros(); }
+function inicializarBusca() {
+    const campo = document.getElementById("input-busca");
+    const botao = document.getElementById("btn-pesquisar");
+
+    if (campo) {
+        campo.addEventListener("input", filtrarHistorias);
+        campo.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                executarBusca();
+            }
+        });
+    }
+
+    if (botao) botao.addEventListener("click", executarBusca);
+}
+
+function filtrarHistorias() {
+    aplicarFiltros();
+}
+
+function executarBusca() {
+    aplicarFiltros();
+    const vitrine = document.getElementById("vitrine");
+    if (vitrine) vitrine.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 function limparBusca() {
     const busca = document.getElementById("input-busca");
@@ -221,10 +248,29 @@ function limparBusca() {
 function aplicarFiltros() {
     const campo = document.getElementById("input-busca");
     const termo = normalizarTexto(campo ? campo.value : "");
+    const nomesEscritoras = {
+        qz: "Qz",
+        julia: "Julia Laura",
+        marina: "Marina"
+    };
+
     const filtradas = historiasCache.filter(function (h) {
         const autorias = Array.isArray(h.escritoras_ids) ? h.escritoras_ids : [];
         const categoriaOk = categoriaAtual === "todas" || autorias.includes(categoriaAtual);
-        const texto = normalizarTexto([h.titulo || "", h.sinopse || "", h.escritora_nome || ""].join(" "));
+
+        // Qzverso é a marca do portal, não uma escritora. Ela não deve fazer
+        // todas as obras aparecerem quando a pessoa pesquisa apenas "Qz".
+        const nomesAutores = autorias.length
+            ? autorias.filter(function (id) { return id !== "qzverso"; })
+                .map(function (id) { return nomesEscritoras[id] || ""; }).join(" ")
+            : String(h.escritora_nome || "").replace(/\\bqzverso\\b/gi, " ");
+
+        const texto = normalizarTexto([
+            h.titulo || "",
+            h.sinopse || "",
+            nomesAutores
+        ].join(" "));
+
         return categoriaOk && (!termo || texto.includes(termo));
     });
     renderizarHistorias(filtradas);
