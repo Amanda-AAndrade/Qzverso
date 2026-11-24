@@ -1814,3 +1814,57 @@ h1, h2, h3, h4, .brand-name {
         transform: none;
     }
 }
+
+/* Pesquisa do cabeçalho: botão de lupa realmente acionável. */
+.nav-search-bar {
+    position: relative;
+}
+
+.nav-search-bar input {
+    background: rgba(16, 13, 24, 0.88);
+    border: 1px solid rgba(192, 132, 252, 0.28);
+    color: #f8f5ff;
+    padding-left: 2.8rem;
+}
+
+.nav-search-bar input::placeholder {
+    color: #aaa0bd;
+}
+
+.search-submit {
+    position: absolute;
+    z-index: 2;
+    left: 0.65rem;
+    top: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.55rem;
+    height: 1.55rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.search-submit .search-icon {
+    position: static;
+    color: inherit;
+    transform: none;
+}
+
+.search-submit:hover,
+.search-submit:focus-visible {
+    color: #e9c8ff;
+    background: rgba(192, 132, 252, 0.14);
+    outline: 2px solid rgba(192, 132, 252, 0.32);
+    outline-offset: 2px;
+}
+
+#vitrine {
+    scroll-margin-top: 92px;
+}
