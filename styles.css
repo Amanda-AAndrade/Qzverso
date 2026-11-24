@@ -1946,3 +1946,33 @@ h1, h2, h3, h4, .brand-name {
         animation: none !important;
     }
 }
+
+
+.card-main-badge {
+    position: absolute;
+    z-index: 3;
+    top: 8px;
+    left: -9px;
+    padding: 0.28rem 0.55rem;
+    border: 1px solid rgba(253, 230, 138, 0.45);
+    border-radius: 999px;
+    background: linear-gradient(110deg, rgba(120, 53, 15, 0.96), rgba(180, 83, 9, 0.94));
+    color: #fef3c7;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.045em;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.35);
+}
+
+.wattpad-read-link {
+    margin-top: 0.7rem;
+}
+
+@media (max-width: 768px) {
+    .card-main-badge {
+        top: 6px;
+        left: -6px;
+        padding: 0.22rem 0.42rem;
+        font-size: 0.52rem;
+    }
+}
